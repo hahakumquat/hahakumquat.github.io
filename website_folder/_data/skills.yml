@@ -1,0 +1,28 @@
+animation:
+  - name: Adobe After Effects
+  - name: Maxon Cinema 4D
+
+graphics:
+  - name: Adobe Photoshop
+  - name: Adobe Illustrator
+  - name: Adobe InDesign
+
+film:
+  - name: Adobe Premiere Pro
+  - name: Sony Vegas Pro
+  - name: Audacity
+
+languages:
+  - name: Python
+  - name: Javascript
+  - name: Node, Express, JQuery, D3, THREE.js
+  - name: SQL/NoSQL variants
+  - name: R
+  - name: C
+  - name: C#
+  - name: Java
+
+misc:
+  - name: Arch Linux
+  - name: Jekyll
+  - name: Emacs

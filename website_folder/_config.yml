@@ -1,0 +1,32 @@
+permalink: pretty
+
+include: ['_pages']
+
+title: Michael Ge | Digital Artist | Developer
+email: michaelge@college.harvard.edu
+baseurl: ""
+url: http://www.geemichael.com
+twitter_username: hahakumquat
+github_username:  hahakumquat
+phone: (626) 893-5895
+linkedin: https://www.linkedin.com/in/michael-ge-a9041b9a/
+deviantart: https://hahakumquat.deviantart.com/
+github: https://github.com/hahakumquat
+
+# Build settings
+# markdown: kramdown
+# theme: minima
+# plugins:
+#   - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

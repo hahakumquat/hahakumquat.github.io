@@ -1,0 +1,31 @@
+- src: sandbox
+  img: sandbox.png
+  caption: "Sandbox: Particle System in THREE.js"
+
+- src: SmallWorld
+  img: smallworld.png
+  caption: "Sample from Small World: LinkedIn Intern Hackfest 2016 (Top-10 Finalist)"
+
+- src: ElectricTiles
+  img: tiles.png
+  caption: "Electric Tiles: A THREE.js Visual Experience"
+
+- src: cs171final/final
+  img: cs171final.png
+  caption: "cs171final.pngCS171 Final Project on Water Consumption (d3.js)"
+
+- src: MusicStudy
+  img: music.png
+  caption: "Simple Music Studying Application for Music 1"
+
+- src: Pong
+  img: pong.png
+  caption: "Pong Solitaire"
+
+- src: sudoku.py
+  img: sudoku.png
+  caption: "Deductive Sudoku Puzzle Solver (Python)"
+
+- src: http://cdn.cs50.net/2015/fall/psets/0/pset0/bulbs.html
+  img: bulbs.png
+  caption: "CS50 Binary Bulbs Online Widget (HTML/CSS/JS-JQuery)"

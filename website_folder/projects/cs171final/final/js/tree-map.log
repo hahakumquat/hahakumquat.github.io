@@ -1,0 +1,39 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.11.16)  23 APR 2016 17:20
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**"/home/michael/Dropbox (CS50)/School/Sophomore/Spring/Visualization/Final/fin
+al/js/tree-map.js"
+
+(/home/michael/Dropbox (CS50)/School/Sophomore/Spring/Visualization/Final/final
+/js/tree-map.js
+LaTeX2e <2015/10/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 T
+     reeMap = function() {
+? 
+! Emergency stop.
+ ...                                              
+                                                  
+l.1 T
+     reeMap = function() {
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 8 strings out of 493054
+ 522 string characters out of 6140585
+ 53374 words of memory out of 5000000
+ 3628 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 5i,0n,4p,120b,14s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
