@@ -1,0 +1,14 @@
+- name: CS50
+  description: the C/PHP/Javascript-based introductory Computer Science course at Harvard
+
+- name: CS51
+  description: a pseudo-OOP course in the (obscure) functional programming language OCaml
+
+- name: CS121
+  description: a course on computation theory and the world of P, NP, and other problems
+
+- name: CS124
+  description: that one data structures/algorithms course that every CS major goes through
+
+- name: CS171
+  description: a course on data visualization with the Javascript language, D3

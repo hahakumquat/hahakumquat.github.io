@@ -1,0 +1,173 @@
+var countyById = d3.map();
+var NUMCOLORS = 9;
+
+// Creates all static information
+Choropleth = function(mapData) {
+    var vis = this;
+    vis.mapData = mapData;
+    vis.xAxis =  d3.svg.axis()
+        .orient("right")
+        .tickPadding(7)
+    vis.log = d3.scale.log()
+        .base(2)
+        .range([0, NUMCOLORS]);
+    vis.quantize = d3.scale.quantize()
+        .domain([0, NUMCOLORS])
+        .range(d3.range(NUMCOLORS-1).map(function(i) {
+            return colorbrewer.Blues[NUMCOLORS][i]; }));
+    vis.projection = d3.geo.albersUsa()
+        .scale(950)
+        .translate([350, 250]);
+    vis.path = d3.geo.path()
+        .projection(vis.projection);
+
+    vis.tip = d3.tip()
+        .attr("class", "choropleth d3-tip")
+        .offset([0, 1]);
+}
+
+// Creates assets to be shown on screen
+Choropleth.prototype.initVis = function() {
+    var vis = this;
+    vis.key = vis.svg.append("g")
+        .attr("class", "key")
+        .attr("transform", "translate(" +
+              (vis.width - vis.margin.right) +
+              "," + (vis.height/2)+ ")");
+
+    vis.svg.call(vis.tip);
+    vis.updateVis();
+}
+
+Choropleth.prototype.wrangleData = function() {
+    var vis = this;
+    vis.filteredData = vis.data[$("select.year option:selected").val()];
+    vis.filteredData.states.forEach(function(state) {
+        state.counties.forEach(function(county) {
+            countyById.set(+county.fips, county);
+        });
+    });
+}
+
+function getMax(vis, field) {
+    var max = 0;
+    vis.filteredData.states.forEach(function(state) {
+        state.counties.forEach(function(county) {
+            if (max < county[field]) {
+                max = county[field];
+            }
+        });
+    });
+    return +max;
+}
+
+Choropleth.prototype.updateVis = function() {
+    var vis = this;
+    vis.wrangleData();
+
+    var max = getMax(vis, TOTALWATER);
+    vis.log.domain([1, max]);
+
+    var reg = $("form.region input:radio:checked").val();
+    
+    vis.tip.html(function(region) {
+        var obj = countyById.get(region.id);
+        var str = '<ul class="tips"><h5 id="tiptitle">'+obj.name+", "+obj.state+"</h5>";
+        str += "<li>Total Water Withdrawals (Mgal/d): " + obj[TOTALWATER]+"</li>";
+        str += "<li>Total Ground Water Withdrawals (Mgal/d): " + obj[TOTALGROUND]+"</li>";
+        str += "<li>Total Surface Water Withdrawals (Mgal/d): " + obj[TOTALSURFACE]+"</li>";
+        str += "</ul>";
+        return str;
+    });
+    
+    vis.svg.append("g")
+        .attr("class", "region")
+        .selectAll("path")
+        .data(topojson.feature(vis.mapData, vis.mapData.objects[reg]).features)
+        .enter().append("path")
+        .attr("d", vis.path)
+        .attr("fill", function(d) {
+            if (countyById.get(d.id) === undefined) {
+                return vis.quantize(1);
+            }
+            return vis.quantize(vis.log(+countyById.get(d.id)[TOTALWATER]));
+        })
+        .style("opacity", 1)
+        .style("stroke", "#CCEEFF")
+        .style("stroke-width", 1)
+        .on('mouseover', vis.tip.show)
+        .on('mouseout', vis.tip.hide);
+
+    //TODO: fill correct information into key
+    vis.key.call(vis.xAxis).append("text")
+        .attr("class", "caption")
+        .attr("y", 230)
+        .attr("font-weight", "bold")
+        .attr("fill", "red")
+        .text("hello");
+    
+    //updateLegend(type);
+}
+
+function updateLegend(type) {
+    
+    x.domain(d3.extent(data, function(d) {
+        if (d && d[type]) return +d[type];
+        else return 0;
+    }));
+
+    xAxis.scale(x)
+        .ticks(5)
+        .tickFormat(function(d) {
+            if (type.indexOf("isk") > -1)
+                return d + "%";
+            else
+                return numberWithCommas(d);
+        })
+        .tickValues(partition(quantize.domain()))
+
+    key.call(xAxis).selectAll(".bar")
+        .data(quantize.range().map(function(c) {
+            var d = quantize.invertExtent(c);
+            if (d[0] == null) d[0] = x.domain()[0];
+            if (d[1] == null) d[1] = x.domain()[1];
+            return d;
+        }))
+        .enter().append("rect").attr("class", "bar")
+        .attr("width", 8)
+        .attr("y", function(d) { return x(d[0]); })
+        .attr("height", function(d) { return x(d[1]) - x(d[0]); })
+        .style("fill", function(d) { return quantize(d[0]); });
+
+    $(".caption").text(pretty(type));
+}
+
+function pretty(type) {
+    if (type == "UN_population")
+        return "UN Population";
+    if (type == "At_risk")
+        return "Population at Risk";
+    if (type == "At_high_risk")
+        return "Population at High Risk";
+    if (type == "Suspected_malaria_cases")
+        return "Suspected Malaria Cases";
+    if (type == "Malaria_cases")
+        return "Malaria Cases";
+    return "Legend";
+}
+
+function partition(arr) {
+    var out = [];
+    out.push(arr[0]);
+    var tmp = (arr[0] + arr[1])/2;
+    out.push(Math.floor((arr[0] + tmp)/2));
+    out.push(Math.floor(tmp));
+    out.push(Math.floor((tmp + arr[1])/2));
+    out.push(arr[1]);
+    return out;
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+

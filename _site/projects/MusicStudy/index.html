@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="Music Identification Widget" content="">
+    <title>Music Study</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </head>
+  <body>
+    <h1>Music Study</h1>
+    <p>A simple interface to listen to and identify music.</p>
+    <audio id="player" controls>
+      <source id="mp3_source" src="" type="audio/mpeg"/>
+      <source id="mp4_source" src="" type="audio/mp4"/>
+      Your browser does not support the audio format.
+    </audio>
+    <br>
+    <div class="options">
+      <h2>Title</h2>
+      <input id="title" type="text" name="title">
+      <p id="title_correct">&nbsp;</p>
+    </div>
+    <div class="options">
+      <h2>Date</h2>
+      <input id="date" type="text" name="date">
+      <p id="date_correct">&nbsp;</p>
+    </div>
+    <div class="options">
+      <h2>Composer</h2>
+      <input id="composer" type="text" name="composer">
+      <p id="composer_correct">&nbsp;</p>
+    </div>
+    <div class="options">
+      <h2>Genre</h2>
+      <input id="genre" type="text" name="genre">
+      <p id="genre_correct">&nbsp;</p>
+    </div>
+    <div class="options">
+      <h2>Music Forces</h2>
+      <input id="performing_forces" type="text" name="music_forces">
+      <p id="performing_forces_correct">&nbsp;</p>
+    </div>
+    <br>
+    <br>
+    <button id="sub" type="button">Check Answers!</button>
+    <button id="rand" type="button">Random Start</button>
+  </body>
+</html>

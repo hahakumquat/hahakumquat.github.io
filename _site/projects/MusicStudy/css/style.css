@@ -1,0 +1,10 @@
+body {
+    font-family: Arial;
+    text-align: center;
+}
+
+.options {
+    display: inline-block;
+    margin: 10px;
+}
+

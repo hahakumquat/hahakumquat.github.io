@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Water Consumption: A National Crisis</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/colorbrewer.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+  </head>
+  <body background="img/water_bg.jpg">
+    <div class="overlay"></div>
+    <div id="p1">
+      <div id="title">
+        <h1>WATER</h1>
+        <hr>
+        <h2>A NATIONAL CRISIS</h2>
+      </div>
+      <i id="to_p2" name="p2" class="fa fa-arrow-circle-o-down"></i>
+    </div>
+    <div id="content">
+      <div id="p2" class="section">
+        <h3 name="p2">A Looming Threat in<br> Places of Plenty</h3>
+        <div class="left">
+          <img src="img/droplet.jpg">
+        </div>
+        <div class="right">
+          <p>
+            With the world population having already passed 7 billion, clean water has become an increasingly important issue in the modern world. Recent statistics from the EPA state that 80% of state water managers expect water shortages within the next decade under average weather conditions. The response by the American population, however, does not reflect such concerns. Americans use an average of 100 gallons a day just at home, an amount that surpasses any other country average in the world. And even while we are aware of this significant disparity in water usage, we fail to make any changes. Just by installing water efficiency standard appliances, we can reduce our water usage by 30%. Indeed, while less than 1% of the Earth's water is potable, Americans continue to waste the precious resource more than any other country.
+          </p>
+        </div>
+        <p class="conc txt">
+          The world is in the midst of a water crisis, but the American population is doing little to change their consumption rates.
+        </p>
+        <i id="to_p3" name="p3" class="fa fa-arrow-circle-o-down"></i>
+      </div>
+      
+      <div id="p3" class="section">
+        <div id="vis-content">
+          <div id="vis-top" class="box">
+            <h4>Water Consumption in the US</h4>
+            <div id="twitter-feed" class="box">
+            </div>
+            <div id="twitter-text" class="box">
+              <p>
+                Take a look at some of the conversations centered around water on Twitter! View this live stream to see what people are saying about the subject.
+              </p>
+            </div>
+          </div>
+          <div id="vis-mid" class="box">
+            <div id="choropleth" class="box">
+              <select class="year">
+                <option value="4">2010</option>
+                <option value="3">2005</option>
+                <option value="2">2000</option>
+                <option value="1">1990</option>
+                <option value="0">1985</option>
+              </select>
+              <form class="region" action="">
+                <input type="radio" name="region" value="counties" checked="checked"> Counties<br>
+                <input type="radio" name="region" value="states">States<br>
+              </form>
+              <form class="water-type" action="">
+                <input type="checkbox" value="gw" checked="checked">Groundwater</input>
+                <br>
+                <input type="checkbox" value="sw" checked="checked">Surface Water</input>
+              </form>
+            </div>
+            <div id="mid-col-right" class="box">
+              <h4>Water Usage in the US</h4>
+              <div id="instructions" class="subbox">
+                <p>
+                  Explore different metrics of water usage across the US divided by cities, counties, and types of water usage.
+                </p>
+              </div>
+              <h4>An In-Depth Look</h4>
+              <div id="in-depth-text" class="box subbox">
+                <p>
+                  As you select a specific geographic location, you'll see more information about the water usage in other graph visualizations.
+                </p>
+              </div>
+              <div id="tree-map" class="box subbox">
+              </div>
+            </div>
+          </div>
+          <div id="vis-bottom" class="box">
+            <h4>Has There Been Any Progress?</h4>
+            <div id="stacked-text" class="box">
+              <p>
+                Learn more about the trends in water usage over time for a specific geographic location. Find areas that have made significant improvements and areas that could use more work.
+              </p>
+            </div>
+            <div id="stacked-area">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/topojson.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/queue.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/d3-tip.js"></script>
+    <script src="js/colorbrewer.js"></script>
+    <script src="js/choropleth.js"></script>
+    <script src="js/stacked-area.js"></script>
+    <script src="js/tree-map.js"></script>
+    <script src="js/twitter.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
