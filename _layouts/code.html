@@ -7,10 +7,16 @@
             <h1>Coding Projects</h1>
             <p>Web programs, side projects and whatnot.</p>
             {% for proj in site.data.projects %}
-            <a href="/projects/{{ proj.src }}">
+            {% if proj.src contains "http://" or proj.src contains "https://" %}
+            {% assign path = proj.src %}
+            {% else %}
+            {% assign path = '/projects/' | append: proj.src %}
+            {% endif %}
+            <a href="{{ path }}">
               <figure>
                 <img class="proj" src="/assets/img/{{ proj.img }}"></img>
                 <figcaption>{{ proj.caption }}</figcaption>
+              </figure>
             </a>
             {% endfor %}
         </div>
