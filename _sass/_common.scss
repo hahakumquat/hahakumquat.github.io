@@ -1,0 +1,21 @@
+@font-face {
+  font-family: code;
+  src: url("/assets/fonts/code.otf");
+}
+
+@font-face {
+  font-family: gotham;
+  src: url("/assets/fonts/Gotham-Book.otf");
+}
+
+html, body {
+  cursor: default;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+.text {
+  font-family: gotham;
+}

@@ -1,12 +1,12 @@
 /* General styling */
 @font-face {
     font-family: code;
-    src: url("../fonts/code.otf");
+    src: url("/assets/fonts/code.otf");
 }
 
 @font-face {
     font-family: gotham;
-    src: url("../fonts/Gotham-Book.otf");
+    src: url("/assets/fonts/Gotham-Book.otf");
 }
 
 #main-head {
