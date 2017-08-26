@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     {% include header.html css_file='/assets/css/home.css' %}
-    <body>        
+    <body>
+        <div class="loader"></div>
         {% include navbar.html %}
         <div class="full black-container">
             <img class="background" src="/assets/img/1.png">
@@ -46,6 +47,7 @@
         
         {% include footer.html %}
         <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/common.js"></script>
         <script src="/assets/js/cssslidy.js"></script>
         <script src="/assets/js/scripts.js"></script>
     </body>

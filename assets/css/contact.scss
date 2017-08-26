@@ -22,17 +22,19 @@ textarea {
     width: 50%;
     height: 150px;
     padding: 12px 20px;
+    border: 2px solid darkgray;
 }
 
 input {
     @extend .textbox;
     width: 20%;
     padding: 12px 20px;
+    border: 2px solid darkgray;
 }
 
 button {
     background-color: white;
     @extend .black-button;
-    border: none;
+    border: 2px solid darkgray;
     box-shadow: $boxShadow;
 }

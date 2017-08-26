@@ -2,6 +2,7 @@
 <html>
     {% include header.html css_file='/assets/css/about.css' %}
     <body>
+        <div class="loader"></div>
         {% include navbar.html %}
         <img class="fixed background" src="/assets/img/about.jpg"/>
         <div class="spacer"></div>
@@ -137,6 +138,7 @@
         </div>
 
         {% include footer.html %}
-        
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/common.js"></script>        
     </body>
 </html>
