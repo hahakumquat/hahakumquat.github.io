@@ -100,22 +100,20 @@ li a {
 .white-button {
   color: white;
   border: 2px solid white;
-  box-shadow: 0px 0px 3px 0px black; }
+  box-shadow: 0px 5px 10px 0px black black; }
 
 .white-button:hover {
   color: black;
-  background-color: white;
-  transition: color 0.6s, background-color 0.6s; }
+  background-color: white; }
 
 .black-button, button {
   color: black;
   border: 2px solid black;
-  box-shadow: 0px 0px 3px 0px white; }
+  box-shadow: 0px 5px 10px 0px black white; }
 
 .black-button:hover, button:hover {
   color: white;
-  background-color: black;
-  transition: color 0.6s, background-color 0.6s; }
+  background-color: black; }
 
 /* Navigation bar */
 /* Specify font sizes */
@@ -346,18 +344,27 @@ li a {
   text-align: left; }
 
 form {
-  text-align: center; }
+  text-align: center;
+  position: relative; }
 
-textarea, input {
-  width: 50%;
-  height: 150px;
-  padding: 12px 20px;
+.textbox, textarea, input {
   box-sizing: border-box;
-  border: 2px solid black;
   border-radius: 4px;
   background-color: white;
-  resize: none; }
+  resize: none;
+  box-shadow: 0px 5px 10px 0px black;
+  border: none; }
+
+textarea {
+  width: 50%;
+  height: 150px;
+  padding: 12px 20px; }
 
 input {
-  width: 25%;
-  height: 12px; }
+  width: 20%;
+  padding: 12px 20px; }
+
+button {
+  background-color: white;
+  border: none;
+  box-shadow: 0px 5px 10px 0px black; }

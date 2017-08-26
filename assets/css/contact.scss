@@ -4,25 +4,35 @@
 
 form {
     text-align: center;
+    position: relative;
 }
 
-textarea {
-    width: 50%;
-    height: 150px;
-    padding: 12px 20px;
+.textbox {
     box-sizing: border-box;
-    border: 2px solid black;
     border-radius: 4px;
     background-color: white;
     resize: none;
+    box-shadow: $boxShadow;
+    border: none;
+
+}
+
+textarea {
+    @extend .textbox;
+    width: 50%;
+    height: 150px;
+    padding: 12px 20px;
 }
 
 input {
-    @extend textarea;
-    width: 25%;
-    height: 12px;
+    @extend .textbox;
+    width: 20%;
+    padding: 12px 20px;
 }
 
 button {
+    background-color: white;
     @extend .black-button;
+    border: none;
+    box-shadow: $boxShadow;
 }
