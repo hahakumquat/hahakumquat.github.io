@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html>
-  {% include header.html css_file="/assets/css/contact.css" %}
-  
-  <body>
-    {% include navbar.html %}
-    <div id="rest">
-        <h1>Message Michael Ge.</h1>
-        michaelge@college.harvard.edu
-      <!-- <form action="email.php" method="post"> -->
-      <!--   <fieldset style="border: 0px"> -->
-      <!--   Your Name: -->
-      <!--   <input type="text" name="name" placeholder="Your Name"><br><br> -->
-      <!--   Your E-mail: -->
-      <!--   <input type="text" name="mail" placeholder="Your Email"><br><br> -->
-      <!--   Your Comment:<br> -->
-      <!--   <textarea type="text" rows="7" cols="50" name="bdy"></textarea><br><br> -->
-      <!--   <input type="submit" value="Send"> -->
-      <!--   <input type="reset" value="Reset"> -->
-      <!--   </fieldset> -->
-      <!--   <div class="g-recaptcha" data-sitekey="6Ld9SCgTAAAAAMbIuDfkQnXH0qbHW36CZWZST4_e"></div> -->
-      <!-- </form> -->
-    </div>
-  </body>
+    {% include header.html css_file="/assets/css/contact.css" %}
+    <body>
+        <div class="spacer"></div>
+        {% include navbar.html %}
+        <div class="partial white-container">
+            <div class="black-centering v-centering">
+                <h1 class="title">Message Michael Ge.</h1>
+                <p>I don't bite, but I do use <a href="https://formspree.io/">formspree.io</a> to manage my mail requests. Let me know you stopped by!</p>
+            </div>
+        </div>
+        <form method="POST" action="http://formspree.io/michael.zh.ge@gmail.com">
+            <input type="email" name="email" placeholder="Your email">
+            <br>
+            <br>
+            <textarea name="message" rows="4" cols="50" placeholder="Your message"></textarea>
+            <br>
+            <button type="submit">Message Me</button>
+        </form>
+    </body>
+    {% include footer.html %}
 </html>

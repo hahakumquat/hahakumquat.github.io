@@ -3,11 +3,15 @@
     {% include header.html css_file= '/assets/css/art.css' %}
     
     <body>
-        {% include navbar.html %}
-        <div id="top">
-            <h1>Art and Animation</h1>
-            <p class="text">A collection of digital art, photography, paintings, and animations.</p>
+        <div class="spacer"></div>
+        {% include navbar.html %}        
+        <div class="partial white-container">
+            <div class="black-centering v-centering">
+                <h1 class="title">Art and Animation</h1>
+                <p>A collection of digital art, photography, paintings, and animations.</p>
+            </div>
         </div>
+        
         <img id="loader" src="/assets/img/icons/ajax-loader.gif" />
         <img class="spotlight" id="sp" src="" />
         <iframe frameborder="0" width="1280" height="620" class="spotlight" id="sv" src="" allowfullscreen></iframe>
@@ -20,14 +24,13 @@
             {% else %}
             <figure class="panel">
                 <img class="v panel" src="/assets/img/{{ i.src }}" alt="{{ i.alt }}"/>
-                <figcaption class="text">{{ i.caption }}</figcaption>
+                <figcaption>{{ i.caption }}</figcaption>
             </figure>
             {% endif %}
             {% endfor %}
         </div>
-
-        <script src="/assets/js/jquery.js"></script>
-        <script src="/assets/js/scripts-art.js"></script>
         {% include footer.html %}
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/scripts-art.js"></script>        
     </body>
 </html>

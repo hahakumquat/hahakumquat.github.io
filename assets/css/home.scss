@@ -1,0 +1,22 @@
+---
+---
+@import "common";
+
+#main-title .title {
+    line-height: 1em;
+}
+
+#slidy-container {
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.slide-img {
+    opacity: .6;
+}
+
+.background {
+    opacity: .7;
+}

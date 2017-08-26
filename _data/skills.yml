@@ -24,5 +24,5 @@ languages:
 
 misc:
   - name: Arch Linux
-  - name: Jekyll
+  - name: Jekyll/Sass
   - name: Emacs

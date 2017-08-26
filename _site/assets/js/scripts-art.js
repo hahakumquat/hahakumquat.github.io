@@ -40,7 +40,13 @@ function lighten() {
 }
 
 function getImgURL(x) {
-    return $(x).attr("src").replace('t.png', '.png');
+    return $(x).attr("src")
+        .replace('_t.png', '.png')
+        .replace('t.png', '.png')
+        .replace('_t.jpg', '.jpg')
+        .replace('t.jpg', '.jpg')
+        .replace('_t.jpeg', '.jpeg')
+        .replace('t.jpeg', '.jpeg');
 }
 
 function loadGIF() {

@@ -1,0 +1,28 @@
+---
+---
+@import "common";
+
+form {
+    text-align: center;
+}
+
+textarea {
+    width: 50%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: white;
+    resize: none;
+}
+
+input {
+    @extend textarea;
+    width: 25%;
+    height: 12px;
+}
+
+button {
+    @extend .black-button;
+}

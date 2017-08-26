@@ -1,0 +1,24 @@
+/* Specify font sizes */
+$titleSize: 70px;
+$headerSize: 30px;
+$descriptionSize: 20px;
+$inviteSize: 30px;
+$readSize: 16px;
+$buttonSize: 20px;
+
+/* Specify animation settings */
+$transitionTime: 0.6s;
+
+/* Specify box settings */
+$boxShadow: 0px 0px 3px 0px;
+$buttonTransition: color $transitionTime, background-color $transitionTime;
+
+/* Specify navbar settings */
+$navHeight: 80px;
+$navColor: rgba(3, 3, 3, 0.9);
+$navShadow: 0px 1px 10px black;
+$navTransition: color $transitionTime;
+$navTabColor: #888888;
+
+/* Specify about settings */
+$aboutBgColor: rgba(255, 255, 255, 0.6);

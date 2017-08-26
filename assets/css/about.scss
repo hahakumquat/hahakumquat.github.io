@@ -1,0 +1,37 @@
+---
+---
+@import "common";
+
+.about-container {
+    @extend .container;
+    width: 60%;
+    margin: 20px;
+    margin-left: .5in;
+    padding: 30px;
+    background-color: $aboutBgColor;
+    box-shadow: 0px 5px 10px #111111;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.inline-list {
+    @extend .inline;
+    width: 40%;
+    text-align: left;
+    margin: 20px;
+}
+
+.inline-header {
+    @extend .inline;
+    width: 60%;
+    text-align: left;    
+}
+
+.inline-info {
+    @extend .inline;
+    width: 25%;
+    text-align: right;
+    list-style: none;
+}

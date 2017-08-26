@@ -1,0 +1,118 @@
+@import "variables";
+
+@font-face {
+    font-family: gotham;
+    src: url("/assets/fonts/Gotham-Book.otf");
+}
+
+@mixin transform($params) {
+    -ms-transform: $params;
+    -webkit-transform: $params;
+    -moz-transform: $params;
+    transform: $params;
+}
+
+html, body, .container {
+    position: relative;
+    display: block;
+    font-family: gotham;
+    cursor: default;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: $readSize;
+    text-decoration: none;
+}
+
+.white-container {
+    @extend .container;
+    background-color: white;
+}
+
+.black-container {
+    @extend .container;
+    background-color: black;    
+}
+
+.spacer {
+    height: $navHeight;
+}
+
+.full {
+    min-height: 50vw;
+}
+
+.partial {
+    min-height: 15vw;
+}
+
+.inline {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* For titles */
+.title {
+    margin: 0 0 0 0;
+    font-size: $titleSize;
+}
+
+/* For headers */
+.header {
+    font-size: $headerSize;
+}
+
+/* For descriptions */
+.desc {
+    font-size: $descriptionSize;
+}
+
+ /* For invites */
+.invite {
+    font-size: $inviteSize;
+}
+
+/* For reading text */
+.text {
+    font-size: $readSize;
+}
+
+li a {
+    cursor: auto;
+    text-decoration: none;
+    color: black;
+}
+
+.background {
+  width: 100%;
+}
+
+.fixed {
+    position: fixed;
+}
+
+/* Centering classes */
+.centering {
+    @extend .container;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+
+.white-centering {
+    @extend .centering;
+    color: white;
+
+}
+
+.black-centering {
+    @extend .centering;
+    color: black;
+
+}
+
+.v-centering {
+    position: absolute;
+    top: 50%;
+    @include transform(translate(0, -50%));
+}

@@ -1,0 +1,37 @@
+@import "base";
+
+/* Buttons */
+.button {
+    text-decoration: none;
+    font-size: $buttonSize;
+    padding: 10px;
+    margin: 20px;
+    display: inline-block;
+    transition: $buttonTransition;
+}
+
+.white-button {
+    @extend .button;
+    color: white;
+    border: $descriptionSize / 10 solid white;
+    box-shadow: $boxShadow black;
+}
+
+.white-button:hover {
+    color: black;
+    background-color: white;
+    transition: $buttonTransition;
+}
+
+.black-button {
+    @extend .button;
+    color: black;
+    border: $descriptionSize / 10 solid black;
+    box-shadow: $boxShadow white;
+}
+
+.black-button:hover {
+    color: white;
+    background-color: black;
+    transition: $buttonTransition;
+}
