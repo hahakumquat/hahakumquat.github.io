@@ -43,7 +43,7 @@ html, body, .container {
 }
 
 .spacer {
-    height: $navHeight;
+    margin-top: $navHeight;
 }
 
 .full {
@@ -51,7 +51,7 @@ html, body, .container {
 }
 
 .partial {
-    min-height: 15vw;
+    min-height: 20vw;
 }
 
 .inline {

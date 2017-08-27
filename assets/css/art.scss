@@ -4,18 +4,15 @@
 
 #art-container {
     position: relative;
-    padding: 40px;
+    padding: 50px;
     padding-top: 0px;
     text-align: center;
     -moz-column-count: 4;
     -moz-column-gap: 0.5vw;
-    -moz-column-fill: auto;
     -webkit-column-count: 4;
     -webkit-column-gap: 0.5vw;
-    -webkit-column-fill: auto;
     column-count: 4;
     column-gap: 0.5vw;
-    column-fill: auto;
 }
 
 figcaption {
@@ -32,7 +29,10 @@ figcaption {
 
 .pic, .v {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 20px;    
+}
+
+img {
     box-shadow: $boxShadow;
 }
 

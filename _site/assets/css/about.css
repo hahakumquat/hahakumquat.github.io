@@ -31,13 +31,13 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   z-index: 1000; }
 
 .spacer {
-  height: 80px; }
+  margin-top: 80px; }
 
 .full {
   min-height: 50vw; }
 
 .partial {
-  min-height: 15vw; }
+  min-height: 20vw; }
 
 .inline, .inline-list, .inline-header, .inline-info {
   display: inline-block;
@@ -165,13 +165,13 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   z-index: 1000; }
 
 .spacer {
-  height: 80px; }
+  margin-top: 80px; }
 
 .full {
   min-height: 50vw; }
 
 .partial {
-  min-height: 15vw; }
+  min-height: 20vw; }
 
 .inline, .inline-list, .inline-header, .inline-info {
   display: inline-block;
@@ -300,13 +300,13 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   z-index: 1000; }
 
 .spacer {
-  height: 80px; }
+  margin-top: 80px; }
 
 .full {
   min-height: 50vw; }
 
 .partial {
-  min-height: 15vw; }
+  min-height: 20vw; }
 
 .inline, .inline-list, .inline-header, .inline-info {
   display: inline-block;
