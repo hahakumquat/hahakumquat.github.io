@@ -33,3 +33,15 @@
     color: white;
     background-color: black;
 }
+
+.gray-button {
+    @extend .button;
+    color: darkgray;
+    border: $descriptionSize / 10 solid darkgray;
+    box-shadow: $boxShadow black;
+}
+
+.gray-button:hover {
+    color: white;
+    background-color: darkgray;
+}

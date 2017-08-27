@@ -96,7 +96,7 @@ li a {
   transform: translate(0, -50%); }
 
 /* Buttons */
-.button, .white-button, .black-button {
+.button, .white-button, .black-button, .gray-button {
   text-decoration: none;
   font-size: 20px;
   padding: 10px;
@@ -107,7 +107,7 @@ li a {
 .white-button {
   color: white;
   border: 2px solid white;
-  box-shadow: 0px 5px 10px 0px black black; }
+  box-shadow: 0px 1px 10px 0px black black; }
 
 .white-button:hover {
   color: black;
@@ -116,11 +116,20 @@ li a {
 .black-button {
   color: black;
   border: 2px solid black;
-  box-shadow: 0px 5px 10px 0px black white; }
+  box-shadow: 0px 1px 10px 0px black white; }
 
 .black-button:hover {
   color: white;
   background-color: black; }
+
+.gray-button {
+  color: darkgray;
+  border: 2px solid darkgray;
+  box-shadow: 0px 1px 10px 0px black black; }
+
+.gray-button:hover {
+  color: white;
+  background-color: darkgray; }
 
 /* Navigation bar */
 /* Specify font sizes */
@@ -371,7 +380,7 @@ li a {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0px 5px 10px 0px black; }
+  box-shadow: 0px 1px 10px 0px black; }
 
 a {
   text-decoration: none;

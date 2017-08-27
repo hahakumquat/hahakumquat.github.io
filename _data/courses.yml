@@ -1,14 +1,44 @@
 - name: CS50
-  description: the C/PHP/Javascript-based introductory Computer Science course at Harvard
+  description: Introduction to Computer Science (C programming, PHP/Javascript web-development)
 
 - name: CS51
-  description: a pseudo-OOP course in the (obscure) functional programming language OCaml
+  description: Functional and Object-Oriented Programming (OCaml)
+
+- name: CS61
+  description: Systems Programming (C)
 
 - name: CS121
-  description: a course on computation theory and the world of P, NP, and other problems
+  description: Computation Theory (Automata, Complexity, P/NP)
 
 - name: CS124
-  description: that one data structures/algorithms course that every CS major goes through
+  description: Algorithms and Data Structures
+
+- name: CS134
+  description: Social Networks (graph theory, Python)
 
 - name: CS171
-  description: a course on data visualization with the Javascript language, D3
+  description: Data Visualization (Javascript, D3.js)
+
+- name: CS175
+  description: Computer Graphics (C++)
+
+- name: CS181
+  description: Machine Learning (Python, sklearn)
+
+- name: Stat 110
+  description: Probability Theory (combinatorics, distributions)
+
+- name: Stat 111
+  description: Inference Theory (MLE, hypothesis testing, Bayesian estimation, regression)
+
+- name: Stat 139
+  description: Linear Models (applied statistics)
+
+- name: Stat 186
+  description: Causal Inference (Unbiased experimental design)
+
+- name: Math 21a
+  description: Multivariable Calculus
+
+- name: Math 21b
+  description: Linear Algebra

@@ -20,14 +20,14 @@
 
         <div id="art-container">
             {% for i in site.data.art %}
-            {% if i.type == "img" %}
-            <img class="pic panel" src="/assets/img/{{ i.src }}"/>
-            {% else %}
             <figure class="panel">
+                {% if i.type == "img" %}
+                <img class="pic panel" src="/assets/img/{{ i.src }}"/>
+                {% else %}
                 <img class="v panel" src="/assets/img/{{ i.src }}" alt="{{ i.alt }}"/>
-                <figcaption>{{ i.caption }}</figcaption>
+                <figcaption class="panel">{{ i.caption }}</figcaption>
+                {% endif %}
             </figure>
-            {% endif %}
             {% endfor %}
         </div>
         {% include footer.html %}

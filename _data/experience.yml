@@ -1,7 +1,13 @@
+- title: Microsoft Software Engineer Intern
+  location: Redmond, WA
+  start_date: May 2017
+  end_date: null
+  description: ["Improved and streamlined database pricing estimation system with automated integration of large-scale data", "Implemented add-on storage pricing options for flexible SQL database storage and consumption settings"]
+  
 - title: Autodesk Intern Developer Evangelist
   location: San Francisco, CA
   start_date: June 2016
-  end_date: null
+  end_date: August 2016
   description: ["Innovate unique applications of the Forge Viewer API, an in-browser 3D rendering and viewing tool", "Design and implement a real-time, data-driven IoT heatmap projection onto a building in the 3D viewer"]
 
 - title: CS50 Web Developer, Graphic Designer

@@ -23,16 +23,16 @@ figcaption {
 }
 
 .panel {
-    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
     vertical-align: text-top;
     width: 18vw;
     display: inline-block;
-    margin: 0.5vw 0.5vw 0.5vw 0.5vw;    
 }
 
 .pic, .v {
-    width: 100%;    
-    margin: 10px;
+    margin: 0;
+    margin-bottom: 20px;
     box-shadow: $boxShadow;
 }
 

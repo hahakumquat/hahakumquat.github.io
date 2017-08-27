@@ -96,7 +96,7 @@ li a {
   transform: translate(0, -50%); }
 
 /* Buttons */
-.button, .white-button, .black-button {
+.button, .white-button, .black-button, .gray-button {
   text-decoration: none;
   font-size: 20px;
   padding: 10px;
@@ -107,7 +107,7 @@ li a {
 .white-button {
   color: white;
   border: 2px solid white;
-  box-shadow: 0px 5px 10px 0px black black; }
+  box-shadow: 0px 1px 10px 0px black black; }
 
 .white-button:hover {
   color: black;
@@ -116,11 +116,20 @@ li a {
 .black-button {
   color: black;
   border: 2px solid black;
-  box-shadow: 0px 5px 10px 0px black white; }
+  box-shadow: 0px 1px 10px 0px black white; }
 
 .black-button:hover {
   color: white;
   background-color: black; }
+
+.gray-button {
+  color: darkgray;
+  border: 2px solid darkgray;
+  box-shadow: 0px 1px 10px 0px black black; }
+
+.gray-button:hover {
+  color: white;
+  background-color: darkgray; }
 
 /* Navigation bar */
 /* Specify font sizes */
@@ -383,16 +392,16 @@ figcaption {
   color: black; }
 
 .panel {
-  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 10px;
   vertical-align: text-top;
   width: 18vw;
-  display: inline-block;
-  margin: 0.5vw 0.5vw 0.5vw 0.5vw; }
+  display: inline-block; }
 
 .pic, .v {
-  width: 100%;
-  margin: 10px;
-  box-shadow: 0px 5px 10px 0px black; }
+  margin: 0;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 10px 0px black; }
 
 /* highlighting feature */
 #darken {

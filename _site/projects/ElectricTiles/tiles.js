@@ -40,27 +40,9 @@ window.onload = function() {
     // var timer = 0;
     var shape = true;
 
-    // audio
-    var context, bufferLoader, gainNode;
-    var boom, muted = false;
     init();
 
     function init() {
-
-        /* Audio settings */
-        // Fix up prefixing
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        context = new AudioContext();
-
-        bufferLoader = new BufferLoader(
-            context,
-            [
-                'boom.mp3',
-            ],
-            finishedLoading
-        );
-        
-        bufferLoader.load();
         
         /* THREE.js settings */
         
@@ -81,9 +63,9 @@ window.onload = function() {
         document.addEventListener("mousemove", disturb, false);
 
         document.body.onkeyup = function(e) {
-            if (e.keyCode == 81) {
-                muted = !muted;
-            }
+            // if (e.keyCode == 81) {
+            //     muted = !muted;
+            // }
             if (e.keyCode == 32) {
                 var geom;
                 if (shape)
@@ -204,15 +186,12 @@ window.onload = function() {
         if (intersects.length > 0) {
             var mesh = intersects[0].object;
             if (click || ctr % 4 == 2) {
-                if (click)
-                    playSound(boom.buffer, 0);
                 propagate([mesh], levels);
             }
             else
                 flare(mesh);
         }
         else if (click) {
-            playSound(boom.buffer, 0);
             propagate([tileArray[Math.floor(tileArray.length * Math.random())]], levels);
         }
     }
@@ -306,22 +285,4 @@ window.onload = function() {
 
         renderer.render(scene, camera);
     }
-
-    function finishedLoading(bufferList) {
-        boom = context.createBufferSource();
-        boom.buffer = bufferList[0];
-        boom.connect(context.destination);
-        boom.start(0);
-    }
-
-    function playSound(buffer, time) {
-        if (muted == false) {
-            var source = context.createBufferSource();
-            source.buffer = boom.buffer;
-            source.connect(context.destination);
-            source.start(time);
-        }
-    }    
-
-    
 }

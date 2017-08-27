@@ -43,7 +43,7 @@ h2 {
     mix-blend-mode: exclusion;
 }
 
-a {
+#notes {
     position: absolute;
     bottom: 10px;
     right: 20px;
