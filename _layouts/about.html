@@ -12,13 +12,7 @@
             <p>
                 I'm a front- and back-end developer with a passion for 
                 digital art. A student by day, I spend my nights working as
-                a teaching fellow, web developer, and graphic artist.
-            </p>
-            <p>
-                Here, you'll get to know a bit about my interests 
-                as well as some of the cool things I've done with them over 
-                the years. Take a look around, and if you like what you see, 
-                feel free to shoot me a line!
+                a software engineer, data scientist, and graphic artist.
             </p>
         </div>
         
@@ -41,7 +35,7 @@
             <p>
                 I've been toying around with graphic design and animation for 
                 a while now, specializing in 3D art. As a computer scientist, my 
-                main experience comes from web development. 
+                main experience comes from web development and machine learning. 
                 In my free time, I love tinkering with Chromebooks and 
                 DIY Linux distributions, and I often brush up on coding via
                 Project Euler, HackerRank, and Codecademy.
@@ -92,6 +86,7 @@
             <h1 class="title">Experience</h1>
             <hr>
             {% for exp in site.data.experience %}
+            <div class="container">
             <h2 class="inline-header">{{ exp.title }}</h2>
             <ul class="inline-info">
                 <li>{{ exp.location }}</li>
@@ -102,6 +97,7 @@
                 <li>{{ desc }}</li>
                 {% endfor %}
             </ul>
+            </div>
             {% endfor %}
         </div>
 

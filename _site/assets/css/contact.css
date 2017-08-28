@@ -31,7 +31,7 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   z-index: 1000; }
 
 .spacer {
-  margin-top: 80px; }
+  height: 80px; }
 
 .full {
   min-height: 50vw; }
@@ -165,7 +165,7 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   z-index: 1000; }
 
 .spacer {
-  margin-top: 80px; }
+  height: 80px; }
 
 .full {
   min-height: 50vw; }
@@ -233,7 +233,7 @@ li a {
   width: 100%;
   position: fixed;
   height: 80px;
-  background-color: rgba(3, 3, 3, 0.9);
+  background-color: rgba(3, 3, 3, 0.95);
   box-shadow: 0px 1px 10px black;
   top: 0;
   left: 0;
@@ -300,7 +300,7 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   z-index: 1000; }
 
 .spacer {
-  margin-top: 80px; }
+  height: 80px; }
 
 .full {
   min-height: 50vw; }

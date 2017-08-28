@@ -25,14 +25,13 @@ figcaption {
     vertical-align: text-top;
     width: 18vw;
     display: inline-block;
+    box-shadow: none;
 }
 
 .pic, .v {
     margin: 0;
     margin-bottom: 20px;    
-}
-
-img {
+    border-radius: 4px;
     box-shadow: $boxShadow;
 }
 
