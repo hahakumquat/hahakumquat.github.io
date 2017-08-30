@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    {% include header.html css_file='/assets/css/blog_list.css'%}
+    <body>
+        {% include navbar.html %}
+        <div class="spacer"></div>
+        <!-- <div class="white-container"> -->
+        <!--     <div class="left v-centering"> -->
+        <!--         <h1 class="title">{{ page.category_header }}</h1> -->
+        <!--         <p class="right desc">All things code for your reading pleasure.</p> -->
+        <!--     </div> -->
+        <!-- </div> -->
+        {% for i in site.posts %}
+        {% if i.categories contains page.categories %}
+        <a href="{{ i.url }}">
+            <div class="blog-frame-container">
+                <div class="container">
+                    <h1 class="header">{{ i.title }}</h1>
+                    <div class="info">
+                        <p>{{ i.date | date: "%m/%d/%Y" }}</p>
+                        <!-- <p>categories: {% for t in i.categories %}{{ t }} {% endfor %}</p> -->
+                        <p>tags: {% for t in i.tags %}{{ t }} {% endfor %}</p>                        
+                    </div>
+                </div>
+                <div class="container">  
+                    <div class="v-centering">
+                        {{ i.excerpt }}
+                    </div>
+                    <div class="right">
+                        {% if i.img != "" %}
+                        <img src="{{ i.img }}"/>
+                        {% else %}
+                        <img src="/assets/img/kumquat.jpg"/>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+        {% include footer.html %}
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/common.js"></script>
+    </body>
+</html>

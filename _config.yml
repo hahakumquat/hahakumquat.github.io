@@ -1,4 +1,4 @@
-permalink: pretty
+permalink: /:categories/:year/:month/:day/:title/
 
 include: ['_pages']
 
@@ -14,7 +14,7 @@ deviantart: https://hahakumquat.deviantart.com/
 github: https://github.com/hahakumquat
 
 # Build settings
-# markdown: kramdown
+markdown: kramdown
 # theme: minima
 # plugins:
 #   - jekyll-feed

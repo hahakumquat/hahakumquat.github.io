@@ -1,6 +1,6 @@
 /* Specify font sizes */
 $titleSize: 70px;
-$headerSize: 30px;
+$headerSize: 50px;
 $descriptionSize: 20px;
 $inviteSize: 30px;
 $readSize: 16px;
@@ -22,3 +22,10 @@ $navTabColor: #888888;
 
 /* Specify about settings */
 $aboutBgColor: rgba(255, 255, 255, 0.6);
+
+/* Specify loader settings */
+$loaderColor: #111111;
+$loaderZ: 500;
+
+/* Specify strip settings */
+$numCategories: 4;

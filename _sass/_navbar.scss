@@ -9,7 +9,7 @@
     box-shadow: $navShadow;    
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: $loaderZ + 1;
 }
 
 .nav {
@@ -37,6 +37,7 @@
 }
 
 .nava:hover {
+    cursor: pointer;
     color: white;
     transition: $navTransition;    
 }

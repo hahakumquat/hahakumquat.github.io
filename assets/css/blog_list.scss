@@ -1,0 +1,39 @@
+---
+---
+@import "common";
+
+.header {
+    margin: 0;
+}
+
+.info p {
+    margin: 0;
+}
+
+.blog-frame-container {
+    @extend .container;
+    width: 60%;
+    margin: 20px;
+    margin-left: .5in;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: $boxShadow;
+    overflow:auto;
+}
+
+.container {
+    overflow:auto;
+}
+
+.v-centering {
+    float: left;
+    width: 50%;
+}
+
+.class2 {
+    float: right;
+}
+
+img {
+    width: 70%;
+}

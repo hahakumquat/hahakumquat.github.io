@@ -24,6 +24,12 @@ html, body, .container {
     text-decoration: none;
 }
 
+.half-container {    
+    width: 48%;
+    text-align: left;
+    margin: 0;
+}
+
 .white-container {
     @extend .container;
     background-color: white;
@@ -34,12 +40,27 @@ html, body, .container {
     background-color: black;    
 }
 
+.blog-container {
+    padding: 1in;
+    max-width: 100%;
+}
+
+.left {
+    float: left;
+    display: inline-block;
+}
+
+.right {
+    float: right;
+    display: inline-block;
+}
+
 .loader {
-    background-color: #111111;
+    background-color: $loaderColor;
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    z-index: $loaderZ;
 }
 
 .spacer {
@@ -47,11 +68,16 @@ html, body, .container {
 }
 
 .full {
-    min-height: 50vw;
+    height: 50vw;
 }
 
 .partial {
-    min-height: 20vw;
+    height: 20vw;
+}
+
+.strip  {
+    height: 100vh / ($numCategories + 1);
+    overflow: hidden;
 }
 
 .inline {
@@ -85,14 +111,14 @@ html, body, .container {
     font-size: $readSize;
 }
 
-li a {
+li a, a {
     cursor: auto;
     text-decoration: none;
     color: black;
 }
 
 .background {
-  width: 100%;
+    width: 100%;
 }
 
 .fixed {
@@ -104,7 +130,7 @@ li a {
     @extend .container;
     text-align: center;
     margin: 0 auto;
-    display: block;
+    display: block;    
 }
 
 .white-centering {
