@@ -81,24 +81,24 @@
             </div>
         </div>
         
-        <div class="about-container">
-            <h1 class="title">Experience</h1>
-            <hr>
-            {% for exp in site.data.experience %}
-            <div class="container">
-                <h2 class="inline-header">{{ exp.title }}</h2>
-                <ul class="inline-info">
-                    <li>{{ exp.location }}</li>
-                    <li>{{ exp.start_date }} – {% if exp.end_date == null %} Current {% else %} {{ exp.end_date }} {% endif %}</li>
-                </ul>
-                <ul>
-                    {% for desc in exp.description %}
-                    <li>{{ desc }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endfor %}
-        </div>
+        <!-- <div class="about-container"> -->
+        <!--     <h1 class="title">Experience</h1> -->
+        <!--     <hr> -->
+        <!--     {% for exp in site.data.experience %} -->
+        <!--     <div class="container"> -->
+        <!--         <h2 class="inline-header">{{ exp.title }}</h2> -->
+        <!--         <ul class="inline-info"> -->
+        <!--             <li>{{ exp.location }}</li> -->
+        <!--             <li>{{ exp.start_date }} – {% if exp.end_date == null %} Current {% else %} {{ exp.end_date }} {% endif %}</li> -->
+        <!--         </ul> -->
+        <!--         <ul> -->
+        <!--             {% for desc in exp.description %} -->
+        <!--             <li>{{ desc }}</li> -->
+        <!--             {% endfor %} -->
+        <!--         </ul> -->
+        <!--     </div> -->
+        <!--     {% endfor %} -->
+        <!-- </div> -->
 
         <div class="about-container">
             <div class="about-text" id="misc">
