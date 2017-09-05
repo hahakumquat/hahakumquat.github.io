@@ -461,6 +461,9 @@ li a, a {
   list-style: none;
   text-align: left; }
 
+.tags {
+  text-align: right; }
+
 .title, .header {
   margin: 0; }
 
