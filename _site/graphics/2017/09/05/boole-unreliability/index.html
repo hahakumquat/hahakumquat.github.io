@@ -30,7 +30,7 @@
         <div class="spacer"></div>
         <div class="blog-container">
             <h1 class="title">Unreliable Booles</h1>
-            <p class="right desc">08/30/2017</p>
+            <p class="right desc">09/05/2017</p>
         <div class="spacer"></div>
         <p>I came across an interesting issue while trying to displace the surface of an otherwise static object. When using the Boolean tool to intersect two objects with an animated displacement deformer, the point of intersection occasionally fails to render on certain frames.</p>
 
@@ -40,7 +40,7 @@
 
 <p>The original goal was to animate the upper surface of the water cube with a displacement deformer while maintaining proper contact with the sand on the bottom.</p>
 
-<p>To do so, I created a larger, invisible cube with the displacement and intersected it with my water cube. To animate the water, I used the animation and speed settings under the noise shader. The result was the shimmering water surface we see in the image, at least for certain frames.</p>
+<p>To do so, I created a larger, invisible cube with the displacement deformer and intersected it with my water cube. To animate the water, I used the animation settings on the displacement cube’s noise shader to affect the water cube’s surface when boolean joined. The result was the shimmering water surface we see in the image, at least for certain frames.</p>
 
 <p>As I tried rendering out more frames, I soon found that the top geometry of the water cube would occasionally <i>disappear</i>. This is especially odd since I didn’t set any keyframes regarding the visibility of the mesh. After a couple hours of playing around, I’ve come to the conclusion that, depending on how the animation displaces the top surface, certain displacements would cause the top to disappear.</p>
 
