@@ -12,7 +12,7 @@
                 {% endfor %}
             </ul>
         </div>
-        {% for i in site.posts reversed %}
+        {% for i in site.posts %}
         {% if i.categories contains page.categories %}
         <a href="{{ i.url }}">
             <div class="blog-frame-container">
