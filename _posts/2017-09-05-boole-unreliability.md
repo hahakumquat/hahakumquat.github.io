@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Unreliable Booles"
-dat: 2017-09-05
+date: 2017-09-05
 categories: graphics
 img: "/assets/img/swishswishfish_t.png"
 tags:
