@@ -10,6 +10,32 @@
     margin: 0;
 }
 
+.desc {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: white;
+}
+
+li {
+    list-style: none;
+}
+
+.blog-nav ul {
+    padding: 0;
+}
+
+.blog-nav {
+    background-color: white;
+    box-shadow: $boxShadow;
+    text-align: center;
+    display: block;
+    position: fixed;
+    top: $navHeight + 20px;
+    right: .5in;
+    padding: 10px;
+    z-index: 10;
+}
+
 .blog-frame-container {
     @extend .container;
     width: 60%;

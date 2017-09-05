@@ -449,6 +449,28 @@ li a, a {
 .info p {
   margin: 0; }
 
+.desc {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: white; }
+
+li {
+  list-style: none; }
+
+.blog-nav ul {
+  padding: 0; }
+
+.blog-nav {
+  background-color: white;
+  box-shadow: 0px 1px 10px 0px black;
+  text-align: center;
+  display: block;
+  position: fixed;
+  top: 100px;
+  right: .5in;
+  padding: 10px;
+  z-index: 10; }
+
 .blog-frame-container {
   width: 60%;
   margin: 20px;

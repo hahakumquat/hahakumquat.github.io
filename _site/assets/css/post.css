@@ -442,3 +442,6 @@ li a, a {
   display: inline-block;
   list-style: none;
   text-align: left; }
+
+img {
+  max-width: 50vw; }
