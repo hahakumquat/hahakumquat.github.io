@@ -30,8 +30,7 @@
         <div class="spacer"></div>
         <div class="blog-container">
             <h1 class="title">Unreliable Booles</h1>
-            <p class="right desc">09/05/2017</p>
-        <div class="spacer"></div>
+            <p class="header">09/05/2017</p>            
         <p>I came across an interesting issue while trying to displace the surface of an otherwise static object. When using the Boolean tool to intersect two objects with an animated displacement deformer, the point of intersection occasionally fails to render on certain frames.</p>
 
 <p>This is a sample of the desired image:</p>
@@ -44,7 +43,7 @@
 
 <p>As I tried rendering out more frames, I soon found that the top geometry of the water cube would occasionally <i>disappear</i>. This is especially odd since I didn’t set any keyframes regarding the visibility of the mesh. After a couple hours of playing around, I’ve come to the conclusion that, depending on how the animation displaces the top surface, certain displacements would cause the top to disappear.</p>
 
-<p>I can’t figure out why this would be the case. According to <a href="https://www.reddit.com/r/Cinema4D/comments/4djnmo/c4d_boole_a_intersect_b_object_disappearing_when/">this reddit post</a>, there might be a bug relating to the instability of booles in C4D. The best alternative (and probably best solution from the get-go) I can think of would be to use a finite bounding box. I’ll have to try constraining a deformer and applying the displacement over the upper region without this boolean method. The initial concern is that the geometry vertically along the walls is a single polygon, so the deformation would cause breaking holes in the mesh, but perhaps it’ll work fine after subdividing the walls..</p>
+<p>I can’t figure out why this would be the case. According to <a class="link" href="https://www.reddit.com/r/Cinema4D/comments/4djnmo/c4d_boole_a_intersect_b_object_disappearing_when/">this reddit post</a>, there might be a bug relating to the instability of booles in C4D. The best alternative (and probably best solution from the get-go) I can think of would be to use a finite bounding box. I’ll have to try constraining a deformer and applying the displacement over the upper region without this boolean method. The initial concern is that the geometry vertically along the walls is a single polygon, so the deformation would cause breaking holes in the mesh, but perhaps it’ll work fine after subdividing the walls..</p>
 
         </div>
         <div class="white-container">

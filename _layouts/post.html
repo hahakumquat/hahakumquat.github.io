@@ -6,8 +6,7 @@
         <div class="spacer"></div>
         <div class="blog-container">
             <h1 class="title">{{ page.title }}</h1>
-            <p class="right desc">{{ page.date | date: "%m/%d/%Y" }}</p>
-        <div class="spacer"></div>
+            <p class="header">{{ page.date | date: "%m/%d/%Y" }}</p>            
         {{ content }}
         </div>
         {% include footer.html %}

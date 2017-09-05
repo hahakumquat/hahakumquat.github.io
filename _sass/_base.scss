@@ -117,6 +117,14 @@ li a, a {
     color: black;
 }
 
+.link {
+    color: blue;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
 .background {
     width: 100%;
 }

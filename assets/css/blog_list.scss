@@ -25,7 +25,7 @@ li {
 }
 
 .blog-nav {
-    background-color: white;
+    background-color: #BBBBBB;
     box-shadow: $boxShadow;
     text-align: center;
     display: block;
@@ -42,24 +42,16 @@ li {
     margin: 20px;
     margin-left: .5in;
     padding: 30px;
-    background-color: #ffffff;
     box-shadow: $boxShadow;
-    overflow:auto;
+    overflow: hidden;
 }
 
-.container {
-    overflow:auto;
+.thumb {
+    position: absolute;
+    width: 100%;
+    top: -50%;
+    left: 0;
+    opacity: 0.5;
+    z-index: -1;
 }
 
-.v-centering {
-    float: left;
-    width: 50%;
-}
-
-.class2 {
-    float: right;
-}
-
-img {
-    width: 70%;
-}

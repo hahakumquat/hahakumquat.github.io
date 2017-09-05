@@ -23,24 +23,20 @@
                         <p>tags: {% for t in i.tags %}{{ t }} {% endfor %}</p>                        
                     </div>
                 </div>
-                <div class="container">  
-                    <div class="v-centering">
-                        {{ i.excerpt }}
-                    </div>
-                    <div class="right">
-                        {% if i.img != "" %}
-                        <img src="{{ i.img }}"/>
-                        {% else %}
-                        <img src="/assets/img/kumquat.jpg"/>
-                        {% endif %}
-                    </div>
+                {% if i.img != "" %}
+                <img class="thumb" src="{{ i.img }}"/>
+                {% else %}
+                <img class="thumb" src="/assets/img/kumquat.jpg"/>
+                {% endif %}
+                <div class="container">
+                    {{ i.excerpt }}
                 </div>
             </a>
         </div>
-        {% endif %}
-        {% endfor %}
-        {% include footer.html %}
-        <script src="/assets/js/jquery.js"></script>
-        <script src="/assets/js/common.js"></script>
-    </body>
+{% endif %}
+{% endfor %}
+{% include footer.html %}
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/common.js"></script>
+</body>
 </html>
