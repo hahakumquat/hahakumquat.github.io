@@ -13,9 +13,9 @@
             </ul>
         </div>
         {% for i in site.posts %}
-        {% if i.categories contains page.categories %}
-        <a href="{{ i.url }}">
-            <div class="blog-frame-container">
+        {% if i.categories contains page.categories %}        
+        <div class="blog-frame-container">
+            <a href="{{ i.url }}">
                 <div class="container">
                     <h1 class="header">{{ i.title }}</h1>
                     <div class="info">
@@ -35,8 +35,8 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
         {% endif %}
         {% endfor %}
         {% include footer.html %}
