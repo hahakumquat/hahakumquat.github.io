@@ -149,6 +149,8 @@ where $\Gamma(x)$ is the Gamma function. Since the Beta distribution is not disc
 
 $$P(a \le \theta_0 \le b) = \int_a^b f_\theta(\theta_0 \vert \alpha_0, \alpha_1) d\theta_0 = \int_a^b \frac{\Gamma(\alpha_0 + \alpha_1)}{\Gamma(\alpha_0)\Gamma(\alpha_1)} \theta_0^{\alpha_1 - 1} (1 - \theta_0)^{\alpha_0 - 1} d\theta_0$$
 
+<h1>Posterior Distribution</h1>
+
 Interestingly enough, the analog of the PMF is the PDF, not the integral of the PDf, so we can express our posterior distribution as the following. Note that the ugly Gamma function can be ignored since it is a constant independent of the random variable $\theta$.
 
 $$\begin{align*}P(\theta_0|\bold{X}) & = P(\bold{X}|\theta_0) f_\theta(\theta_0) \\
