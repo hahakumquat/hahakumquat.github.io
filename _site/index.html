@@ -28,7 +28,30 @@
 </div>
 
         <div class="full black-container">
-            <img class="background" src="/assets/img/1.png">
+            <script type="x-shader/x-vertex" id="vertexshader">
+                
+                void main() {
+                
+                gl_Position = projectionMatrix *
+                modelViewMatrix *
+                vec4(position, 1.0);
+                }
+                
+            </script>
+            <script type="x-shader/x-fragment" id="fragmentshader">
+                uniform float rotation;
+                uniform sampler2D texture;
+                
+                void main() {
+                vec2 tPos = vec2(0., rotation / 3.15);
+                vec4 color = texture2D(texture, tPos);
+                gl_FragColor = vec4(color.rgb + 0.03, 1.0);
+                }
+                
+            </script>
+            <div id="container"></div>
+            <script src="/assets/js/three.min.js"></script>
+            <script src="/assets/js/home_tiles.js"></script>
             <div class="white-centering v-centering">
                 <div id="main-title">
                     <h1 class="title">MICHAEL GE</h1>
