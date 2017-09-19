@@ -10,10 +10,17 @@
     margin: 0;
 }
 
-.desc {
+.desc, .desc a {
     margin-top: 50px;
     margin-bottom: 50px;
+    color: $navTabColor;
+    transition: $navTransition;
+}
+
+.desc a:hover {
+    cursor: pointer;
     color: white;
+    transition: $navTransition;    
 }
 
 li {
@@ -25,13 +32,14 @@ li {
 }
 
 .blog-nav {
-    background-color: #BBBBBB;
+    color: $navTabColor;
+    background-color: $navColor;
     box-shadow: $boxShadow;
     text-align: center;
     display: block;
     position: fixed;
-    top: $navHeight + 20px;
-    right: .5in;
+    top: $navHeight;
+    right: 0;
     padding: 10px;
     z-index: 10;
 }

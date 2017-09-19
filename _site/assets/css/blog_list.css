@@ -467,10 +467,16 @@ li a, a {
 .info p {
   margin: 0; }
 
-.desc {
+.desc, .desc a {
   margin-top: 50px;
   margin-bottom: 50px;
-  color: white; }
+  color: #888888;
+  transition: color 0.6s; }
+
+.desc a:hover {
+  cursor: pointer;
+  color: white;
+  transition: color 0.6s; }
 
 li {
   list-style: none; }
@@ -479,13 +485,14 @@ li {
   padding: 0; }
 
 .blog-nav {
-  background-color: #BBBBBB;
+  color: #888888;
+  background-color: rgba(3, 3, 3, 0.95);
   box-shadow: 0px 1px 10px 0px black;
   text-align: center;
   display: block;
   position: fixed;
-  top: 100px;
-  right: .5in;
+  top: 80px;
+  right: 0;
   padding: 10px;
   z-index: 10; }
 
