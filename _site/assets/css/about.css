@@ -19,6 +19,21 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   font-size: 16px;
   text-decoration: none; }
 
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome and Opera */ }
+
 .half-container {
   width: 48%;
   text-align: left;
@@ -181,6 +196,21 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   padding: 0;
   font-size: 16px;
   text-decoration: none; }
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome and Opera */ }
 
 .half-container {
   width: 48%;
@@ -346,6 +376,21 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   padding: 0;
   font-size: 16px;
   text-decoration: none; }
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome and Opera */ }
 
 .half-container {
   width: 48%;

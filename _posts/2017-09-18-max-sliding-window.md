@@ -4,6 +4,7 @@ title:  "Algorithms: Maximum Sliding Window"
 date:   "2017-09-18"
 categories: problems
 img: ""
+hasMath: "TeX-AMS_CHTML"
 tags:
   - sliding window
   - algorithms
