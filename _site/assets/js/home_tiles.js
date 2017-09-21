@@ -64,7 +64,7 @@ window.onload = function() {
                 if (shape)
                     geom = new THREE.SphereGeometry(DIMENSION/1.8, 15);
                 else
-                    geom = new THREE.PlaneGeometry(DIMENSION - 4, DIMENSION - 4);
+                    geom = new THREE.PlaneBufferGeometry(DIMENSION - 4, DIMENSION - 4);
                 genMeshes(geom);
                 shape = !shape;
             }
