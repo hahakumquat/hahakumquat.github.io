@@ -33,7 +33,9 @@
             <p class="header">09/18/2017</p>
             <p class="desc tags"><i>Tags:
                 
-                sliding window
+                sliding
+                
+                window
                 
                 algorithms
                 
@@ -89,30 +91,28 @@
 
 <p>Here’s my implementation:</p>
 
-<p>def maxSW(arr, k):
-    d = deque()
-    ans = []
-    n = len(arr)
-    for i in range(n):</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    # remove elements from end that are smaller than new addition
-    while d and arr[d[-1]] &lt; arr[i]:
-        d.pop()
-        
-    # make new addition
-    d.append(i)
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">maxSW</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     
-    # remove any elements that are too old
-    if d[0] &lt;= i - k:
-        d.popleft()
+        <span class="c"># remove elements from end that are smaller than new addition</span>
+        <span class="k">while</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            
+        <span class="c"># make new addition</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         
-    # the oldest element will be the largest in the deque
-    # otherwise, we would have removed it in the while loop
-    if i &gt;= k-1:
-        ans.append(arr[d[0]])
-return ans
-</code></pre>
-</div>
+        <span class="c"># remove any elements that are too old</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">k</span><span class="p">:</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+            
+        <span class="c"># the oldest element will be the largest in the deque</span>
+        <span class="c"># otherwise, we would have removed it in the while loop</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">ans</span></code></pre></figure>
 
         </div>
         <div class="white-container">

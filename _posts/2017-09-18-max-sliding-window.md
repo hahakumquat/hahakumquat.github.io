@@ -6,10 +6,10 @@ categories: problems
 img: ""
 hasMath: "TeX-AMS_CHTML"
 tags:
-  - sliding
-  - window
-  - algorithms
-  - deque
+  - "sliding"
+  - "window"
+  - "algorithms"
+  - "deque"
 ---
 
 The sliding window problem seeks to evaluate properties about every possible subarray without introducing a look-back penalty. In particular, the Maximum Sliding Window problem tries to find the maximum element in every contiguous fixed-length subarray.
@@ -61,6 +61,7 @@ So, at every timestep $i$, we'll store the index $i$, removing from most recent 
 
 Here's my implementation:
 
+{% highlight python %}
 def maxSW(arr, k):
     d = deque()
     ans = []
@@ -83,3 +84,4 @@ def maxSW(arr, k):
         if i >= k-1:
             ans.append(arr[d[0]])
     return ans
+{% endhighlight %}
