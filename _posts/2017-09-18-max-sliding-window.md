@@ -6,7 +6,8 @@ categories: problems
 img: ""
 hasMath: "TeX-AMS_CHTML"
 tags:
-  - sliding window
+  - sliding
+  - window
   - algorithms
   - deque
 ---
