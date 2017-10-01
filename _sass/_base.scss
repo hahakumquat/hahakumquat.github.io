@@ -73,6 +73,22 @@ html, body, .container {
     z-index: $loaderZ;
 }
 
+.loading {
+    @extend .title;
+    position: absolute;
+    right: 5vw;
+    bottom: 5vh;
+    color: white;
+    opacity: 0;
+    -webkit-transition: opacity 3s; /* Safari */
+    transition: opacity 3s;
+}
+
+.fadein {
+    @extend .loading;
+    opacity: 1;
+}
+
 .spacer {
     height: $navHeight;
 }
@@ -154,13 +170,11 @@ li a, a {
 .white-centering {
     @extend .centering;
     color: white;
-
 }
 
 .black-centering {
     @extend .centering;
     color: black;
-
 }
 
 .v-centering {

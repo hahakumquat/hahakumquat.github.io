@@ -64,6 +64,19 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   height: 100%;
   z-index: 500; }
 
+.loading, .fadein {
+  position: absolute;
+  right: 5vw;
+  bottom: 5vh;
+  color: white;
+  opacity: 0;
+  -webkit-transition: opacity 3s;
+  /* Safari */
+  transition: opacity 3s; }
+
+.fadein {
+  opacity: 1; }
+
 .spacer {
   height: 80px; }
 
@@ -82,7 +95,7 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   vertical-align: top; }
 
 /* For titles */
-.title {
+.title, .loading, .fadein {
   margin: 0 0 0 0;
   font-size: 70px; }
 
@@ -242,6 +255,19 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   height: 100%;
   z-index: 500; }
 
+.loading, .fadein {
+  position: absolute;
+  right: 5vw;
+  bottom: 5vh;
+  color: white;
+  opacity: 0;
+  -webkit-transition: opacity 3s;
+  /* Safari */
+  transition: opacity 3s; }
+
+.fadein {
+  opacity: 1; }
+
 .spacer {
   height: 80px; }
 
@@ -260,7 +286,7 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   vertical-align: top; }
 
 /* For titles */
-.title {
+.title, .loading, .fadein {
   margin: 0 0 0 0;
   font-size: 70px; }
 
@@ -422,6 +448,19 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   height: 100%;
   z-index: 500; }
 
+.loading, .fadein {
+  position: absolute;
+  right: 5vw;
+  bottom: 5vh;
+  color: white;
+  opacity: 0;
+  -webkit-transition: opacity 3s;
+  /* Safari */
+  transition: opacity 3s; }
+
+.fadein {
+  opacity: 1; }
+
 .spacer {
   height: 80px; }
 
@@ -440,7 +479,7 @@ html, body, .container, .white-container, .black-container, .centering, .white-c
   vertical-align: top; }
 
 /* For titles */
-.title {
+.title, .loading, .fadein {
   margin: 0 0 0 0;
   font-size: 70px; }
 
@@ -506,7 +545,7 @@ li a, a {
   list-style: none;
   text-align: left; }
 
-#main-title .title {
+#main-title .title, #main-title .loading, #main-title .fadein {
   line-height: 1em; }
 
 #slidy-container {
