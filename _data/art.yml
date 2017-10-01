@@ -1,3 +1,6 @@
+- src: fragile_t.jpg
+  type: img
+
 - src: grit_t.jpg
   type: vid
   alt: https://www.youtube.com/embed/iAG6izLeFII
