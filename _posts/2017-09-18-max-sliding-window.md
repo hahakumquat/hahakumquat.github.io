@@ -20,12 +20,14 @@ Consider an array of integers $A$ length $n$ and integer $k \le n$. For each of 
 
 One naive solution would be to linearly search for the maximum of every subarray.
 
+```python
 def MSW_naive(A, k):
     res = []
     n = len(A)
     for i in range(n - k + 1):
         res.append(max(A[i:i+k]))
     return res
+```         
 
 In this case, we'd perform $k$ comparison operations for each of the $n-k+1$ subarrays, resulting in a time complexity of $O(k(n-k+1)) \to O(nk)$. Of course, we can do better.
 
@@ -35,12 +37,14 @@ The fundamental idea behind sliding window problems is that we need to store eno
 
 A FIFO (First-In, First-Out) queue is an excellent candidate for this kind of problem. At every step, a new element can be added to the queue, while the oldest element is removed. The simplest sliding window problem would be to return a list containing each window:
 
+```python
 def SW(A, k):
     res = []
     n = len(A)
     for i in range(n-k + 1):
         res.append(A[i:i+k])
     return res
+```
 
 Wow, practically identical to MSW_naive, how riveting.
 
@@ -61,7 +65,7 @@ So, at every timestep $i$, we'll store the index $i$, removing from most recent 
 
 Here's my implementation:
 
-{% highlight python %}
+```python
 def maxSW(arr, k):
     d = deque()
     ans = []
@@ -84,4 +88,4 @@ def maxSW(arr, k):
         if i >= k-1:
             ans.append(arr[d[0]])
     return ans
-{% endhighlight %}
+```

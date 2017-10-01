@@ -50,12 +50,14 @@
 
 <p>One naive solution would be to linearly search for the maximum of every subarray.</p>
 
-<p>def MSW_naive(A, k):
-    res = []
-    n = len(A)
-    for i in range(n - k + 1):
-        res.append(max(A[i:i+k]))
-    return res</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">MSW_naive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">k</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre>
+</div>
 
 <p>In this case, we’d perform $k$ comparison operations for each of the $n-k+1$ subarrays, resulting in a time complexity of $O(k(n-k+1)) \to O(nk)$. Of course, we can do better.</p>
 
@@ -65,12 +67,14 @@
 
 <p>A FIFO (First-In, First-Out) queue is an excellent candidate for this kind of problem. At every step, a new element can be added to the queue, while the oldest element is removed. The simplest sliding window problem would be to return a list containing each window:</p>
 
-<p>def SW(A, k):
-    res = []
-    n = len(A)
-    for i in range(n-k + 1):
-        res.append(A[i:i+k])
-    return res</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">SW</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre>
+</div>
 
 <p>Wow, practically identical to MSW_naive, how riveting.</p>
 
@@ -91,7 +95,7 @@
 
 <p>Here’s my implementation:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">maxSW</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxSW</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
@@ -112,7 +116,9 @@
         <span class="c"># otherwise, we would have removed it in the while loop</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">ans</span></code></pre></figure>
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre>
+</div>
 
         </div>
         <div class="white-container">
