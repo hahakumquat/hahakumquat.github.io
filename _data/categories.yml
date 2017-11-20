@@ -1,15 +1,15 @@
 - name: TECHNOLOGY
   url: "/blog/tech/"
-  img: "/assets/img/11.jpg"
+  img: "/assets/img/11_strip.jpg"
   
 - name: "DATA SCIENCE"
   url: "/blog/datasci/"
-  img: "/assets/img/12.jpg"
+  img: "/assets/img/12_strip.jpg"
   
 - name: "PROBLEM SOLVING"
   url: "/blog/problems/"
-  img: "/assets/img/8.jpg"
+  img: "/assets/img/8_strip.jpg"
 
 - name: "GRAPHIC ART"
-  img: "/assets/img/coldmg.jpg"
+  img: "/assets/img/coldmg_strip.jpg"
   url: "/blog/graphics/"
