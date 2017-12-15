@@ -2,6 +2,10 @@
 ---
 @import "common";
 
+.white-container {
+    background-color: transparent;
+}
+
 .about-container {
     @extend .container;
     width: 60%;
