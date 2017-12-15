@@ -25,6 +25,12 @@
 - name: CS181
   description: Machine Learning (Python, sklearn)
 
+- name: CS182
+  description: Artificial Intelligence (Python)
+
+- name: CS281
+  description: Advanced Machine Learning (Python, PyTorch)
+
 - name: Stat 110
   description: Probability Theory (combinatorics, distributions)
 

@@ -1,3 +1,11 @@
+- src: reports/281.pdf
+  img: 281_t.png
+  caption: "CS281 Final Project: Topic Dynamics in US Court Decisions on School Desegregation"
+  
+- src: reports/182.pdf
+  img: 182_t.png
+  caption: "CS182 Final Project, Van GAN: Deep Convolutional Neural Network for Image Generation"
+
 - src: https://github.com/hahakumquat/R3act-App
   img: notLifeAlert.png
   caption: "Microsoft Hackathon: Machine Learning Fall Detection"

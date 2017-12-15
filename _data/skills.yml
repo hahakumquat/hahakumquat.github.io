@@ -13,14 +13,13 @@ film:
   - name: Audacity
 
 languages:
-  - name: Python
-  - name: Javascript
-  - name: Node, Express, JQuery, D3, THREE.js
+  - name: Python- NumPy, scikit-learn, PyTorch
+  - name: JS- Node, Express, JQuery, D3, THREE.js
   - name: SQL/NoSQL variants
-  - name: R
   - name: C
-  - name: C#
   - name: Java
+  - name: C#
+  - name: R
 
 misc:
   - name: Arch Linux
