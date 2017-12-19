@@ -15,13 +15,13 @@ $buttonTransition: color $transitionTime, background-color $transitionTime;
 
 /* Specify navbar settings */
 $navHeight: 80px;
-$navColor: rgba(3, 3, 3, 0.95);
+$navColor: rgba(3, 3, 3, 1);
 $navShadow: 0px 1px 10px black;
 $navTransition: color $transitionTime;
 $navTabColor: #888888;
 
 /* Specify about settings */
-$aboutBgColor: rgba(255, 255, 255, 0.6);
+$aboutBgColor: rgba(255, 255, 255, 1);
 
 /* Specify loader settings */
 $loaderColor: #111111;

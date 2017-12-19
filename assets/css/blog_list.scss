@@ -10,40 +10,6 @@
     margin: 0;
 }
 
-.desc, .desc a {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    color: $navTabColor;
-    transition: $navTransition;
-}
-
-.desc a:hover {
-    cursor: pointer;
-    color: white;
-    transition: $navTransition;    
-}
-
-li {
-    list-style: none;
-}
-
-.blog-nav ul {
-    padding: 0;
-}
-
-.blog-nav {
-    color: $navTabColor;
-    background-color: $navColor;
-    box-shadow: $boxShadow;
-    text-align: center;
-    display: block;
-    position: fixed;
-    top: $navHeight;
-    right: 0;
-    padding: 10px;
-    z-index: 10;
-}
-
 .blog-frame-container {
     @extend .container;
     width: 60%;

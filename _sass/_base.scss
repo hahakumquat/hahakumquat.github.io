@@ -52,7 +52,46 @@ html, body, .container {
 
 .blog-container {
     padding: 1in;
-    max-width: 100%;
+    max-width: 60%;
+}
+
+.blog-nav .text a, .blog-nav .desc a {
+    color: $navTabColor;
+    transition: $navTransition;
+}
+
+.blog-nav .text a:hover, .blog-nav .desc a:hover {
+    cursor: pointer;
+    color: white;
+    transition: $navTransition;
+}
+
+.blog-nav li {
+    list-style: none;
+}
+
+.blog-nav ul {
+    padding: 0;
+    color: $navTabColor;
+}
+
+.blog-nav {
+    max-height: 100vh;
+    max-width: 20%;
+    color: $navTabColor;
+    background-color: $navColor;
+    box-shadow: $boxShadow;
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 1;
+    overflow: scroll;
+}
+.blog-nav::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
 }
 
 .left {

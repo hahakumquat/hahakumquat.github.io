@@ -13,3 +13,7 @@
 - name: "GRAPHIC ART"
   img: "/assets/img/coldmg.jpg"
   url: "/blog/graphics/"
+
+- name: "MISCELLANEOUS"
+  img: "/assets/img/usw30_final.png"
+  url: "/blog/misc/"
