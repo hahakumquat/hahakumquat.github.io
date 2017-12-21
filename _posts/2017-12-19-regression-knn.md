@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Intro to Regression: K-Nearest Neighbors"
+title:  "Introduction to Regression: K-Nearest Neighbors"
 date:   2017-12-19
 categories: datasci
 img: ""
