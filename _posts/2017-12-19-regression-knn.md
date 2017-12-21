@@ -8,6 +8,9 @@ hasMath: "TeX-AMS_CHTML"
 tags:
 - "machine learning"
 - "k nearest neighbors"
+scripts:
+- "https://d3js.org/d3.v4.min.js"
+- "/assets/js/vis/knn.js"
 ---
 
 Here, we'll look at the K-Nearest Neighbors approach toward understanding one of the core ideas of machine learning, the regression.
@@ -37,8 +40,6 @@ We can see KNN in action with the following D3 visualization. Think of the data 
 </div>
 <div id="knn"></div>
 </center>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="/assets/js/vis/knn.js"></script>
 
 A quick note, you might argue that $k$ is a parameter, but again, it's not learned, so we still say this is a non-parametric model.
 
