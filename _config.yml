@@ -2,7 +2,7 @@ permalink: /:categories/:year/:month/:day/:title/
 
 include: ['_pages']
 
-title: Michael Ge | Digital Artist | Developer
+title: Michael Ge | Software Engineer | Graphic Artist
 email: michaelge@college.harvard.edu
 baseurl: ""
 url: http://www.geemichael.com
