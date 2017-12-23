@@ -2,6 +2,10 @@
 ---
 @import "common";
 
+body {
+    width: 60%;
+}
+
 .header {
     margin: 0;
 }
@@ -12,7 +16,6 @@
 
 .blog-frame-container {
     @extend .container;
-    width: 60%;
     margin: 20px;
     margin-left: .5in;
     padding: 30px;
