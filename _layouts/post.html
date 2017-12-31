@@ -14,7 +14,8 @@
             </i></p>
             {{ content }}
             {% include blognav.html %}
-        </div>
+            <center><p><a class="link" href="{{ page.previous.url }}">{% if page.previous.title %} {{ page.previous.title }} {% endif %} </a><a class="link" href="{{ page.next.url }}">{% if page.next.title %}| {{ page.next.title }} {% endif %}</a></p></center>
+        </div>        
         {% include footer.html %}
         <script src="/assets/js/jquery.js"></script>
         {% for ref in page.scripts %}

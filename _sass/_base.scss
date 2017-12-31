@@ -51,7 +51,7 @@ html, body, .container {
 }
 
 .blog-container {
-    padding: 1in;
+    padding: 1in 1in 0 1in;
 }
 
 .blog-nav .text a, .blog-nav .desc a {
@@ -176,7 +176,6 @@ html, body, .container {
 }
 
 li a, a {
-    cursor: auto;
     text-decoration: none;
     color: black;
 }
