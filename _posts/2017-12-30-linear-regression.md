@@ -50,7 +50,7 @@ $$\frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}} = \sum_{i=1}^n -2
 
 $$= -2 \sum_{i=1}^n y_i\mathbf{x}_i + 2\sum_{i=1}^n \mathbf{x}_i \mathbf{x}_i^\top \cdot \mathbf{w}$$
 
-$$\mathbf{w^\star} = \left(\sum_{i=1}^n \mathbf{x}_i^\top \mathbf{x}_i\right)^{-1}\cdot \sum_{i=1}^n y_i \mathbf{x}_i$$
+$$\mathbf{w^\star} = \left(\sum_{i=1}^n \mathbf{x}_i^ \mathbf{x}_i^\top \right)^{-1}\cdot \sum_{i=1}^n y_i \mathbf{x}_i$$
 
 That's pretty ugly. It looks a lot better if you work through this using matrix math. The matrix equivalent of the loss function is:
 
