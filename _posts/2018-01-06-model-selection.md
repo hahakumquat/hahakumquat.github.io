@@ -39,7 +39,7 @@ Sometimes, you might not have enough data to split your data into the three grou
 
 $K$-fold cross validation improves the generalizability of the model, but we'd then have to train our model $k$ times, one per data configuration, greatly increasing the model generation time. For a better method in improving generalization, we need to understand the tradeoff between bias and variance.
 
-*Bias* is the systematic error, or error that arises because the model tends deviate from the observed data. *Variance* is the sensitivity of prediction, or how much influence a data point has on the model. Simpler models tend to *underfit* the data because they deviate from the data (high bias) but are robust to outliers in the data (low variance). More complex models tend to *overfit* the data because they adhere to the data (low bias) but are sensitive to outliers in the data (high variance).
+*Bias* is the systematic error, or error that arises because the model tends deviate from the observed data. *Variance* is the sensitivity of prediction, or how much influence a data point has on the model. Simpler models tend to *underfit* the data because they tend to deviate from the provided data (high bias) but are robust to outliers in the data (low variance). More complex models tend to *overfit* the data because they adhere to the data (low bias) but are sensitive to outliers in the data (high variance).
 
 The generalization error can be summed up as the following:
 <center>generalization = bias + variance</center>
