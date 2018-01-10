@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Linear Regression: Bayesian Approach"
+title: "Linear Regression: Bayesian Approach, Normal Conjugacy"
 date: 2018-01-08
 categories: datasci
 img: ""

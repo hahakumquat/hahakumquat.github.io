@@ -124,6 +124,10 @@ $$\min_{\mathbf{w}} \mathcal{L}(\mathbf{w}) + ||\mathbf{w}||_1$$
 
 Instead, we can always use stochastic methods/gradient descent to optimize these loss functions.
 
+Note that we can use both regularization terms together or even add hyperparameter constants to adjust the strength of each like so:
+
+$$\min_{\mathbf{w}} \mathcal{L}(\mathbf{w}) + \lambda \mathbf{w}^\top\mathbf{w}$$
+
 # Ensemble Methods
 
 Finally, usually a decrease in variance results in an increase in bias, but we can also reduce the variance without increasing bias by using *ensemble methods.* The ensemble method simply trains multiple models and takes the average (for regression, majority vote for classification) of predictions. This is known as *bagging.* In *boosting*, we train data sequentially, giving more weight to incorrectly classified examples.
