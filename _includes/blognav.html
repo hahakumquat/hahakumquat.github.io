@@ -1,14 +1,12 @@
 <div class="blog-nav">
     <div class="spacer"></div>
-    <h1 class="invite">Blogs</h1>
-    <ul>
-        {% for c in site.data.categories %}
-        <p class="desc"><a href="{{ c.url }}">{{ c.name }}</a></p>
-        {% endfor %}
-        <hr>
-    </ul>
-    <ul>
-        <h1 class="invite">Recent Posts</h1>
+    <h1 class="invite">Categories</h1>
+    {% for c in site.data.categories %}
+    <p class="desc"><a href="{{ c.url }}">{{ c.name }}</a></p>
+    {% endfor %}
+    <hr>
+    <h1 class="invite"><a href="/blog/">Recent Posts</a></h1>
+    <ul>        
         {% assign maxPosts = 30 %}
         {% assign ctr = 0 %}
         {% for i in site.posts %}

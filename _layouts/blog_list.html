@@ -6,13 +6,13 @@
         <div class="spacer"></div>
         {% include blognav.html %}
         {% for i in site.posts %}
-        {% if i.categories contains page.categories %}
+        {% if i.categories contains page.categories or page.categories == '' %}
         <a href="{{ i.url }}">
             <div class="blog-frame-container">            
                 <div class="container">
                     <h1 class="header">{{ i.title }}</h1>
                     <div class="info">
-                        <p>{{ i.date | date: "%m/%d/%Y" }}</p>
+                        <p class="invite">{{ i.date | date: "%m/%d/%Y" }}</p>
                         <p>tags: {% for t in i.tags %}{{ t }} {% endfor %}</p>
                     </div>
                 </div>
@@ -22,7 +22,6 @@
                 <div class="container">
                     {{ i.excerpt }}
                 </div>
-                
             </div>
         </a>
         {% endif %}

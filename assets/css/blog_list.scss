@@ -3,7 +3,7 @@
 @import "common";
 
 body {
-    width: 60%;
+    width: 65%;
 }
 
 .header {
@@ -18,7 +18,7 @@ body {
     @extend .container;
     margin: 20px;
     margin-left: .5in;
-    padding: 30px;
+    padding: 20px 30px 20px 30px;
     box-shadow: $boxShadow;
     overflow: hidden;
 }

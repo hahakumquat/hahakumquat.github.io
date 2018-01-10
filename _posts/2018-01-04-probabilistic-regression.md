@@ -11,7 +11,7 @@ tags:
 - "probability"
 ---
 
-In my <a class="link" href="{{ page.previous.url }}">last post</a>, I discussed the mathematical intuition behind the linear regression. Today, we look at the regression under a probabilistic modeling context that help us understand the reasons behind the least squares loss function.
+Today, we look at the regression under a probabilistic modeling context that help us understand the reasons behind the least squares loss function.
 
 Recall that in linear regression, we assume that our data is a linear combination of weights and our feature vector with an prepended bias term:
 

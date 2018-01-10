@@ -54,12 +54,12 @@ html, body, .container {
     padding: 1in 1in 0 1in;
 }
 
-.blog-nav .text a, .blog-nav .desc a {
+.blog-nav .text a, .blog-nav .desc a, .blog-nav .invite a {
     color: $navTabColor;
     transition: $navTransition;
 }
 
-.blog-nav .text a:hover, .blog-nav .desc a:hover {
+.blog-nav .text a:hover, .blog-nav .desc a:hover, .blog-nav .invite a:hover {
     cursor: pointer;
     color: white;
     transition: $navTransition;
@@ -140,9 +140,24 @@ html, body, .container {
 }
 
 .strip  {
-    height: 100vh / ($numCategories + 1);
+    height: $headerSize;
+    width: 100%;
+    position: relative;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-transition: filter $transitionTime;
+    transition: filter $transitionTime;
     overflow: hidden;
 }
+
+.strip:hover {
+    cursor: pointer;
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+    -webkit-transition: filter $transitionTime;
+    transition: filter $transitionTime;
+}
+
 
 .inline {
     display: inline-block;
@@ -201,7 +216,7 @@ li a, a {
     @extend .container;
     text-align: center;
     margin: 0 auto;
-    display: block;    
+    display: block;
 }
 
 .white-centering {
@@ -219,3 +234,4 @@ li a, a {
     top: 50%;
     @include transform(translate(0, -50%));
 }
+
