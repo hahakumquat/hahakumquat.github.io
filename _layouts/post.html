@@ -6,7 +6,7 @@
         <div class="spacer"></div>
         <div class="blog-container">
             <h1 class="header">{{ page.title }}</h1>
-            <h1>{{ page.date | date: "%m/%d/%Y" }}</h1>
+            <p class="invite">{{ page.date | date: "%m/%d/%Y" }}</p>
             <p class="desc tags"><i>Tags:
                 {% for t in page.tags %}
                 {{ t }}
