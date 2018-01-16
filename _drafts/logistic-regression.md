@@ -6,6 +6,6 @@ categories: datasci
 hasMath: "Tex-AMS_CHTML"
 tags:
 - "machine learning"
-- "accuracy"
-- "error"
+- "logistic regression"
+- "discriminative"
 ---
