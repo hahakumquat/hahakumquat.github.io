@@ -117,12 +117,17 @@ Run hwclock to generate /etc/adjtime:
 
 Set your locale by uncommenting your desired locale (en_US.UTF-8 UTF-8):
 ```
-# nano /etc/locale.conf
+# nano /etc/locale.gen
 ```
 
 Make your edits and run:
 ```
 # locale-gen
+```
+
+And set the `LANG` variable in `locale.conf`:
+```
+LANG=en_US.UTF-8
 ```
 
 Set the LANG variable as well:
