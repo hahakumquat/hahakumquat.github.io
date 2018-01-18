@@ -78,6 +78,8 @@ If you run into problems about keys not being found, update the archlinux keyrin
 # pacman -Sy archlinux-keyring
 ```
 
+Then, update your USB install with `pacman -Syu`.
+
 <h1 class="invite">fstab.</h1>
 
 Generate the fstab afterwards:
