@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Arch Linux: Post-Install"
+title: "Arch Linux: Post-Install Notes"
 date: 2018-01-17
 categories: technology
 img: ""
@@ -29,7 +29,9 @@ Here's some things you should do after successfully installing Arch Linux.
 - xorg-xbacklight: backlight
 - xf86-input-libinput: mouse
 - scrot: print screen
+- pulseaudio: audio
 - alsa-utils: audio
+- pavucontrol: audio UI
 
 # Make a user
 

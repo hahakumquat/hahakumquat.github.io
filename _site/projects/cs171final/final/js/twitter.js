@@ -1,1 +1,5 @@
-TwitterFeed=function(){},TwitterFeed.prototype.initVis=function(){};
+TwitterFeed = function() {
+}
+
+TwitterFeed.prototype.initVis = function() {
+}

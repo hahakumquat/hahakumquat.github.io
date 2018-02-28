@@ -1,6 +1,78 @@
-<!DOCTYPE html> <html> <head> <title>Michael Ge | Software Engineer | Graphic Artist</title> <meta charset="UTF-8"> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script> <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-112248037-1");</script> <link rel="stylesheet" type="text/css" href="/assets/css/post.css"> <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"> </head> <body> <div id="nav-container"> <ul class="nav"> <li class="navli"><a class="text nava" href="/">HOME</a></li> <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li> <li class="navli"><a class="text nava" href="/art">ART</a></li> <li class="navli"><a class="text nava" href="/code">CODE</a></li> <li class="navli"><a class="text nava" href="/blog">BLOG</a></li> <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li> </ul> </div> <div class="spacer"></div> <div class="blog-container"> <h1 class="header">A Definitive Arch Linux Install Guide for the Chromebook C720</h1> <p class="invite">12/18/2017</p> <p class="desc tags"><i>Tags: arch linux </i></p> <p>After the many, many times I’ve struggled to install and reinstall Arch Linux on a device, I’ve decided <em>enough is enough</em>. It’s time to write a complete guide for installing Arch on a Chromebook C720.</p> <p>I don’t really know how I ended up owning three of these laptops, but it is what it is. The <a href="https://wiki.archlinux.org/index.php/installation_guide">official Arch install guide</a> is a bit vague about setting up grub and partitions, so I’m going to document an example setup here.</p> <p>The basic procedure is as follows:</p> <ol> <li>Connect to wi-fi.</li> <li>Update the system clock.</li> <li>Partition the hard drive.</li> <li>Mount partitions.</li> <li>Install everything.</li> <li>fstab.</li> <li>GRUB.</li> <li>Final touches.</li> </ol> <h1 class="invite">Connect to wi-fi.</h1> <div class="highlighter-rouge"><pre class="highlight"><code># wifi-menu
-</code></pre> </div> <p>You’ll need wi-fi to install packages.</p> <h1 class="invite">Update the system clock.</h1> <div class="highlighter-rouge"><pre class="highlight"><code># timedatectl set-ntp true
-</code></pre> </div> <h1 class="invite">Partition the hard drive.</h1> <p>We’ll be using a GPT partition table. Additionally, we’ll be using GRUB as our bootloader, so there needs to be a partition for booting as well.</p> <div class="highlighter-rouge"><pre class="highlight"><code>(parted) mklabel gpt
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Michael Ge | Software Engineer | Graphic Artist</title>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112248037-1');
+    </script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/post.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+    <body>        
+        <div id="nav-container">
+    <ul class="nav">
+        
+            <li class="navli"><a class="text nava" href="/">HOME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/art">ART</a></li>
+        
+            <li class="navli"><a class="text nava" href="/code">CODE</a></li>
+        
+            <li class="navli"><a class="text nava" href="/blog">BLOG</a></li>
+        
+            <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li>
+        
+    </ul>
+</div>
+
+        <div class="spacer"></div>
+        <div class="blog-container">
+            <h1 class="header">A Definitive Arch Linux Install Guide for the Chromebook C720</h1>
+            <p class="invite">12/18/2017</p>
+            <p class="desc tags"><i>Tags:
+                
+                arch linux
+                
+            </i></p>
+            <p>After the many, many times I’ve struggled to install and reinstall Arch Linux on a device, I’ve decided <em>enough is enough</em>. It’s time to write a complete guide for installing Arch on a Chromebook C720.</p>
+
+<p>I don’t really know how I ended up owning three of these laptops, but it is what it is. The <a href="https://wiki.archlinux.org/index.php/installation_guide">official Arch install guide</a> is a bit vague about setting up grub and partitions, so I’m going to document an example setup here.</p>
+
+<p>The basic procedure is as follows:</p>
+<ol>
+  <li>Connect to wi-fi.</li>
+  <li>Update the system clock.</li>
+  <li>Partition the hard drive.</li>
+  <li>Mount partitions.</li>
+  <li>Install everything.</li>
+  <li>fstab.</li>
+  <li>GRUB.</li>
+  <li>Final touches.</li>
+</ol>
+
+<h1 class="invite">Connect to wi-fi.</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code># wifi-menu
+</code></pre>
+</div>
+<p>You’ll need wi-fi to install packages.</p>
+<h1 class="invite">Update the system clock.</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code># timedatectl set-ntp true
+</code></pre>
+</div>
+
+<h1 class="invite">Partition the hard drive.</h1>
+<p>We’ll be using a GPT partition table. Additionally, we’ll be using GRUB as our bootloader, so there needs to be a partition for booting as well.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(parted) mklabel gpt
 (parted) mkpart primary 1MiB 3MiB
 (parted) name 1 grub
 (parted) set 1 bios_grub on
@@ -10,28 +82,280 @@
 (parted) name 3 swap
 (parted) mkpart primary 2GiB 100%
 (parted) name 4 rootfs
-</code></pre> </div> <p>This makes a BIOS partition for GRUB, a boot partition, a swap partition, and disk space.</p> <h1 class="invite">Mount partitions.</h1> <p>First, format the partitions with the appropriate filesystem:</p> <div class="highlighter-rouge"><pre class="highlight"><code># mkfs.ext4 /dev/sda2
+</code></pre>
+</div>
+
+<p>This makes a BIOS partition for GRUB, a boot partition, a swap partition, and disk space.</p>
+
+<h1 class="invite">Mount partitions.</h1>
+
+<p>First, format the partitions with the appropriate filesystem:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># mkfs.ext4 /dev/sda2
 # mkfs.ext4 /dev/sda4
-</code></pre> </div> <p>Then, mount the hard drive to an accessible path we can chroot into later.</p> <div class="highlighter-rouge"><pre class="highlight"><code>mount /dev/sda4 /mnt
+</code></pre>
+</div>
+
+<p>Then, mount the hard drive to an accessible path we can chroot into later.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>mount /dev/sda4 /mnt
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
-</code></pre> </div> <h1 class="invite">Install everything.</h1> <p>The base and base-devel packages contain most things needed to get up and running. Use pacstrap to install:</p> <div class="highlighter-rouge"><pre class="highlight"><code># pacstrap \mnt base base-devel
-</code></pre> </div> <p>If you run into problems about keys not being found, update the archlinux keyring:</p> <div class="highlighter-rouge"><pre class="highlight"><code># pacman -Sy archlinux-keyring
-</code></pre> </div> <p>Then, update your USB install with <code class="highlighter-rouge">pacman -Syu</code>.</p> <h1 class="invite">fstab.</h1> <p>Generate the fstab afterwards:</p> <div class="highlighter-rouge"><pre class="highlight"><code># genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
-</code></pre> </div> <h1 class="invite">GRUB.</h1> <p>We’ll now start customizing the newly installed Arch copy. First chroot:</p> <div class="highlighter-rouge"><pre class="highlight"><code># arch-chroot /mnt
-</code></pre> </div> <p>Let’s set up booting to the new OS.</p> <div class="highlighter-rouge"><pre class="highlight"><code># pacman -Syu grub
+</code></pre>
+</div>
+
+<h1 class="invite">Install everything.</h1>
+<p>The base and base-devel packages contain most things needed to get up and running. Use pacstrap to install:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># pacstrap \mnt base base-devel
+</code></pre>
+</div>
+
+<p>If you run into problems about keys not being found, update the archlinux keyring:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># pacman -Sy archlinux-keyring
+</code></pre>
+</div>
+
+<p>Then, update your USB install with <code class="highlighter-rouge">pacman -Syu</code>.</p>
+
+<h1 class="invite">fstab.</h1>
+
+<p>Generate the fstab afterwards:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre>
+</div>
+
+<h1 class="invite">GRUB.</h1>
+
+<p>We’ll now start customizing the newly installed Arch copy. First chroot:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># arch-chroot /mnt
+</code></pre>
+</div>
+
+<p>Let’s set up booting to the new OS.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># pacman -Syu grub
 # grub-install /dev/sda
 # grub-mkconfig -o /boot/grub/grub.cfg
-</code></pre> </div> <p>If there’s an error, either this guide is bad or you messed up somewhere.</p> <h1 class="invite">Final Touches</h1> <p>Link the timezone:</p> <div class="highlighter-rouge"><pre class="highlight"><code># ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-</code></pre> </div> <p>Run hwclock to generate /etc/adjtime:</p> <div class="highlighter-rouge"><pre class="highlight"><code># hwclock --systohc
-</code></pre> </div> <p>Set your locale by uncommenting your desired locale (en_US.UTF-8 UTF-8):</p> <div class="highlighter-rouge"><pre class="highlight"><code># nano /etc/locale.gen
-</code></pre> </div> <p>Make your edits and run:</p> <div class="highlighter-rouge"><pre class="highlight"><code># locale-gen
-</code></pre> </div> <p>And set the <code class="highlighter-rouge">LANG</code> variable in <code class="highlighter-rouge">locale.conf</code>:</p> <div class="highlighter-rouge"><pre class="highlight"><code>LANG=en_US.UTF-8
-</code></pre> </div> <p>Set the LANG variable as well:</p> <div class="highlighter-rouge"><pre class="highlight"><code>echo LANG=en_US.UTF-8 &gt;&gt; /etc/locale.conf
-</code></pre> </div> <p>Set your hostname. This is the “name” of your computer:</p> <div class="highlighter-rouge"><pre class="highlight"><code>echo myhostname &gt;&gt; /etc/hostname
-</code></pre> </div> <p>Add a matching entry to your hosts file:</p> <div class="highlighter-rouge"><pre class="highlight"><code>127.0.0.1	localhost.localdomain	localhost
+</code></pre>
+</div>
+
+<p>If there’s an error, either this guide is bad or you messed up somewhere.</p>
+
+<h1 class="invite">Final Touches</h1>
+
+<p>Link the timezone:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+</code></pre>
+</div>
+
+<p>Run hwclock to generate /etc/adjtime:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># hwclock --systohc
+</code></pre>
+</div>
+
+<p>Set your locale by uncommenting your desired locale (en_US.UTF-8 UTF-8):</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># nano /etc/locale.gen
+</code></pre>
+</div>
+
+<p>Make your edits and run:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># locale-gen
+</code></pre>
+</div>
+
+<p>And set the <code class="highlighter-rouge">LANG</code> variable in <code class="highlighter-rouge">locale.conf</code>:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>LANG=en_US.UTF-8
+</code></pre>
+</div>
+
+<p>Set the LANG variable as well:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>echo LANG=en_US.UTF-8 &gt;&gt; /etc/locale.conf
+</code></pre>
+</div>
+
+<p>Set your hostname. This is the “name” of your computer:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>echo myhostname &gt;&gt; /etc/hostname
+</code></pre>
+</div>
+
+<p>Add a matching entry to your hosts file:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>127.0.0.1	localhost.localdomain	localhost
 ::1		localhost.localdomain	localhost
 127.0.1.1	myhostname.localdomain	myhostname
-</code></pre> </div> <p>Set a password for root:</p> <div class="highlighter-rouge"><pre class="highlight"><code># passwd
-</code></pre> </div> <h1 class="header">DONE!</h1> <p>Alright, good job, ctrl-D to exit chroot, unmount the OS:</p> <div class="highlighter-rouge"><pre class="highlight"><code>unmount -R /mnt
-</code></pre> </div> <p>Restart, and pray that you boot into Arch Linux the next time around.</p> <div class="blog-nav"> <div class="spacer"></div> <h1 class="invite">Categories</h1> <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p> <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p> <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p> <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p> <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p> <hr> <h1 class="invite"><a href="/blog/">Recent Posts</a></h1> <ul> <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p> <p class="text"><a href="/technology/2018/01/17/arch-getting-started/">01/17/2018<br>Arch Linux: Post-Install</a></p> <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p> <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p> <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p> <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p> <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p> <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p> <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p> <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p> <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p> <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p> <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p> <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p> <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p> <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p> <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p> <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p> <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p> <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p> <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p> <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p> <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p> <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p> </ul> </div> <center> <p> <a class="link" href="/graphics/2017/12/15/fire-room/"> Previous: C4D: Fire Room BTS </a> | <a class="link" href="/misc/2017/12/18/misc-intro/"> Next: Welcome to my Miscellaneous Blog! </a> </p> </center> </div> <div class="white-container" id="footer-container"> <div class="black-centering"> <p>Michael Ge is a digital artist and data-driven software engineer.</p> <ul> <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li> <li class="link"><a href="https://github.com/hahakumquat">Github</a></li> <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li> </ul> <ul> <li>Tel: (626) 893-5895</li> <li>Email: michaelge@college.harvard.edu</li> <li>Resumé and references available upon request.</li> </ul> </div> </div> <script src="/assets/js/jquery.js"></script> </body> </html>
+</code></pre>
+</div>
+
+<p>Set a password for root:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># passwd
+</code></pre>
+</div>
+
+<h1 class="header">DONE!</h1>
+
+<p>Alright, good job, ctrl-D to exit chroot, unmount the OS:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>unmount -R /mnt
+</code></pre>
+</div>
+
+<p>Restart, and pray that you boot into Arch Linux the next time around.</p>
+
+            <div class="blog-nav">
+    <div class="spacer"></div>
+    <h1 class="invite">Categories</h1>
+    
+    <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p>
+    
+    <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p>
+    
+    <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p>
+    
+    <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p>
+    
+    <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p>
+    
+    <hr>
+    <h1 class="invite"><a href="/blog/">Recent Posts</a></h1>
+    <ul>        
+        
+        
+        
+        <p class="text"><a href="/technology/2018/02/28/pacman-file-conflicts/">02/28/2018<br>Pacman: File Conflicts</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-post-install/">01/17/2018<br>Arch Linux: Post-Install Notes</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p>
+        
+        
+        
+    </ul>
+</div>
+
+            <center>
+                <p>
+                    <a class="link" href="/graphics/2017/12/15/fire-room/">
+                        
+                        Previous: C4D: Fire Room BTS
+                        
+                    </a>
+                     | 
+                    <a class="link" href="/misc/2017/12/18/misc-intro/">                        
+                        
+                        Next: Welcome to my Miscellaneous Blog!
+                        
+                    </a>
+                </p>
+            </center>
+        </div>        
+        <div class="white-container" id="footer-container">
+    <div class="black-centering">
+        <p>Michael Ge is a digital artist and data-driven software engineer.</p>
+        <ul>
+            <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li>
+            <li class="link"><a href="https://github.com/hahakumquat">Github</a></li>
+            <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li>
+        </ul>
+        <ul>
+            <li>Tel: (626) 893-5895</li>
+            <li>Email: michaelge@college.harvard.edu</li>
+            <li>Resumé and references available upon request.</li>
+        </ul>
+    </div>
+</div>
+
+        <script src="/assets/js/jquery.js"></script>
+        
+        
+    </body>
+</html>

@@ -36,59 +36,110 @@
 
         <div class="spacer"></div>
         <div class="blog-container">
-            <h1 class="header">Nonlinearity: Basis Functions</h1>
-            <p class="invite">01/08/2018</p>
+            <h1 class="header">Arch Linux: Post-Install Notes</h1>
+            <p class="invite">01/17/2018</p>
             <p class="desc tags"><i>Tags:
                 
-                machine learning
+                arch linux
                 
-                non-linearity
-                
-                basis functions
+                packages
                 
             </i></p>
-            <p>We often work in linear space, but you might ask how we could capture nonlinearity? The answer lies in basis functions.</p>
+            <p>Here’s some things you should do after successfully installing Arch Linux.</p>
 
-<p>Suppose we have data with a single, real-valued covariate input and that follows a quadratic trend. We’d like to fit a quadratic regression. How can we use the same tooling we have for linear regression and apply it to this problem?</p>
+<h1 id="install-useful-packages">Install Useful Packages</h1>
 
-<p>Our problem as a linear regression would look like:</p>
+<ul>
+  <li>grub: for booting</li>
+  <li>iw, wpa_supplicant: wifi stuff</li>
+  <li>dialog: to allow wifi-menu</li>
+  <li>intel-ucode: for Intel CPUs</li>
+  <li>xorg-server: display server</li>
+  <li>xorg-xinit: to startx</li>
+  <li>xterm: because xinit needs a terminal</li>
+  <li>chromium: to browse the Internet</li>
+  <li>Emacs: because everyone needs a <em>good</em> text editor</li>
+  <li>arandr: screen extend</li>
+  <li>ttf-dejavu: fonts</li>
+  <li>xbindkeys: shortcuts</li>
+  <li>xorg-xmodmap: change what the buttons do</li>
+  <li>xorg-xbacklight: backlight</li>
+  <li>xf86-input-libinput: mouse</li>
+  <li>scrot: print screen</li>
+  <li>pulseaudio: audio</li>
+  <li>alsa-utils: audio</li>
+  <li>pavucontrol: audio UI</li>
+</ul>
 
-<script type="math/tex; mode=display">y = w_1x_1 + w_0</script>
+<h1 id="make-a-user">Make a user</h1>
 
-<p>So our $\mathbf{x}$ would look like:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>useradd -m -G wheel -s /bin/bash username
+passwd username
+nano /etc/sudoers
+# Comment out %wheel ALL=(ALL) ALL
+</code></pre>
+</div>
 
-<script type="math/tex; mode=display">\begin{bmatrix}
-1 \\
-x_1
-\end{bmatrix}</script>
+<h1 id="wlan-and-bluetooth-improvement">WLAN and Bluetooth Improvement</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>/etc/modprobe.d/ath9k.conf
 
-<p>And our $\mathbf{w}$ would look like:</p>
+options ath9k bt_ant_diversity=1 ps_enable=0
+btcoex_enable=1
+</code></pre>
+</div>
 
-<script type="math/tex; mode=display">\begin{bmatrix}
-w_0 \\
-w_1
-\end{bmatrix}</script>
+<p>Setting <code class="highlighter-rouge">ps_enable=1</code> might freeze your system, but it saves power.</p>
 
-<p>To capture this quadratic form, we can simply use a basis function.</p>
+<h1 id="touchpad-settings">Touchpad Settings</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>/etc/X11/xorg.conf.d/50-cros-touchpad.conf
 
-<h1 id="basis-functions">Basis Functions</h1>
+Section "InputClass"
+    Identifier "touchpad peppy cyapa"
+        Driver "synaptics"
+        MatchIsTouchpad "on"
+        MatchDevicePath "/dev/input/event*"
+            Option "TapButton1" "1"
+            Option "TapButton2" "3"
+            Option "TapButton3" "2"
+	    Option "ClickFinger2" "3"
+	    Option "ClickFinger3" "2"
+            Option "VertTwoFingerScroll" "on"
+	    Option "HorizTwoFingerScroll" "on"
+            Option "FingerLow" "10"
+	    Option "FingerHigh" "10"
+EndSection
+</code></pre>
+</div>
 
-<p>Let $\phi(\mathbf{x})$ be a function that maps an input $\mathbf{x}$ to a new vector output of any dimensional output. For example, we can have $\phi$ do the following transformation:</p>
+<h1 id="xbindkeys">xbindkeys</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>~/.xbindkeysrc
 
-<script type="math/tex; mode=display">\begin{bmatrix}
-1 \\
-x_1
-\end{bmatrix} \to \begin{bmatrix}
-1 \\
-x_1 \\
-x_1^2
-\end{bmatrix}</script>
+"amixer -c 1 set Master 5%+"
+m:0x0 + c:76
 
-<p>Because we’ve increased the dimensionality of $\mathbf{x}$, we’d also need to increase the dimensionality of $\mathbf{w}$. As a result, our new lienar regression would look like:</p>
+"amixer -c 1 set Master 5%-"
+m:0x0 + c:75
 
-<script type="math/tex; mode=display">y = \mathbf{w}^\top \phi(\mathbf{x}) = w_2x_1^2 + w_1x_1 + w_0</script>
+"pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1"
+"$2" "($3=="yes"?"no":"yes"))}' &gt; /dev/null"
+m:0x0 + c:74 
 
-<p>Ta-da! We have a quadratic regresion! Of course, we’re not limited to polynomial regressions. Our $\phi$ basis function can transform our feature vector into any output we want. It’s simply a matter of choosing the right functions to perform the basis transformation, but that’s a whole ordeal on its own. The point is that it is indeed possible to use the same techniques learned for linear regression in non-linear cases just by basis functions. Ultimately, everything ends up being something like a linear model (except for Random Forests and the like, TBA).</p>
+"xbacklight -dec 5"
+m:0x0 + c:72
+
+"xbacklight -inc 5"
+m:0x0 + c:73
+
+"emacsclient -c"
+m:0xc + c:26
+
+"scrot -s '%Y-%m-%d-%s.png' -e 'mv $f ~/'"
+m:0x4 + c:124
+
+"systemctl suspend"
+m:0x8 + c:124
+</code></pre>
+</div>
 
             <div class="blog-nav">
     <div class="spacer"></div>
@@ -215,15 +266,15 @@ x_1^2
 
             <center>
                 <p>
-                    <a class="link" href="/datasci/2018/01/06/model-selection/">
+                    <a class="link" href="/datasci/2018/01/15/classification-metrics/">
                         
-                        Previous: Model Selection
+                        Previous: Binary Classification Metrics
                         
                     </a>
                      | 
-                    <a class="link" href="/datasci/2018/01/08/bayesian-regression/">                        
+                    <a class="link" href="/technology/2018/01/17/arch-usb/">                        
                         
-                        Next: Linear Regression: Bayesian Approach, Normal Conjugacy
+                        Next: Making an Arch Linux USB Flash Install Medium
                         
                     </a>
                 </p>
@@ -247,28 +298,6 @@ x_1^2
 
         <script src="/assets/js/jquery.js"></script>
         
-        
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({
-                extensions: ["tex2jax.js"],
-                jax: ["input/TeX", "output/HTML-CSS"],
-                tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                    processEscapes: true
-                },
-                TeX: {
-                    Macros: {
-                        t: ['{\\text{#1}}', 1],
-                        bold: ["{\\bf{#1}}",1],
-                        mbb: ['{\\mathbb{#1}}', 1],
-                        mcal: ['{\\mathcatl{#1}}', 1]
-                    }
-                },
-                "HTML-CSS": { availableFonts: ["TeX"] }
-            });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
         
     </body>
 </html>

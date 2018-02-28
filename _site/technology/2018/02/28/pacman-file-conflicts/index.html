@@ -36,59 +36,20 @@
 
         <div class="spacer"></div>
         <div class="blog-container">
-            <h1 class="header">Nonlinearity: Basis Functions</h1>
-            <p class="invite">01/08/2018</p>
+            <h1 class="header">Pacman: File Conflicts</h1>
+            <p class="invite">02/28/2018</p>
             <p class="desc tags"><i>Tags:
                 
-                machine learning
+                arch linux
                 
-                non-linearity
-                
-                basis functions
+                packages
                 
             </i></p>
-            <p>We often work in linear space, but you might ask how we could capture nonlinearity? The answer lies in basis functions.</p>
+            <p>I got a Jupyter error: failed to commit transaction (conflicting files) while trying to update my packages.</p>
 
-<p>Suppose we have data with a single, real-valued covariate input and that follows a quadratic trend. We’d like to fit a quadratic regression. How can we use the same tooling we have for linear regression and apply it to this problem?</p>
+<p>Not sure how I managed to get my packages out of sync. Running pacman -Qo on the conflicting files specified that pacman wasn’t managing the files that had the conflicts, and I definitely don’t do any manual installs.</p>
 
-<p>Our problem as a linear regression would look like:</p>
-
-<script type="math/tex; mode=display">y = w_1x_1 + w_0</script>
-
-<p>So our $\mathbf{x}$ would look like:</p>
-
-<script type="math/tex; mode=display">\begin{bmatrix}
-1 \\
-x_1
-\end{bmatrix}</script>
-
-<p>And our $\mathbf{w}$ would look like:</p>
-
-<script type="math/tex; mode=display">\begin{bmatrix}
-w_0 \\
-w_1
-\end{bmatrix}</script>
-
-<p>To capture this quadratic form, we can simply use a basis function.</p>
-
-<h1 id="basis-functions">Basis Functions</h1>
-
-<p>Let $\phi(\mathbf{x})$ be a function that maps an input $\mathbf{x}$ to a new vector output of any dimensional output. For example, we can have $\phi$ do the following transformation:</p>
-
-<script type="math/tex; mode=display">\begin{bmatrix}
-1 \\
-x_1
-\end{bmatrix} \to \begin{bmatrix}
-1 \\
-x_1 \\
-x_1^2
-\end{bmatrix}</script>
-
-<p>Because we’ve increased the dimensionality of $\mathbf{x}$, we’d also need to increase the dimensionality of $\mathbf{w}$. As a result, our new lienar regression would look like:</p>
-
-<script type="math/tex; mode=display">y = \mathbf{w}^\top \phi(\mathbf{x}) = w_2x_1^2 + w_1x_1 + w_0</script>
-
-<p>Ta-da! We have a quadratic regresion! Of course, we’re not limited to polynomial regressions. Our $\phi$ basis function can transform our feature vector into any output we want. It’s simply a matter of choosing the right functions to perform the basis transformation, but that’s a whole ordeal on its own. The point is that it is indeed possible to use the same techniques learned for linear regression in non-linear cases just by basis functions. Ultimately, everything ends up being something like a linear model (except for Random Forests and the like, TBA).</p>
+<p>I ran pacman -Syu –force to get it to install. That’s probably not the best way to handle this problem, like at all, but if it’s for something like Jupyter Notebook, it’s fine.</p>
 
             <div class="blog-nav">
     <div class="spacer"></div>
@@ -215,15 +176,13 @@ x_1^2
 
             <center>
                 <p>
-                    <a class="link" href="/datasci/2018/01/06/model-selection/">
+                    <a class="link" href="/technology/2018/01/17/arch-usb/">
                         
-                        Previous: Model Selection
+                        Previous: Making an Arch Linux USB Flash Install Medium
                         
                     </a>
-                     | 
-                    <a class="link" href="/datasci/2018/01/08/bayesian-regression/">                        
-                        
-                        Next: Linear Regression: Bayesian Approach, Normal Conjugacy
+                    
+                    <a class="link" href="">                        
                         
                     </a>
                 </p>
@@ -247,28 +206,6 @@ x_1^2
 
         <script src="/assets/js/jquery.js"></script>
         
-        
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({
-                extensions: ["tex2jax.js"],
-                jax: ["input/TeX", "output/HTML-CSS"],
-                tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                    processEscapes: true
-                },
-                TeX: {
-                    Macros: {
-                        t: ['{\\text{#1}}', 1],
-                        bold: ["{\\bf{#1}}",1],
-                        mbb: ['{\\mathbb{#1}}', 1],
-                        mcal: ['{\\mathcatl{#1}}', 1]
-                    }
-                },
-                "HTML-CSS": { availableFonts: ["TeX"] }
-            });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
         
     </body>
 </html>

@@ -1,4 +1,257 @@
-<!DOCTYPE html> <html> <head> <title>Michael Ge | Software Engineer | Graphic Artist</title> <meta charset="UTF-8"> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script> <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-112248037-1");</script> <link rel="stylesheet" type="text/css" href="/assets/css/post.css"> <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"> </head> <body> <div id="nav-container"> <ul class="nav"> <li class="navli"><a class="text nava" href="/">HOME</a></li> <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li> <li class="navli"><a class="text nava" href="/art">ART</a></li> <li class="navli"><a class="text nava" href="/code">CODE</a></li> <li class="navli"><a class="text nava" href="/blog">BLOG</a></li> <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li> </ul> </div> <div class="spacer"></div> <div class="blog-container"> <h1 class="header">Linear Regression: Bayesian Approach, Normal Conjugacy</h1> <p class="invite">01/08/2018</p> <p class="desc tags"><i>Tags: machine learning bayesian regression </i></p> <p>Understanding the linear regression from a probabilistic perspective allows us to perform more advanced statistical inference. Today, we’ll be applying Bayesian inference concepts to the linear regression. As a result, we’ll have a way to update the beliefs of our models as more data becomes accessible or account for prior knowledge when looking at data.</p> <p>I highly recommend taking a look at <a class="link" href="/datasci/2017/09/10/inference-coins/">this introductory post on inference</a> before delving into this post as it covers the fundamentals of MLE, MAP, and conjugacy.</p> <p>Recall from the last post on <a class="link" href="/datasci/2018/01/08/basis-functions/">Nonlinearity: Basis Functions</a> that we can avoid overfitting our models with regularization terms. Here is the $\ell_2$ norm loss, for example:</p> <script type="math/tex; mode=display">\min_{\mathbf{w}} \mathcal{L}(\mathbf{w}) + \lambda \mathbf{w}^\top\mathbf{w}</script> <p>We use $\lambda$ to be an adjustable hyperparameter that specifies how much weight we put on the regularization term. Regularization terms can be effective, but they’re rather <em>ad hoc</em> and inflexible.</p> <h1 id="bayesian-basics">Bayesian Basics</h1> <p>Another solution to avoid overfitting to the data is to use Bayesian methods. In the Bayesian framework, we have a prior belief on our weights, $\mathbf{w}$, which we would like to use to maximize the likelihood of our data $D$, denoted $p(D|\mathbf{w})$.</p> <p>For a super brief overview of Bayes’ Rule, we define the posterior, $p(\mathbf{w}|D)$, as the product of the likelihood and prior:</p> <script type="math/tex; mode=display">p(\mathbf{w}|D) = \frac{\overbrace{p(D|\mathbf{w})}^\text{likelihood}\overbrace{p(\mathbf{w})}^\text{prior}}{p(D)} \propto p(D|\mathbf{w})p(\mathbf{w})</script> <script type="math/tex; mode=display">p(D) = \int_{\mathbf{w}} p(D|\mathbf{w})p(\mathbf{w})d\mathbf{w} = \text{constant for all }\mathbf{w}</script> <h1 id="choosing-a-prior">Choosing a Prior</h1> <p>We’ve discussed how to calculate the likelihood before. It’s simply the product of independent probabilities of each data point. But how do we choose the prior? Often, the prior distribution is informed by a field expert or taken from a previous experiment. Otherwise, you can use a <em>flat prior</em>, one that provides little information in the prior.</p> <h1 id="the-form-of-the-posterior">The form of the posterior</h1> <p>In the linear regression context, the likelihood of our data comes from a multivariate Normal distribution $\mathcal{N}(\mathbf{y}|\mathbf{Xw}, \beta^{-1}\mathbf{I})$ with an assumed (fixed) precision $\beta$. Suppose we define our prior on $\mathbf{w}$ to be $\mathcal{N}(\mathbf{w}|\mathbf{m}_0, \mathbf{S}_0)$. Our posterior is then proportional to:</p> <script type="math/tex; mode=display">p(\mu|D) \propto p(D|\mu)p(\mu)</script> <script type="math/tex; mode=display">=\mathcal{N}(\mathbf{y}|\mathbf{Xw}, \beta^{-1}\mathbf{I})\mathcal{N}(\mathbf{w}|\mathbf{m}_0, \mathbf{S_0})</script> <p>After multiplying out the two distributions, completing the square, and doing a whole lot of algebra in between, we arrive at the conclusion that the posterior distribution is indeed multivariate Normal:</p> <script type="math/tex; mode=display">\mathbf{w} \sim \mathcal{N}(\mathbf{m}_n, \mathbf{S}_n)</script> <script type="math/tex; mode=display">\mathbf{S}_n = (\mathbf{S}_0^{-1} + \beta \mathbf{X}^\top\mathbf{X})^{-1}</script> <script type="math/tex; mode=display">\mathbf{m}_n = \mathbf{S}_n(\mathbf{S}_0^{-1}\mathbf{m}_0 + \beta \mathbf{X}^\top \mathbf{y})</script> <p>This means that the Normal distribution is a conjugate of itself with the posterior form having the above parameters.</p> <h1 id="map-estimator">MAP Estimator</h1> <p>The MAP estimator for $\mu$ is then $\mathbf{m}_n$ instead of $\mathbf{m}_0$. This is a vector containing the average values of each feature.</p> <div class="blog-nav"> <div class="spacer"></div> <h1 class="invite">Categories</h1> <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p> <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p> <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p> <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p> <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p> <hr> <h1 class="invite"><a href="/blog/">Recent Posts</a></h1> <ul> <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p> <p class="text"><a href="/technology/2018/01/17/arch-getting-started/">01/17/2018<br>Arch Linux: Post-Install</a></p> <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p> <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p> <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p> <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p> <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p> <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p> <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p> <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p> <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p> <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p> <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p> <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p> <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p> <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p> <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p> <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p> <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p> <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p> <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p> <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p> <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p> <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p> </ul> </div> <center> <p> <a class="link" href="/datasci/2018/01/08/basis-functions/"> Previous: Nonlinearity: Basis Functions </a> | <a class="link" href="/datasci/2018/01/09/linear-classification/"> Next: Linear Classification and Perceptron </a> </p> </center> </div> <div class="white-container" id="footer-container"> <div class="black-centering"> <p>Michael Ge is a digital artist and data-driven software engineer.</p> <ul> <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li> <li class="link"><a href="https://github.com/hahakumquat">Github</a></li> <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li> </ul> <ul> <li>Tel: (626) 893-5895</li> <li>Email: michaelge@college.harvard.edu</li> <li>Resumé and references available upon request.</li> </ul> </div> </div> <script src="/assets/js/jquery.js"></script> <script type="text/x-mathjax-config">
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Michael Ge | Software Engineer | Graphic Artist</title>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112248037-1');
+    </script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/post.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+    <body>        
+        <div id="nav-container">
+    <ul class="nav">
+        
+            <li class="navli"><a class="text nava" href="/">HOME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/art">ART</a></li>
+        
+            <li class="navli"><a class="text nava" href="/code">CODE</a></li>
+        
+            <li class="navli"><a class="text nava" href="/blog">BLOG</a></li>
+        
+            <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li>
+        
+    </ul>
+</div>
+
+        <div class="spacer"></div>
+        <div class="blog-container">
+            <h1 class="header">Linear Regression: Bayesian Approach, Normal Conjugacy</h1>
+            <p class="invite">01/08/2018</p>
+            <p class="desc tags"><i>Tags:
+                
+                machine learning
+                
+                bayesian
+                
+                regression
+                
+            </i></p>
+            <p>Understanding the linear regression from a probabilistic perspective allows us to perform more advanced statistical inference. Today, we’ll be applying Bayesian inference concepts to the linear regression. As a result, we’ll have a way to update the beliefs of our models as more data becomes accessible or account for prior knowledge when looking at data.</p>
+
+<p>I highly recommend taking a look at <a class="link" href="/datasci/2017/09/10/inference-coins/">this introductory post on inference</a> before delving into this post as it covers the fundamentals of MLE, MAP, and conjugacy.</p>
+
+<p>Recall from the last post on <a class="link" href="/datasci/2018/01/08/basis-functions/">Nonlinearity: Basis Functions</a> that we can avoid overfitting our models with regularization terms. Here is the $\ell_2$ norm loss, for example:</p>
+
+<script type="math/tex; mode=display">\min_{\mathbf{w}} \mathcal{L}(\mathbf{w}) + \lambda \mathbf{w}^\top\mathbf{w}</script>
+
+<p>We use $\lambda$ to be an adjustable hyperparameter that specifies how much weight we put on the regularization term. Regularization terms can be effective, but they’re rather <em>ad hoc</em> and inflexible.</p>
+
+<h1 id="bayesian-basics">Bayesian Basics</h1>
+
+<p>Another solution to avoid overfitting to the data is to use Bayesian methods. In the Bayesian framework, we have a prior belief on our weights, $\mathbf{w}$, which we would like to use to maximize the likelihood of our data $D$, denoted $p(D|\mathbf{w})$.</p>
+
+<p>For a super brief overview of Bayes’ Rule, we define the posterior, $p(\mathbf{w}|D)$, as the product of the likelihood and prior:</p>
+
+<script type="math/tex; mode=display">p(\mathbf{w}|D) = \frac{\overbrace{p(D|\mathbf{w})}^\text{likelihood}\overbrace{p(\mathbf{w})}^\text{prior}}{p(D)} \propto p(D|\mathbf{w})p(\mathbf{w})</script>
+
+<script type="math/tex; mode=display">p(D) = \int_{\mathbf{w}} p(D|\mathbf{w})p(\mathbf{w})d\mathbf{w} = \text{constant for all }\mathbf{w}</script>
+
+<h1 id="choosing-a-prior">Choosing a Prior</h1>
+
+<p>We’ve discussed how to calculate the likelihood before. It’s simply the product of independent probabilities of each data point. But how do we choose the prior? Often, the prior distribution is informed by a field expert or taken from a previous experiment. Otherwise, you can use a <em>flat prior</em>, one that provides little information in the prior.</p>
+
+<h1 id="the-form-of-the-posterior">The form of the posterior</h1>
+
+<p>In the linear regression context, the likelihood of our data comes from a multivariate Normal distribution $\mathcal{N}(\mathbf{y}|\mathbf{Xw}, \beta^{-1}\mathbf{I})$ with an assumed (fixed) precision $\beta$. Suppose we define our prior on $\mathbf{w}$ to be $\mathcal{N}(\mathbf{w}|\mathbf{m}_0, \mathbf{S}_0)$. Our posterior is then proportional to:</p>
+
+<script type="math/tex; mode=display">p(\mu|D) \propto p(D|\mu)p(\mu)</script>
+
+<script type="math/tex; mode=display">=\mathcal{N}(\mathbf{y}|\mathbf{Xw}, \beta^{-1}\mathbf{I})\mathcal{N}(\mathbf{w}|\mathbf{m}_0, \mathbf{S_0})</script>
+
+<p>After multiplying out the two distributions, completing the square, and doing a whole lot of algebra in between, we arrive at the conclusion that the posterior distribution is indeed multivariate Normal:</p>
+
+<script type="math/tex; mode=display">\mathbf{w} \sim \mathcal{N}(\mathbf{m}_n, \mathbf{S}_n)</script>
+
+<script type="math/tex; mode=display">\mathbf{S}_n = (\mathbf{S}_0^{-1} + \beta \mathbf{X}^\top\mathbf{X})^{-1}</script>
+
+<script type="math/tex; mode=display">\mathbf{m}_n = \mathbf{S}_n(\mathbf{S}_0^{-1}\mathbf{m}_0 + \beta \mathbf{X}^\top \mathbf{y})</script>
+
+<p>This means that the Normal distribution is a conjugate of itself with the posterior form having the above parameters.</p>
+
+<h1 id="map-estimator">MAP Estimator</h1>
+
+<p>The MAP estimator for $\mu$ is then $\mathbf{m}_n$ instead of $\mathbf{m}_0$. This is a vector containing the average values of each feature.</p>
+
+            <div class="blog-nav">
+    <div class="spacer"></div>
+    <h1 class="invite">Categories</h1>
+    
+    <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p>
+    
+    <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p>
+    
+    <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p>
+    
+    <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p>
+    
+    <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p>
+    
+    <hr>
+    <h1 class="invite"><a href="/blog/">Recent Posts</a></h1>
+    <ul>        
+        
+        
+        
+        <p class="text"><a href="/technology/2018/02/28/pacman-file-conflicts/">02/28/2018<br>Pacman: File Conflicts</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-post-install/">01/17/2018<br>Arch Linux: Post-Install Notes</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p>
+        
+        
+        
+    </ul>
+</div>
+
+            <center>
+                <p>
+                    <a class="link" href="/datasci/2018/01/08/basis-functions/">
+                        
+                        Previous: Nonlinearity: Basis Functions
+                        
+                    </a>
+                     | 
+                    <a class="link" href="/datasci/2018/01/09/linear-classification/">                        
+                        
+                        Next: Linear Classification and Perceptron
+                        
+                    </a>
+                </p>
+            </center>
+        </div>        
+        <div class="white-container" id="footer-container">
+    <div class="black-centering">
+        <p>Michael Ge is a digital artist and data-driven software engineer.</p>
+        <ul>
+            <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li>
+            <li class="link"><a href="https://github.com/hahakumquat">Github</a></li>
+            <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li>
+        </ul>
+        <ul>
+            <li>Tel: (626) 893-5895</li>
+            <li>Email: michaelge@college.harvard.edu</li>
+            <li>Resumé and references available upon request.</li>
+        </ul>
+    </div>
+</div>
+
+        <script src="/assets/js/jquery.js"></script>
+        
+        
+        <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
                 extensions: ["tex2jax.js"],
                 jax: ["input/TeX", "output/HTML-CSS"],
@@ -17,4 +270,8 @@
                 },
                 "HTML-CSS": { availableFonts: ["TeX"] }
             });
-        </script> <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> </body> </html>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        
+    </body>
+</html>

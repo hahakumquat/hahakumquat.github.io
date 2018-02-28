@@ -1,16 +1,299 @@
-<!DOCTYPE html> <html> <head> <title>Michael Ge | Software Engineer | Graphic Artist</title> <meta charset="UTF-8"> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script> <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-112248037-1");</script> <link rel="stylesheet" type="text/css" href="/assets/css/post.css"> <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"> </head> <body> <div id="nav-container"> <ul class="nav"> <li class="navli"><a class="text nava" href="/">HOME</a></li> <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li> <li class="navli"><a class="text nava" href="/art">ART</a></li> <li class="navli"><a class="text nava" href="/code">CODE</a></li> <li class="navli"><a class="text nava" href="/blog">BLOG</a></li> <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li> </ul> </div> <div class="spacer"></div> <div class="blog-container"> <h1 class="header">Linear Regression: A Probabilistic Approach</h1> <p class="invite">01/04/2018</p> <p class="desc tags"><i>Tags: machine learning linear regression probability </i></p> <p>Today, we look at the regression under a probabilistic modeling context that help us understand the reasons behind the least squares loss function.</p> <p>Recall that in linear regression, we assume that our data is a linear combination of weights and our feature vector with an prepended bias term:</p> <script type="math/tex; mode=display">\hat{y} = h(\mathbf{x}; \mathbf{w}) = \sum_{i=1}^{m+1} x_i w_i = \mathbf{w^\top x}</script> <script type="math/tex; mode=display">\mathbf{x}, \mathbf{w} \in \mathbb{R}^{m+1}, \mathbf{x} = \begin{bmatrix}1 \\ \mathbf{x^1}\end{bmatrix}, \mathbf{w} = \begin{bmatrix}w_0 \\ \mathbf{w^1} \end{bmatrix}</script> <p>We posited that the residual sum-of-squares was a good loss function, but its use seemed rather <em>ad hoc</em>. Let’s show some of the theoretical underpinnings behind this loss function.</p> <p>To help understand the reasons for the least squares loss, we’ll need to review some fundamentals of probability theory. This is by no means a comprehensive overview of these concepts, but it hopefully brings back some of the most important ideas from your probability theory class. Consider a single data point. We can write the <em>conditional probability</em> of seeing its output $y$ given its feature vector $\mathbf{x}$ as:</p> <script type="math/tex; mode=display">p(y|\mathbf{x})</script> <p>If we assume that each data point is independent from one another, we can express the <em>joint probability</em>, the probability of seeing all of the data’s $y$ given each of the $\mathbf{x}$’s, as:</p> <script type="math/tex; mode=display">p(y_1, y_2, \ldots, y_n | \mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_n) = p(y_1|\mathbf{x}_1)p(y_2|\mathbf{x}_2)\ldots p(y_n|\mathbf{x}_n) = \prod_{i=1}^n p(y_i|\mathbf{x}_i)</script> <p>If the probabilities depend on parameters, we can also define this as the <em>likelihood</em> $L(\mathbf{w})$ which is a joint probability based on parameters $\mathbf{w}$.</p> <p>The value of a probability is defined by its <em>distribution</em>. We can think of a distribution as being the probability of occurrence for all possible values in its support, the range of possible outputs. For instance, a biased coin with probabilty 0.6 of being heads would have a probabilty distribution of:</p> <script type="math/tex; mode=display">% <![CDATA[
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Michael Ge | Software Engineer | Graphic Artist</title>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112248037-1');
+    </script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/post.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+    <body>        
+        <div id="nav-container">
+    <ul class="nav">
+        
+            <li class="navli"><a class="text nava" href="/">HOME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/art">ART</a></li>
+        
+            <li class="navli"><a class="text nava" href="/code">CODE</a></li>
+        
+            <li class="navli"><a class="text nava" href="/blog">BLOG</a></li>
+        
+            <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li>
+        
+    </ul>
+</div>
+
+        <div class="spacer"></div>
+        <div class="blog-container">
+            <h1 class="header">Linear Regression: A Probabilistic Approach</h1>
+            <p class="invite">01/04/2018</p>
+            <p class="desc tags"><i>Tags:
+                
+                machine learning
+                
+                linear regression
+                
+                probability
+                
+            </i></p>
+            <p>Today, we look at the regression under a probabilistic modeling context that help us understand the reasons behind the least squares loss function.</p>
+
+<p>Recall that in linear regression, we assume that our data is a linear combination of weights and our feature vector with an prepended bias term:</p>
+
+<script type="math/tex; mode=display">\hat{y} = h(\mathbf{x}; \mathbf{w}) = \sum_{i=1}^{m+1} x_i w_i = \mathbf{w^\top x}</script>
+
+<script type="math/tex; mode=display">\mathbf{x}, \mathbf{w} \in \mathbb{R}^{m+1}, \mathbf{x} = \begin{bmatrix}1 \\ \mathbf{x^1}\end{bmatrix}, \mathbf{w} = \begin{bmatrix}w_0 \\ \mathbf{w^1} \end{bmatrix}</script>
+
+<p>We posited that the residual sum-of-squares was a good loss function, but its use seemed rather <em>ad hoc</em>. Let’s show some of the theoretical underpinnings behind this loss function.</p>
+
+<p>To help understand the reasons for the least squares loss, we’ll need to review some fundamentals of probability theory. This is by no means a comprehensive overview of these concepts, but it hopefully brings back some of the most important ideas from your probability theory class. Consider a single data point. We can write the <em>conditional probability</em> of seeing its output $y$ given its feature vector $\mathbf{x}$ as:</p>
+
+<script type="math/tex; mode=display">p(y|\mathbf{x})</script>
+
+<p>If we assume that each data point is independent from one another, we can express the <em>joint probability</em>, the probability of seeing all of the data’s $y$ given each of the $\mathbf{x}$’s, as:</p>
+
+<script type="math/tex; mode=display">p(y_1, y_2, \ldots, y_n | \mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_n) = p(y_1|\mathbf{x}_1)p(y_2|\mathbf{x}_2)\ldots p(y_n|\mathbf{x}_n) = \prod_{i=1}^n p(y_i|\mathbf{x}_i)</script>
+
+<p>If the probabilities depend on parameters, we can also define this  as the <em>likelihood</em> $L(\mathbf{w})$ which is a joint probability based on parameters $\mathbf{w}$.</p>
+
+<p>The value of a probability is defined by its <em>distribution</em>. We can think of a distribution as being the probability of occurrence for all possible values in its support, the range of possible outputs. For instance, a biased coin  with probabilty 0.6 of being heads would have a probabilty distribution of:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 \begin{cases}
 0.4 & \text{tails} \\
 0.6 & \text{heads}
-\end{cases} %]]></script> <p>The distribution we will be discussing is the Normal/Gaussian distribution. The Normal distribution has the following <em>probability density function</em>:</p> <script type="math/tex; mode=display">\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)</script> <p>The multivariate case can be written as:</p> <script type="math/tex; mode=display">\mathcal{N}(\mathbf{x}|\mathbf{\mu}, \mathbf{\Sigma}) = \frac{1}{\sqrt{|2\pi \mathbf{\Sigma}|}} \exp\left( -\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^\top\mathbf{\Sigma}^{-1} (\mathbf{x}-\mathbf{\mu}) \right)</script> <p>Note that the probabilities of a distribution must add up to 1.</p> <p>Now to tie it all together. In the linear regression, we think of the data as coming from a generative model of normally distributed data. A <em>generative model</em> is a probabilistic statement that describes the joint distribution over feature vectors and their output values. Here, the outputs $y$ are modeled to be generated by inputs $\mathbf{x}$. In the general regression form, we can say that our data follows a true function of the data $h$ with noise $\epsilon$:</p> <script type="math/tex; mode=display">y = h(\mathbf{x}, \mathbf{w}) + \epsilon, \epsilon \sim \mathcal{N}(0, \beta^{-1})</script> <p>Another way to view this is that $y$ follows a Normal distribution with mean $h$ and variance $\beta^{-1}$.</p> <script type="math/tex; mode=display">p(y|\mathbf{x}, \mathbf{w}) = \mathcal{N}(y|h(\mathbf{x}, \mathbf{w}), \beta^{-1}) \longleftrightarrow y \sim \mathcal{N}(h(\mathbf{x}, \mathbf{w}), \beta^{-1})</script> <p>Plugging in our assumption of linearity $(h(\mathbf{x}, \mathbf{w}) = \mathbf{w}^\top \mathbf{x})$, we get:</p> <script type="math/tex; mode=display">p(y|\mathbf{x}, \mathbf{w}) = \mathcal{N}(y|\mathbf{w}^\top \mathbf{x}, \beta^{-1}) \longleftrightarrow y \sim \mathcal{N}(\mathbf{w}^\top \mathbf{x}, \beta^{-1})</script> <p>The moral of the story is that we are currently making the following assumptions:</p> <ol> <li>The data truly comes from a linear model that has been disturbed with random noise.</li> <li>The randomness can be modeled as a Gaussian random variable.</li> <li>Each data point is independent.</li> </ol> <p>In this generative model, we would like to find a $\mathbf{w}^\star$ that maximizes the likelihood of seeing our data. Not surprisingly, we can estimate the optimal $\mathbf{w}^\star$ with the <em>maximum likelihood estimator</em> (MLE) $\hat{\mathbf{w}}_{MLE}$:</p> <script type="math/tex; mode=display">\hat{\mathbf{w}}_{MLE} = \text{arg}_\mathbf{w}\text{max }p(y_1, \ldots y_n | \mathbf{x}_1, \ldots, \mathbf{x}_n) = \text{arg}_\mathbf{w}\text{max } L(\mathbf{w})</script> <p>Using our model for the linear regression and converting it to its joint Gaussian form, we get:</p> <script type="math/tex; mode=display">\hat{\mathbf{w}}_{MLE} = \text{arg}_\mathbf{w}\text{max } \prod_{i=1}^n \mathcal{N}(y_i|\mathbf{w}^\top \mathbf{x}_i, \beta^{-1}) = \text{arg}_\mathbf{w}\text{max } \mathcal{N}(\mathbf{y}|\mathbf{Xw}, \mathbf{\beta}^{-1}I_{n})</script> <p>Notice the likelihood is a product of probabilities. Since probabilities are between 0 and 1, with enough data points, floating point imprecision will cause the joint probability to approach 0. To avoid these numerical issues, we often work in log-space. Furthermore, it’s often convention to work on minimization problems, so instead of maximizing the log-likelihood, we minimize the negative log-likelihood:</p> <script type="math/tex; mode=display">\ell(\mathbf{w}) = - \log L(\mathbf{w})</script> <p>So the new equation is:</p> <script type="math/tex; mode=display">% <![CDATA[
+\end{cases} %]]></script>
+
+<p>The distribution we will be discussing is the Normal/Gaussian distribution. The Normal distribution has the following <em>probability density function</em>:</p>
+
+<script type="math/tex; mode=display">\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)</script>
+
+<p>The multivariate case can be written as:</p>
+
+<script type="math/tex; mode=display">\mathcal{N}(\mathbf{x}|\mathbf{\mu}, \mathbf{\Sigma}) = \frac{1}{\sqrt{|2\pi \mathbf{\Sigma}|}} \exp\left( -\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^\top\mathbf{\Sigma}^{-1} (\mathbf{x}-\mathbf{\mu}) \right)</script>
+
+<p>Note that the probabilities of a distribution must add up to 1.</p>
+
+<p>Now to tie it all together. In the linear regression, we think of the data as coming from a generative model of normally distributed data. A <em>generative model</em> is a probabilistic statement that describes the joint distribution over feature vectors and their output values. Here, the outputs $y$ are modeled to be generated by inputs $\mathbf{x}$. In the general regression form, we can say that our data follows a true function of the data $h$ with noise $\epsilon$:</p>
+
+<script type="math/tex; mode=display">y = h(\mathbf{x}, \mathbf{w}) + \epsilon, \epsilon \sim \mathcal{N}(0, \beta^{-1})</script>
+
+<p>Another way to view this is that $y$ follows a Normal distribution with mean $h$ and variance $\beta^{-1}$.</p>
+
+<script type="math/tex; mode=display">p(y|\mathbf{x}, \mathbf{w}) = \mathcal{N}(y|h(\mathbf{x}, \mathbf{w}), \beta^{-1}) \longleftrightarrow y \sim \mathcal{N}(h(\mathbf{x}, \mathbf{w}), \beta^{-1})</script>
+
+<p>Plugging in our assumption of linearity $(h(\mathbf{x}, \mathbf{w}) = \mathbf{w}^\top \mathbf{x})$, we get:</p>
+
+<script type="math/tex; mode=display">p(y|\mathbf{x}, \mathbf{w}) = \mathcal{N}(y|\mathbf{w}^\top \mathbf{x}, \beta^{-1}) \longleftrightarrow y \sim \mathcal{N}(\mathbf{w}^\top \mathbf{x}, \beta^{-1})</script>
+
+<p>The moral of the story is that we are currently making the following assumptions:</p>
+
+<ol>
+  <li>The data truly comes from a linear model that has been disturbed with random noise.</li>
+  <li>The randomness can be modeled as a Gaussian random variable.</li>
+  <li>Each data point is independent.</li>
+</ol>
+
+<p>In this generative model, we would like to find a $\mathbf{w}^\star$ that maximizes the likelihood of seeing our data. Not surprisingly, we can estimate the optimal $\mathbf{w}^\star$ with the <em>maximum likelihood estimator</em> (MLE) $\hat{\mathbf{w}}_{MLE}$:</p>
+
+<script type="math/tex; mode=display">\hat{\mathbf{w}}_{MLE} = \text{arg}_\mathbf{w}\text{max }p(y_1, \ldots y_n | \mathbf{x}_1, \ldots, \mathbf{x}_n) = \text{arg}_\mathbf{w}\text{max } L(\mathbf{w})</script>
+
+<p>Using our model for the linear regression and converting it to its joint Gaussian form, we get:</p>
+
+<script type="math/tex; mode=display">\hat{\mathbf{w}}_{MLE} = \text{arg}_\mathbf{w}\text{max } \prod_{i=1}^n \mathcal{N}(y_i|\mathbf{w}^\top \mathbf{x}_i, \beta^{-1}) = \text{arg}_\mathbf{w}\text{max } \mathcal{N}(\mathbf{y}|\mathbf{Xw}, \mathbf{\beta}^{-1}I_{n})</script>
+
+<p>Notice the likelihood is a product of probabilities. Since probabilities are between 0 and 1, with enough data points, floating point imprecision will cause the joint probability to approach 0. To avoid these numerical issues, we often work in log-space. Furthermore, it’s often convention to work on minimization problems, so instead of maximizing the log-likelihood, we minimize the negative log-likelihood:</p>
+
+<script type="math/tex; mode=display">\ell(\mathbf{w}) = - \log L(\mathbf{w})</script>
+
+<p>So the new equation is:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 \begin{align*}\hat{\mathbf{w}}_{MLE} &= \text{arg}_\mathbf{w}\text{min } \ell(\mathbf{w})\\
 &= \text{arg}_\mathbf{w}\text{min } - \log \mathcal{N}(\mathbf{y}|\mathbf{Xw}, \mathbf{\beta}^{-1}I_{n}) \\
 &= \text{arg}_\mathbf{w}\text{min } -\frac{1}{2} \log|2\pi\mathbf{\beta}^{-1}| - \frac{1}{2}(\mathbf{y} - \mathbf{Xw})^\top\beta(\mathbf{y} - \mathbf{Xw})
-\end{align*} %]]></script> <p>To find the argmin, we take the derivative of the the negative log-likelihood and solve for $\mathbf{w}$.</p> <script type="math/tex; mode=display">% <![CDATA[
+\end{align*} %]]></script>
+
+<p>To find the argmin, we take the derivative of the the negative log-likelihood and solve for $\mathbf{w}$.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 \begin{align*}
 \frac{\partial \ell(\mathbf{w})}{\partial \mathbf{w}} &= \frac{\beta}{2}(-2\mathbf{X}^\top\mathbf{y} + 2\mathbf{X}^\top\mathbf{Xw}) \\
 \hat{\mathbf{w}}_{MLE}&= (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}
-\end{align*} %]]></script> <p>The maximum likelihood estimator is precisely the projection of $\mathbf{y}$ onto the column space of $\mathbf{X}$ which we found last week! In conclusion, using the least squares loss is equivalent to the probabilistic linear regression model where data is assumed to independently come from a Normal distribution.</p> <div class="blog-nav"> <div class="spacer"></div> <h1 class="invite">Categories</h1> <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p> <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p> <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p> <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p> <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p> <hr> <h1 class="invite"><a href="/blog/">Recent Posts</a></h1> <ul> <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p> <p class="text"><a href="/technology/2018/01/17/arch-getting-started/">01/17/2018<br>Arch Linux: Post-Install</a></p> <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p> <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p> <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p> <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p> <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p> <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p> <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p> <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p> <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p> <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p> <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p> <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p> <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p> <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p> <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p> <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p> <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p> <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p> <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p> <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p> <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p> <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p> </ul> </div> <center> <p> <a class="link" href="/datasci/2017/12/30/linear-regression/"> Previous: Linear Regression: A Mathematical Approach </a> | <a class="link" href="/datasci/2018/01/06/model-selection/"> Next: Model Selection </a> </p> </center> </div> <div class="white-container" id="footer-container"> <div class="black-centering"> <p>Michael Ge is a digital artist and data-driven software engineer.</p> <ul> <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li> <li class="link"><a href="https://github.com/hahakumquat">Github</a></li> <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li> </ul> <ul> <li>Tel: (626) 893-5895</li> <li>Email: michaelge@college.harvard.edu</li> <li>Resumé and references available upon request.</li> </ul> </div> </div> <script src="/assets/js/jquery.js"></script> <script type="text/x-mathjax-config">
+\end{align*} %]]></script>
+
+<p>The maximum likelihood estimator is precisely the projection of $\mathbf{y}$ onto the column space of $\mathbf{X}$ which we found last week! In conclusion, using the least squares loss is equivalent to the probabilistic linear regression model where data is assumed to independently come from a Normal distribution.</p>
+
+            <div class="blog-nav">
+    <div class="spacer"></div>
+    <h1 class="invite">Categories</h1>
+    
+    <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p>
+    
+    <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p>
+    
+    <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p>
+    
+    <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p>
+    
+    <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p>
+    
+    <hr>
+    <h1 class="invite"><a href="/blog/">Recent Posts</a></h1>
+    <ul>        
+        
+        
+        
+        <p class="text"><a href="/technology/2018/02/28/pacman-file-conflicts/">02/28/2018<br>Pacman: File Conflicts</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-post-install/">01/17/2018<br>Arch Linux: Post-Install Notes</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p>
+        
+        
+        
+    </ul>
+</div>
+
+            <center>
+                <p>
+                    <a class="link" href="/datasci/2017/12/30/linear-regression/">
+                        
+                        Previous: Linear Regression: A Mathematical Approach
+                        
+                    </a>
+                     | 
+                    <a class="link" href="/datasci/2018/01/06/model-selection/">                        
+                        
+                        Next: Model Selection
+                        
+                    </a>
+                </p>
+            </center>
+        </div>        
+        <div class="white-container" id="footer-container">
+    <div class="black-centering">
+        <p>Michael Ge is a digital artist and data-driven software engineer.</p>
+        <ul>
+            <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li>
+            <li class="link"><a href="https://github.com/hahakumquat">Github</a></li>
+            <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li>
+        </ul>
+        <ul>
+            <li>Tel: (626) 893-5895</li>
+            <li>Email: michaelge@college.harvard.edu</li>
+            <li>Resumé and references available upon request.</li>
+        </ul>
+    </div>
+</div>
+
+        <script src="/assets/js/jquery.js"></script>
+        
+        
+        <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
                 extensions: ["tex2jax.js"],
                 jax: ["input/TeX", "output/HTML-CSS"],
@@ -29,4 +312,8 @@
                 },
                 "HTML-CSS": { availableFonts: ["TeX"] }
             });
-        </script> <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> </body> </html>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        
+    </body>
+</html>

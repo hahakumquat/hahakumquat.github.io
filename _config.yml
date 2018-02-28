@@ -20,13 +20,20 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-plugins:
-    - jekyll-minifier
-    
+# plugins:
+#     - jekyll-minifier
+
+# jekyll-minifier:
+#   remove_spaces_inside_tags: true
+#   remove_multi_spaces: true
+#   remove_comments: true
+
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 # exclude:
+#   - node_modules
 #   - Gemfile
 #   - Gemfile.lock
 #   - node_modules

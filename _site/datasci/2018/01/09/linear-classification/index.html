@@ -1,21 +1,390 @@
-<!DOCTYPE html> <html> <head> <title>Michael Ge | Software Engineer | Graphic Artist</title> <meta charset="UTF-8"> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script> <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-112248037-1");</script> <link rel="stylesheet" type="text/css" href="/assets/css/post.css"> <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"> </head> <body> <div id="nav-container"> <ul class="nav"> <li class="navli"><a class="text nava" href="/">HOME</a></li> <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li> <li class="navli"><a class="text nava" href="/art">ART</a></li> <li class="navli"><a class="text nava" href="/code">CODE</a></li> <li class="navli"><a class="text nava" href="/blog">BLOG</a></li> <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li> </ul> </div> <div class="spacer"></div> <div class="blog-container"> <h1 class="header">Linear Classification and Perceptron</h1> <p class="invite">01/09/2018</p> <p class="desc tags"><i>Tags: machine learning classification perceptron </i></p> <p>We now leave the land of predicting real-numbered values to look at data classification. The discussion will conclude with one of the fundamental concepts behind classification, the Perceptron algorithm.</p> <h1 id="introduction-to-classification">Introduction to Classification</h1> <p>The classification problem involves specifying which category a data point belongs to. For instance, if you have a feature vector of an individual’s political preferences, a classification problem might be to classify the individual as a Democrat or Republican. This is an example of a <em>binary classification</em> since there are only two classes, Democrat or Republican.</p> <p>We can express our output space as:</p> <script type="math/tex; mode=display">\mathcal{y} = \{-1, 1\}</script> <p>Note that this is different from the regression problem where $\mathcal{y} = \mathbb{R}$.</p> <p>What if we wanted to also consider Libertarians, the Green Party, and Independents as possible political parties for an individual? We can instead do multiclass classification for $K$ classes where <script type="math/tex">\mathcal{y} = \{C_1, C_2, \ldots, C_K \}</script>. Multiclass classification can be found in a variety of applications such as image recognition, disease diagnostics, and product recommendation. In this post, we will only cover the binary case.</p> <h1 id="knn-for-classification">KNN for Classification</h1> <p>Before discussing the parameterized classification problem, we first discuss the KNN solution. For some input feature vector $\mathbf{x}$, we classify $\mathbf{x}$ by taking the majority of the $k$ nearest points:</p> <script type="math/tex; mode=display">% <![CDATA[
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Michael Ge | Software Engineer | Graphic Artist</title>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112248037-1');
+    </script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/post.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+    <body>        
+        <div id="nav-container">
+    <ul class="nav">
+        
+            <li class="navli"><a class="text nava" href="/">HOME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/art">ART</a></li>
+        
+            <li class="navli"><a class="text nava" href="/code">CODE</a></li>
+        
+            <li class="navli"><a class="text nava" href="/blog">BLOG</a></li>
+        
+            <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li>
+        
+    </ul>
+</div>
+
+        <div class="spacer"></div>
+        <div class="blog-container">
+            <h1 class="header">Linear Classification and Perceptron</h1>
+            <p class="invite">01/09/2018</p>
+            <p class="desc tags"><i>Tags:
+                
+                machine learning
+                
+                classification
+                
+                perceptron
+                
+            </i></p>
+            <p>We now leave the land of predicting real-numbered values to look at data classification. The discussion will conclude with one of the fundamental concepts behind classification, the Perceptron algorithm.</p>
+
+<h1 id="introduction-to-classification">Introduction to Classification</h1>
+
+<p>The classification problem involves specifying which category a data point belongs to. For instance, if you have a feature vector of an individual’s political preferences, a classification problem might be to classify the individual as a Democrat or Republican. This is an example of a <em>binary classification</em> since there are only two classes, Democrat or Republican.</p>
+
+<p>We can express our output space as:</p>
+
+<script type="math/tex; mode=display">\mathcal{y} = \{-1, 1\}</script>
+
+<p>Note that this is different from the regression problem where $\mathcal{y} = \mathbb{R}$.</p>
+
+<p>What if we wanted to also consider Libertarians, the Green Party, and Independents as possible political parties for an individual? We can instead do multiclass classification for $K$ classes where <script type="math/tex">\mathcal{y} = \{C_1, C_2, \ldots, C_K \}</script>. Multiclass classification can be found in a variety of applications such as image recognition, disease diagnostics, and product recommendation. In this post, we will only cover the binary case.</p>
+
+<h1 id="knn-for-classification">KNN for Classification</h1>
+
+<p>Before discussing the parameterized classification problem, we first discuss the KNN solution. For some input feature vector $\mathbf{x}$, we classify $\mathbf{x}$ by taking the majority of the $k$ nearest points:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 \hat{y} = \begin{cases}
 1 & \sum_{i=1}^k y^{(i)} > 0\\
 -1 & \text{otherwise}
-\end{cases} %]]></script> <p>Of course, KNN is still subject to the same problems it had in the linear regression case, namely overfitting and the need to keep all your data around at all times.</p> <h1 id="binary-linear-classification">Binary Linear Classification</h1> <p>Let’s take the same modeling approach we used in linear regression and use it to classify. Define a hypothesis function $h$:</p> <script type="math/tex; mode=display">h(\mathbf{x}; \mathbf{w}) = \mathbf{w}^\top\mathbf{x}</script> <p>We can use this line (hyperplane) to split the space into two subspaces. If <script type="math/tex">h(\mathbf{x}; \mathbf{w}) > 0</script>, then we predict $\hat{y} = 1$. Otherwise, we predict <script type="math/tex">\hat{y} = -1</script>.</p> <h1 id="determining-the-decision-boundary">Determining the Decision Boundary</h1> <p>The set of points on this hyperplane is known as the <em>decision boundary</em>. These are defined as the $\mathbf{x}$ where <script type="math/tex">\mathbf{w}^\top\mathbf{x} = 0</script>. To determine the decision boundary, we would like to find its orientation and position.</p> <p>The orientation of this hyperplane is determined solely by $\mathbf{w}$ since $\mathbf{w}$ is orthogonal to the hyperplane. The proof is simple:</p> <script type="math/tex; mode=display">\mathcal{S} = \{\mathbf{x} \in \mathcal{X} | \mathbf{w}^\top\mathbf{x} + w_0 = 0 \}</script> <p>Let $\mathbf{x}_1, \mathbf{x}_2$ be in $\mathcal{S}$. Let $\mathbf{s} = \mathbf{x}_1 - \mathbf{x}_2$.</p> <script type="math/tex; mode=display">% <![CDATA[
+\end{cases} %]]></script>
+
+<p>Of course, KNN is still subject to the same problems it had in the linear regression case, namely overfitting and the need to keep all your data around at all times.</p>
+
+<h1 id="binary-linear-classification">Binary Linear Classification</h1>
+
+<p>Let’s take the same modeling approach we used in linear regression and use it to classify. Define a hypothesis function $h$:</p>
+
+<script type="math/tex; mode=display">h(\mathbf{x}; \mathbf{w}) = \mathbf{w}^\top\mathbf{x}</script>
+
+<p>We can use this line (hyperplane) to split the space into two subspaces. If <script type="math/tex">h(\mathbf{x}; \mathbf{w}) > 0</script>, then we predict $\hat{y} = 1$. Otherwise, we predict <script type="math/tex">\hat{y} = -1</script>.</p>
+
+<h1 id="determining-the-decision-boundary">Determining the Decision Boundary</h1>
+
+<p>The set of points on this hyperplane is known as the <em>decision boundary</em>. These are defined as the $\mathbf{x}$ where <script type="math/tex">\mathbf{w}^\top\mathbf{x} = 0</script>. To determine the decision boundary, we would like to find its orientation and position.</p>
+
+<p>The orientation of this hyperplane is determined solely by $\mathbf{w}$ since $\mathbf{w}$ is orthogonal to the hyperplane. The proof is simple:</p>
+
+<script type="math/tex; mode=display">\mathcal{S} = \{\mathbf{x} \in \mathcal{X} | \mathbf{w}^\top\mathbf{x} + w_0 = 0 \}</script>
+
+<p>Let $\mathbf{x}_1, \mathbf{x}_2$ be in $\mathcal{S}$. Let $\mathbf{s} = \mathbf{x}_1 - \mathbf{x}_2$.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 \begin{align*}
 \mathbf{w}^\top\mathbf{s} &= \mathbf{w}^\top(\mathbf{x}_1 - \mathbf{x}_2) \\
 &= \mathbf{w}^\top\mathbf{x}_1 - \mathbf{w}^\top\mathbf{x}_2 \\
 & = w_0 - w_0 = 0
-\end{align*} %]]></script> <p>So $\mathbf{w}$ is orthogonal to the hyperplane.</p> <p>To determine the decision boundary’s location, we can use Lagrange multipliers to solve an optimization problem. We will try to find the closest point to the origin (the location by definition):</p> <script type="math/tex; mode=display">\arg_{\mathbf{x}}\min \mathbf{x}^\top\mathbf{x}</script> <script type="math/tex; mode=display">s.t. \mathbf{w}^\top \mathbf{x} + w_0 = 0</script> <p>We then incorporate the constraint for the Lagrange multiplier:</p> <script type="math/tex; mode=display">L(\mathbf{x}, \lambda) = \mathbf{x}^\top\mathbf{x} + \lambda(\mathbf{w}^\top\mathbf{x} + w_0 - 0)</script> <script type="math/tex; mode=display">\frac{\partial L(\mathbf{x}, \lambda)}{\partial \mathbf{x}} = 2\mathbf{x} + \lambda \mathbf{w} := 0</script> <script type="math/tex; mode=display">\frac{\partial L(\mathbf{x}, \lambda)}{\partial \lambda} = \mathbf{w}^\top\mathbf{x} + w_0 := 0</script> <p>Solving the system of equations:</p> <script type="math/tex; mode=display">\mathbf{w}^\top(-\lambda\mathbf{w} / 2) + w_0 = 0</script> <script type="math/tex; mode=display">\lambda = \frac{2w_0}{\mathbf{w}^\top\mathbf{w}}</script> <p>Thus, the distance from the origin is a function of <script type="math/tex">\frac{2w_0}{\mathbf{w}^\top\mathbf{w}}</script>.</p> <h1 id="linear-separability">Linear Separability</h1> <p>We know how to construct a decision boundary with a given $\mathbf{w}$, but we haven’t looked at the data yet. Oftentimes, data may not be <em>linearly separable</em>, meaning there may not be a hyperplane that separates the data into the two classes. This could be due to noise or an incorrect linear space.</p> <p>One solution would be to use basis functions. Doing so introduces nonlinearity that may correctly divide the data.</p> <h1 id="training-and-loss">Training and Loss</h1> <p>Now that we have an idea of how to construct a classification model, we now need to train it. But in order to train a model, we need a loss function. One instinct might be to try using the same distance-based loss functions we’ve seen thus far. Take, for instance, least squares:</p> <script type="math/tex; mode=display">\mathcal{L}(\mathbf{w}) = \sum_{i=1}^n (y_i - h(\mathbf{x}_i; \mathbf{w}))^2, y_i \in \{-1, 1\}</script> <p>But think about what this loss is doing. Here, we penalize estimations based on their distance to the true class, <script type="math/tex">\pm 1</script>. This means that points that are correctly classified will be penalized based on how far away from the true class they are. Thus, an outlier point can drastically shift the boundary, even if it’s classified correctly.</p> <p>Instead, we need to target the accuracy of a classification, and for that, we’ll use the Perceptron algorithm.</p> <h1 id="perceptron-algorithm">Perceptron Algorithm</h1> <p>The Perceptron algorithm is as follows:</p> <ol> <li>Check if point is classified correctly.</li> <li>If it is, move on.</li> <li>Otherwise, adjust weights with gradient.</li> </ol> <p>To run perceptron, we’ll need an accuracy-based loss function with an informative derivative that tells us how to change our weights.</p> <h1 id="01-activation-function">0/1 Activation Function</h1> <p><em>Activation functions</em> are the answer to our need for accuracy-based loss functions. Activation functions map real numbers to a discrete set of values. The first activation function we’ll look it is the 0/1 activation function:</p> <script type="math/tex; mode=display">% <![CDATA[
+\end{align*} %]]></script>
+
+<p>So $\mathbf{w}$ is orthogonal to the hyperplane.</p>
+
+<p>To determine the decision boundary’s location, we can use Lagrange multipliers to solve an optimization problem. We will try to find the closest point to the origin (the location by definition):</p>
+
+<script type="math/tex; mode=display">\arg_{\mathbf{x}}\min \mathbf{x}^\top\mathbf{x}</script>
+
+<script type="math/tex; mode=display">s.t. \mathbf{w}^\top \mathbf{x} + w_0 = 0</script>
+
+<p>We then incorporate the constraint for the Lagrange multiplier:</p>
+
+<script type="math/tex; mode=display">L(\mathbf{x}, \lambda) = \mathbf{x}^\top\mathbf{x} + \lambda(\mathbf{w}^\top\mathbf{x} + w_0 - 0)</script>
+
+<script type="math/tex; mode=display">\frac{\partial L(\mathbf{x}, \lambda)}{\partial \mathbf{x}} = 2\mathbf{x} + \lambda \mathbf{w} := 0</script>
+
+<script type="math/tex; mode=display">\frac{\partial L(\mathbf{x}, \lambda)}{\partial \lambda} = \mathbf{w}^\top\mathbf{x} + w_0 := 0</script>
+
+<p>Solving the system of equations:</p>
+
+<script type="math/tex; mode=display">\mathbf{w}^\top(-\lambda\mathbf{w} / 2) + w_0 = 0</script>
+
+<script type="math/tex; mode=display">\lambda = \frac{2w_0}{\mathbf{w}^\top\mathbf{w}}</script>
+
+<p>Thus, the distance from the origin is a function of <script type="math/tex">\frac{2w_0}{\mathbf{w}^\top\mathbf{w}}</script>.</p>
+
+<h1 id="linear-separability">Linear Separability</h1>
+
+<p>We know how to construct a decision boundary with a given $\mathbf{w}$, but we haven’t looked at the data yet. Oftentimes, data may not be <em>linearly separable</em>, meaning there may not be a hyperplane that separates the data into the two classes. This could be due to noise or an incorrect linear space.</p>
+
+<p>One solution would be to use basis functions. Doing so introduces nonlinearity that may correctly divide the data.</p>
+
+<h1 id="training-and-loss">Training and Loss</h1>
+
+<p>Now that we have an idea of how to construct a classification model, we now need to train it. But in order to train a model, we need a loss function. One instinct might be to try using the same distance-based loss functions we’ve seen thus far. Take, for instance, least squares:</p>
+
+<script type="math/tex; mode=display">\mathcal{L}(\mathbf{w}) = \sum_{i=1}^n (y_i - h(\mathbf{x}_i; \mathbf{w}))^2, y_i \in \{-1, 1\}</script>
+
+<p>But think about what this loss is doing. Here, we penalize estimations based on their distance to the true class, <script type="math/tex">\pm 1</script>. This means that points that are correctly classified will be penalized based on how far away from the true class they are. Thus, an outlier point can drastically shift the boundary, even if it’s classified correctly.</p>
+
+<p>Instead, we need to target the accuracy of a classification, and for that, we’ll use the Perceptron algorithm.</p>
+
+<h1 id="perceptron-algorithm">Perceptron Algorithm</h1>
+
+<p>The Perceptron algorithm is as follows:</p>
+
+<ol>
+  <li>Check if point is classified correctly.</li>
+  <li>If it is, move on.</li>
+  <li>Otherwise, adjust weights with gradient.</li>
+</ol>
+
+<p>To run perceptron, we’ll need an accuracy-based loss function with an informative derivative that tells us how to change our weights.</p>
+
+<h1 id="01-activation-function">0/1 Activation Function</h1>
+
+<p><em>Activation functions</em> are the answer to our need for accuracy-based loss functions. Activation functions map real numbers to a discrete set of values. The first activation function we’ll look it is the 0/1 activation function:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 f_{0, 1}(z) = \begin{cases}
 1 & z > 0 \\
 0 & \text{otherwise}
-\end{cases} %]]></script> <p>Our loss function would then be the sum of occurrences where the prediction and true value differ:</p> <script type="math/tex; mode=display">\mathcal{L}(\mathbf{w}) = \sum_{i=1}^n f_{0/1}(-h(\mathbf{x_i}; \mathbf{w}) \cdot y_i)</script> <p>There is a problem with the 0/1 activtion loss, but to understand it, we’ll first talk about how the derivative-based update would work.</p> <h1 id="gradient-descent">Gradient Descent</h1> <p>The idea of gradient descent is that we wish to update our weights in a way that minimizes the loss. To do so, we first compute the gradient of our loss with respect to our weights, <script type="math/tex">\frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}}</script>. This represents the slope vector of greatest ascent. We can then update our weights by subtracting this gradient vector scaled by some learning rate parameter, $\eta$:</p> <script type="math/tex; mode=display">\mathbf{w} \leftarrow \mathbf{w} - \eta \cdot \frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}}</script> <p>Unfortunately, the 0/1 activation function does not have an informative derivative. At $z=0$, the slope is undefined, and 0 otherwise. As a result, performing a weight adjustment based on the derivative will yield 0 change.</p> <h1 id="relu-function">ReLU Function</h1> <p>The solution to this would be to use the rectified linear unit activation function (ReLU). The function is defined as:</p> <script type="math/tex; mode=display">% <![CDATA[
+\end{cases} %]]></script>
+
+<p>Our loss function would then be the sum of occurrences where the prediction and true value differ:</p>
+
+<script type="math/tex; mode=display">\mathcal{L}(\mathbf{w}) = \sum_{i=1}^n f_{0/1}(-h(\mathbf{x_i}; \mathbf{w}) \cdot y_i)</script>
+
+<p>There is a problem with the 0/1 activtion loss, but to understand it, we’ll first talk about how the derivative-based update would work.</p>
+
+<h1 id="gradient-descent">Gradient Descent</h1>
+
+<p>The idea of gradient descent is that we wish to update our weights in a way that minimizes the loss. To do so, we first compute the gradient of our loss with respect to our weights, <script type="math/tex">\frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}}</script>. This represents the slope vector of greatest ascent. We can then update our weights by subtracting this gradient vector scaled by some learning rate parameter, $\eta$:</p>
+
+<script type="math/tex; mode=display">\mathbf{w} \leftarrow \mathbf{w} - \eta \cdot \frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}}</script>
+
+<p>Unfortunately, the 0/1 activation function does not have an informative derivative. At $z=0$, the slope is undefined, and 0 otherwise. As a result, performing a weight adjustment based on the derivative will yield 0 change.</p>
+
+<h1 id="relu-function">ReLU Function</h1>
+
+<p>The solution to this would be to use the rectified linear unit activation function (ReLU). The function is defined as:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
 f_{relu}(z) = \begin{cases}
 z & z > 0 \\
 0 & \text{otherwise}
-\end{cases} = \max(0, z) %]]></script> <p>In the 0/1 activation function, a misclassification always had an error value of 1. Here, the farther off a point is from its correct classification, the worse the penalty. As a result, the derivative is 1 for values greater than 0 and 0 otherwise, giving us a nonzero value during gradient descent!</p> <h1 id="perceptron-loss">Perceptron Loss</h1> <p>Let’s tie this all together. The Perceptron loss is:</p> <script type="math/tex; mode=display">\mathcal{L}(\mathbf{w}) = \sum_{i=1}^n f_{relu}(-h(\mathbf{x}_i; \mathbf{w}) \cdot y_i) = \sum_{i=1; y_i \neq \hat{y}_i}^n (\mathbf{w}^\top\mathbf{x}_i + w_0) \cdot y_i</script> <p>In other words, this loss is the total distance of all the misclassified points.</p> <h1 id="stochastic-gradient-descent-sgd">Stochastic Gradient Descent (SGD)</h1> <p>The update step requires taking the derivative of the loss with respect to your weights. This requires going through all your data over and over again and can often be time consuming. Another strategy commonly used in practice is stochastic gradient descent (SGD). In SGD, a gradient descent update is performed for every individual datapoint’s loss until model convergence, rather than after observing all the data. Oftentimes, this performs better in practice than regular gradient descent.</p> <p>To be clear, the gradient of the total-data loss would be:</p> <script type="math/tex; mode=display">\frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}} = - \sum_{i=1; y_i \neq \hat{y}_i}^n y_i \cdot \mathbf{x}_i</script> <p>Whereas the stochastic, single-point version would be:</p> <script type="math/tex; mode=display">\frac{\partial \mathcal{L}^{(i)}(\mathbf{w})}{\partial \mathbf{w}} = -y_i \mathbf{x}_i</script> <p>So the update after each datapoint would be:</p> <script type="math/tex; mode=display">\mathbf{w}^{(t+1)} \leftarrow \mathbf{w}^{(t)} + \eta y_i \mathbf{x}_i</script> <h1 id="the-perceptron-algorithm-detailed">The Perceptron Algorithm, Detailed</h1> <p>The final Perceptron algorithm is therefore:</p> <ol> <li>Iterate over data <ul> <li>If all classifications are correct, do nothing</li> <li>Else, add $y_i \mathbf{x}_i$ and $y_i$ to w_0 (don’t forget to perform the update rule by taking the gradient with respect to $w_0$ as well, this wasn’t detailed here)</li> </ul> </li> <li>Repeat until no classification errors are made</li> </ol> <p>If the data is linearly separable, the algorithm will converge!</p> <div class="blog-nav"> <div class="spacer"></div> <h1 class="invite">Categories</h1> <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p> <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p> <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p> <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p> <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p> <hr> <h1 class="invite"><a href="/blog/">Recent Posts</a></h1> <ul> <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p> <p class="text"><a href="/technology/2018/01/17/arch-getting-started/">01/17/2018<br>Arch Linux: Post-Install</a></p> <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p> <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p> <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p> <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p> <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p> <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p> <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p> <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p> <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p> <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p> <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p> <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p> <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p> <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p> <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p> <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p> <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p> <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p> <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p> <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p> <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p> <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p> </ul> </div> <center> <p> <a class="link" href="/datasci/2018/01/08/bayesian-regression/"> Previous: Linear Regression: Bayesian Approach, Normal Conjugacy </a> | <a class="link" href="/datasci/2018/01/14/probabilistic-classification/"> Next: Binary Classification </a> </p> </center> </div> <div class="white-container" id="footer-container"> <div class="black-centering"> <p>Michael Ge is a digital artist and data-driven software engineer.</p> <ul> <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li> <li class="link"><a href="https://github.com/hahakumquat">Github</a></li> <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li> </ul> <ul> <li>Tel: (626) 893-5895</li> <li>Email: michaelge@college.harvard.edu</li> <li>Resumé and references available upon request.</li> </ul> </div> </div> <script src="/assets/js/jquery.js"></script> <script type="text/x-mathjax-config">
+\end{cases} = \max(0, z) %]]></script>
+
+<p>In the 0/1 activation function, a misclassification always had an error value of 1. Here, the farther off a point is from its correct classification, the worse the penalty. As a result, the derivative is 1 for values greater than 0 and 0 otherwise, giving us a nonzero value during gradient descent!</p>
+
+<h1 id="perceptron-loss">Perceptron Loss</h1>
+
+<p>Let’s tie this all together. The Perceptron loss is:</p>
+
+<script type="math/tex; mode=display">\mathcal{L}(\mathbf{w}) = \sum_{i=1}^n f_{relu}(-h(\mathbf{x}_i; \mathbf{w}) \cdot y_i) = \sum_{i=1; y_i \neq \hat{y}_i}^n (\mathbf{w}^\top\mathbf{x}_i + w_0) \cdot y_i</script>
+
+<p>In other words, this loss is the total distance of all the misclassified points.</p>
+
+<h1 id="stochastic-gradient-descent-sgd">Stochastic Gradient Descent (SGD)</h1>
+
+<p>The update step requires taking the derivative of the loss with respect to your weights. This requires going through all your data over and over again and can often be time consuming. Another strategy commonly used in practice is stochastic gradient descent (SGD). In SGD, a gradient descent update is performed for every individual datapoint’s loss until model convergence, rather than after observing all the data. Oftentimes, this performs better in practice than regular gradient descent.</p>
+
+<p>To be clear, the gradient of the total-data loss would be:</p>
+
+<script type="math/tex; mode=display">\frac{\partial \mathcal{L}(\mathbf{w})}{\partial \mathbf{w}} = - \sum_{i=1; y_i \neq \hat{y}_i}^n y_i \cdot \mathbf{x}_i</script>
+
+<p>Whereas the stochastic, single-point version would be:</p>
+
+<script type="math/tex; mode=display">\frac{\partial \mathcal{L}^{(i)}(\mathbf{w})}{\partial \mathbf{w}} = -y_i \mathbf{x}_i</script>
+
+<p>So the update after each datapoint would be:</p>
+
+<script type="math/tex; mode=display">\mathbf{w}^{(t+1)} \leftarrow \mathbf{w}^{(t)} + \eta y_i \mathbf{x}_i</script>
+
+<h1 id="the-perceptron-algorithm-detailed">The Perceptron Algorithm, Detailed</h1>
+
+<p>The final Perceptron algorithm is therefore:</p>
+
+<ol>
+  <li>Iterate over data
+    <ul>
+      <li>If all classifications are correct, do nothing</li>
+      <li>Else, add $y_i \mathbf{x}_i$ and $y_i$ to w_0 (don’t forget to perform the update rule by taking the gradient with respect to $w_0$ as well, this wasn’t detailed here)</li>
+    </ul>
+  </li>
+  <li>Repeat until no classification errors are made</li>
+</ol>
+
+<p>If the data is linearly separable, the algorithm will converge!</p>
+
+            <div class="blog-nav">
+    <div class="spacer"></div>
+    <h1 class="invite">Categories</h1>
+    
+    <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p>
+    
+    <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p>
+    
+    <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p>
+    
+    <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p>
+    
+    <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p>
+    
+    <hr>
+    <h1 class="invite"><a href="/blog/">Recent Posts</a></h1>
+    <ul>        
+        
+        
+        
+        <p class="text"><a href="/technology/2018/02/28/pacman-file-conflicts/">02/28/2018<br>Pacman: File Conflicts</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-post-install/">01/17/2018<br>Arch Linux: Post-Install Notes</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p>
+        
+        
+        
+    </ul>
+</div>
+
+            <center>
+                <p>
+                    <a class="link" href="/datasci/2018/01/08/bayesian-regression/">
+                        
+                        Previous: Linear Regression: Bayesian Approach, Normal Conjugacy
+                        
+                    </a>
+                     | 
+                    <a class="link" href="/datasci/2018/01/14/probabilistic-classification/">                        
+                        
+                        Next: Binary Classification
+                        
+                    </a>
+                </p>
+            </center>
+        </div>        
+        <div class="white-container" id="footer-container">
+    <div class="black-centering">
+        <p>Michael Ge is a digital artist and data-driven software engineer.</p>
+        <ul>
+            <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li>
+            <li class="link"><a href="https://github.com/hahakumquat">Github</a></li>
+            <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li>
+        </ul>
+        <ul>
+            <li>Tel: (626) 893-5895</li>
+            <li>Email: michaelge@college.harvard.edu</li>
+            <li>Resumé and references available upon request.</li>
+        </ul>
+    </div>
+</div>
+
+        <script src="/assets/js/jquery.js"></script>
+        
+        
+        <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
                 extensions: ["tex2jax.js"],
                 jax: ["input/TeX", "output/HTML-CSS"],
@@ -34,4 +403,8 @@ z & z > 0 \\
                 },
                 "HTML-CSS": { availableFonts: ["TeX"] }
             });
-        </script> <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> </body> </html>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        
+    </body>
+</html>

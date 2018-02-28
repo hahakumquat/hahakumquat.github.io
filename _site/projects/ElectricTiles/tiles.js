@@ -1,1 +1,288 @@
-window.onload=function(){function e(){l=new THREE.Scene,s=new THREE.PerspectiveCamera(30,p/E,1,2*p),s.position.z=p,l.add(s),m=a(C[B]),t(new THREE.PlaneGeometry(y-4,y-4)),u=new THREE.WebGLRenderer,u.setSize(p,E),document.getElementById("container").appendChild(u.domElement),document.addEventListener("mousemove",r,!1),document.body.onkeyup=function(e){if(32==e.keyCode){var n;n=P?new THREE.SphereGeometry(y/1.8,15):new THREE.PlaneGeometry(y-4,y-4),t(n),P=!P}},document.addEventListener("click",function(e){d(f,C[++B%C.length]),m.needsUpdate=!0,r(e,!0)},!1),h()}function t(e){w.forEach(function(e){l.remove(e)}),w=[];for(var t=0;t<g;t++)for(var n=0;n<x;n++){mat=new THREE.ShaderMaterial({uniforms:{texture:{type:"t",value:m},rotation:{type:"f",value:0}},vertexShader:document.getElementById("vertexshader").textContent,fragmentShader:document.getElementById("fragmentshader").textContent,side:THREE.DoubleSide});var a=new THREE.Mesh(e,mat);a.position.setX((n-(x-1)/2)*y),a.position.setY(Math.floor(g/2-t)*y),a.rotation.x=Math.PI,a.row=t,a.col=n,a.ripple=-1,a.adjacents=o(t,n),l.add(a),w.push(a)}}function n(e){var t=1,n=setInterval(function(){t<=.01&&(clearInterval(n),e.style.display="none"),e.style.opacity=t,e.style.filter="alpha(opacity="+100*t+")",t*=.9},50)}function a(e){var t=document.createElement("canvas");t.height=256,t.width=256,f=t.getContext("2d"),d(f,e);var n=new THREE.Texture(t);return n.needsUpdate=!0,n}function o(e,t){var n=[];return e>0&&(t>0&&n.push([e-1,t-1]),t<x-1&&n.push([e-1,t+1])),e<g-1&&(t>0&&n.push([e+1,t-1]),t<x-1&&n.push([e+1,t+1])),e>0&&n.push([e-1,t]),e<g-1&&n.push([e+1,t]),t>0&&n.push([e,t-1]),t<x-1&&n.push([e,t+1]),n}function r(e,t){M.x=e.clientX/p*2-1,M.y=e.clientY/E*-2+1,R.setFromCamera(M,s);var n=R.intersectObjects(w);if(n.length>0){var a=n[0].object;t||B%4==2?c([a],j):i(a)}else t&&c([w[Math.floor(w.length*Math.random())]],j)}function i(e){e.adjacents.forEach(function(e,t){var n=w[e[0]*x+e[1]];n.adjacents.forEach(function(e,t){var n=w[e[0]*x+e[1]];n.rotation.x+=t<4?.2:.1}),n.rotation.x+=t<4?.5:.3})}function c(e,t){for(var n=B%4;t>0;){for(var a=0,o=e.length;a<o;a++){var r=e.shift();r.ripple<0&&(r.ripple=2*(j-t),r.adjacents.forEach(function(a){var o=w[a[0]*x+a[1]];switch(n){case 0:a[0]!==r.row&&a[1]!==r.col||e.push(o);break;case 1:a[0]!==r.row&&a[1]!==r.col&&e.push(o);break;case 2:Math.random()>1-t/80&&e.push(o);break;case 3:e.push(o)}}))}t--}}function d(e,t){for(var n=e.createLinearGradient(0,256,0,0),a=0,o=t.length-1;a<o;a++)n.addColorStop(a/o,t[a]);return n.addColorStop(1,t[t.length-1]),e.fillStyle=n,e.fillRect(0,0,256,256),n}function h(){requestAnimationFrame(h),w.forEach(function(e,t){e.rotation.x>.05?e.rotation.x/=1.1:e.rotation.x=0,0==e.ripple&&(e.rotation.x=Math.PI-2+2*Math.random()),e.ripple>=0&&e.ripple--,e.material.uniforms.rotation.value=e.rotation.x,e.position.z=Math.min(s.position.z/3,e.rotation.x/Math.PI*p/8)+10*Math.sin((Date.now()-b)/300+t/2)}),u.render(l,s)}window.setTimeout(function(){n(document.getElementById("title")),n(document.getElementById("info"))},4e3);var l,s,u;document.getElementById("container").setAttribute("style","width:90%"),document.getElementById("container").setAttribute("style","height:90%");var f,m,p=document.getElementById("container").offsetWidth,E=window.innerHeight,w=[],v=30,y=p/v,g=Math.ceil(v*E/p),x=v,b=Date.now(),M={},R=new THREE.Raycaster,k=["black","#771122","red","#ffeeee","white","#ff7777","white"],I=["black","#250101","#370000","#aa4400","white","orange","white","#eeee33","white"],T=["black","#007733","white","#11ff33","white"],H=["black","#003377","white","#00ffff","white"],S=["black","#662233","magenta","white","pink","pink","white"],C=[k,I,T,H,S],B=Math.floor(Math.random()*C.length),j=30,P=!0;e()};
+window.onload = function() {
+
+    window.setTimeout(function() {
+        fade(document.getElementById("title"));
+        fade(document.getElementById("info"));
+    }, 4000);
+
+    var scene, camera, renderer;
+
+    // tile location information
+    document.getElementById("container").setAttribute("style","width:90%");
+    document.getElementById("container").setAttribute("style","height:90%");
+    var WIDTH = document.getElementById("container").offsetWidth;
+    var HEIGHT = window.innerHeight;
+    var tileArray = [];
+    var NUMSHAPES = 30;
+    var DIMENSION = WIDTH / NUMSHAPES;
+    var rows = Math.ceil(NUMSHAPES * HEIGHT / WIDTH);
+    var cols = NUMSHAPES;
+    var start = Date.now();
+
+    // Mouse location
+    var mouse = {};
+    var raycaster = new THREE.Raycaster();
+
+    // gradients
+    var red = ["black", "#771122", "red", "#ffeeee", "white", "#ff7777", "white"];
+    var orange = ["black", "#250101", "#370000", "#aa4400", "white", "orange", "white", "#eeee33", "white"];
+    var green = ["black", "#007733", "white", "#11ff33", "white"];
+    var blue = ["black", "#003377", "white", "#00ffff", "white"];
+    var pink = ["black", "#662233","magenta", "white", "pink", "pink", "white"];
+
+    var grads = [red, orange, green, blue, pink];
+
+    // animation related things
+    var ctr = Math.floor(Math.random() * grads.length);
+    var ctx, tex;
+    var levels = 30;
+    var queue = [];
+    // var timer = 0;
+    var shape = true;
+
+    init();
+
+    function init() {
+        
+        /* THREE.js settings */
+        
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(30, WIDTH/HEIGHT, 1, WIDTH * 2);
+        camera.position.z = WIDTH;
+        scene.add(camera);
+        
+        tex = setTexture(grads[ctr]);
+
+        var geom = new THREE.PlaneGeometry(DIMENSION - 4, DIMENSION - 4);
+        genMeshes(geom);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(WIDTH, HEIGHT);
+        document.getElementById("container").appendChild(renderer.domElement);
+
+        document.addEventListener("mousemove", disturb, false);
+
+        document.body.onkeyup = function(e) {
+            // if (e.keyCode == 81) {
+            //     muted = !muted;
+            // }
+            if (e.keyCode == 32) {
+                var geom;
+                if (shape)
+                    geom = new THREE.SphereGeometry(DIMENSION/1.8, 15);
+                else
+                    geom = new THREE.PlaneGeometry(DIMENSION - 4, DIMENSION - 4);
+                genMeshes(geom);
+                shape = !shape;
+            }
+        }
+        
+        document.addEventListener("click", function(e) {
+            setGradient(ctx, grads[ ++ctr % grads.length]);
+            tex.needsUpdate = true;
+            disturb(e, true);
+        }, false);
+        
+        animate();
+    }
+
+    function genMeshes(geom) {
+
+        tileArray.forEach(function(t) {
+            scene.remove(t);
+        });
+        tileArray = [];
+        
+        for (var k = 0; k < rows; k++) {
+            for (var j = 0; j < cols; j++) {
+                
+                mat = new THREE.ShaderMaterial({
+                    uniforms: {
+                        texture: { type: "t", value: tex },
+                        rotation: { type: "f", value: 0. }
+                    },
+                    vertexShader: document.getElementById("vertexshader").textContent,
+                    fragmentShader: document.getElementById("fragmentshader").textContent,
+                    side: THREE.DoubleSide
+                });
+
+                var shape = new THREE.Mesh(geom, mat);
+                shape.position.setX((j - (cols - 1)/ 2) * DIMENSION);
+                shape.position.setY(Math.floor(rows / 2 - k) * DIMENSION);
+                shape.rotation.x = Math.PI;
+                shape.row = k;
+                shape.col = j;
+                shape.ripple = -1;
+                shape.adjacents = getAdjacents(k, j);
+                scene.add(shape);
+                tileArray.push(shape);
+            }
+        }
+    }
+
+    function fade(element) {
+        var op = 1;  // initial opacity
+        var timer = setInterval(function () {
+            if (op <= 0.01){
+                clearInterval(timer);
+                element.style.display = 'none';
+            }
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            op *= 0.9;
+        }, 50);
+    }
+
+    function setTexture(colors) {
+        var canvas = document.createElement("canvas");
+        canvas.height = 256;
+        canvas.width = 256;
+        ctx = canvas.getContext("2d");
+        
+        setGradient(ctx, colors); 
+
+        var tex = new THREE.Texture(canvas);
+        tex.needsUpdate = true;
+        return tex;
+    }
+
+    function getAdjacents(row, col) {
+        var arr = [];
+
+        // splitting up coniditons like this allows easy access for pretty patterns
+        if (row > 0) {
+            if (col > 0)
+                arr.push([row - 1, col - 1]);
+            if (col < cols - 1)
+                arr.push([row - 1, col + 1]);
+
+        }
+        if (row < rows - 1) {
+            if (col > 0) 
+                arr.push([row + 1, col - 1]);
+            if (col < cols - 1)
+                arr.push([row + 1, col + 1]);
+        }
+        
+        if (row > 0)
+            arr.push([row - 1, col]);
+        if (row < rows - 1)
+            arr.push([row + 1, col]);
+        if (col > 0)
+            arr.push([row, col - 1]);
+        if (col < cols - 1)
+            arr.push([row, col + 1]);
+        
+        return arr;
+    }
+
+    function disturb(e, click) {
+        mouse.x = e.clientX / WIDTH * 2 - 1;
+        mouse.y = e.clientY / HEIGHT * -2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        var intersects = raycaster.intersectObjects(tileArray);
+        if (intersects.length > 0) {
+            var mesh = intersects[0].object;
+            if (click || ctr % 4 == 2) {
+                propagate([mesh], levels);
+            }
+            else
+                flare(mesh);
+        }
+        else if (click) {
+            propagate([tileArray[Math.floor(tileArray.length * Math.random())]], levels);
+        }
+    }
+
+    function flare(mesh) {
+        mesh.adjacents.forEach(function(ind, i) {
+            var adjMesh = tileArray[ind[0] * cols + ind[1]];
+            adjMesh.adjacents.forEach(function(iind, ii) {
+                var aadjMesh = tileArray[iind[0] * cols + iind[1]];
+                if (ii < 4)
+                    aadjMesh.rotation.x += 0.2;
+                else
+                    aadjMesh.rotation.x += 0.1;
+            });
+            if (i < 4)
+                adjMesh.rotation.x += 0.5;
+            else
+                adjMesh.rotation.x += 0.3;
+        });
+    }
+
+    function propagate(queue, dist) {
+        var flag = ctr % 4;
+        while (dist > 0) {
+            for (var k = 0, c = queue.length; k < c; k++) {
+                var mesh = queue.shift();
+                if (mesh.ripple < 0) {
+                    mesh.ripple = (levels - dist) * 2;
+                    mesh.adjacents.forEach(function(ind) {
+                        var adjMesh = tileArray[ind[0] * cols + ind[1]];
+                        switch(flag) {
+                            // Diamond effect
+                        case 0:
+                            if (ind[0] === mesh.row || ind[1] === mesh.col) {
+                                queue.push(adjMesh);
+                            }
+                            break;
+                            // Checkerboard effect
+                        case 1:
+                            if (ind[0] !== mesh.row && ind[1] !== mesh.col) {
+                                queue.push(adjMesh);
+                            }
+                            break;
+                            // tendril effect
+                        case 2:
+                            if (Math.random() > 1 - dist / 80)
+                                queue.push(adjMesh);
+                            break;
+                            // block effect
+                        case 3:
+                            queue.push(adjMesh);
+                            break;
+                        }
+                    });
+                }
+            }
+            dist--;
+        }
+    }
+
+    function setGradient(ctx, colors) {
+        var grad = ctx.createLinearGradient(0, 256, 0, 0);
+        for (var k = 0, stops = colors.length - 1; k < stops; k++) {
+            grad.addColorStop(k / stops, colors[k]);
+        }
+        grad.addColorStop(1., colors[colors.length - 1]);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 256, 256);
+        return grad;
+    }
+
+    function animate() {
+        
+        requestAnimationFrame(animate);
+        tileArray.forEach(function(t, i) {
+            
+            if (t.rotation.x > 0.05) 
+                t.rotation.x /= 1.1;
+            else
+                t.rotation.x = 0;
+            
+            if (t.ripple == 0) 
+                t.rotation.x = (Math.PI - 2) +  Math.random() * 2;
+            if (t.ripple >= 0) 
+                t.ripple--;
+            
+            t.material.uniforms.rotation.value = t.rotation.x;
+            t.position.z = Math.min(camera.position.z / 3,
+                                    t.rotation.x / Math.PI * WIDTH / 8) + Math.sin((Date.now() - start) / 300 + i/2) * 10;
+        });
+
+        renderer.render(scene, camera);
+    }
+}

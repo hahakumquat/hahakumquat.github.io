@@ -1,16 +1,108 @@
-<!DOCTYPE html> <html> <head> <title>Michael Ge | Software Engineer | Graphic Artist</title> <meta charset="UTF-8"> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script> <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-112248037-1");</script> <link rel="stylesheet" type="text/css" href="/assets/css/post.css"> <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"> </head> <body> <div id="nav-container"> <ul class="nav"> <li class="navli"><a class="text nava" href="/">HOME</a></li> <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li> <li class="navli"><a class="text nava" href="/art">ART</a></li> <li class="navli"><a class="text nava" href="/code">CODE</a></li> <li class="navli"><a class="text nava" href="/blog">BLOG</a></li> <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li> </ul> </div> <div class="spacer"></div> <div class="blog-container"> <h1 class="header">Algorithms: Maximum Sliding Window</h1> <p class="invite">09/18/2017</p> <p class="desc tags"><i>Tags: sliding window algorithms deque </i></p> <p>The sliding window problem seeks to evaluate properties about every possible subarray without introducing a look-back penalty. In particular, the Maximum Sliding Window problem tries to find the maximum element in every contiguous fixed-length subarray.</p> <p>Consider an array of integers $A$ length $n$ and integer $k \le n$. For each of the $n-k$ contiguous subarrays $(A[0, k], A[1, k+1], \ldots, A[n-k, n])$, we’d like to know the maximum of that subarray. Write a function that, given an array $A$, returns an array containing the maximum of each of the $n-k+1$ subarrays.</p> <h1>Naive Solution: $O(n^2)$</h1> <p>One naive solution would be to linearly search for the maximum of every subarray.</p> <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">MSW_naive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Michael Ge | Software Engineer | Graphic Artist</title>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112248037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112248037-1');
+    </script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/post.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+    <body>        
+        <div id="nav-container">
+    <ul class="nav">
+        
+            <li class="navli"><a class="text nava" href="/">HOME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/about">ABOUT ME</a></li>
+        
+            <li class="navli"><a class="text nava" href="/art">ART</a></li>
+        
+            <li class="navli"><a class="text nava" href="/code">CODE</a></li>
+        
+            <li class="navli"><a class="text nava" href="/blog">BLOG</a></li>
+        
+            <li class="navli"><a class="text nava" href="/contact">CONTACT</a></li>
+        
+    </ul>
+</div>
+
+        <div class="spacer"></div>
+        <div class="blog-container">
+            <h1 class="header">Algorithms: Maximum Sliding Window</h1>
+            <p class="invite">09/18/2017</p>
+            <p class="desc tags"><i>Tags:
+                
+                sliding
+                
+                window
+                
+                algorithms
+                
+                deque
+                
+            </i></p>
+            <p>The sliding window problem seeks to evaluate properties about every possible subarray without introducing a look-back penalty. In particular, the Maximum Sliding Window problem tries to find the maximum element in every contiguous fixed-length subarray.</p>
+
+<p>Consider an array of integers $A$ length $n$ and integer $k \le n$. For each of the $n-k$ contiguous subarrays $(A[0, k], A[1, k+1], \ldots, A[n-k, n])$, we’d like to know the maximum of that subarray. Write a function that, given an array $A$, returns an array containing the maximum of each of the $n-k+1$ subarrays.</p>
+
+<h1>Naive Solution: $O(n^2)$</h1>
+
+<p>One naive solution would be to linearly search for the maximum of every subarray.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">MSW_naive</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">k</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">res</span>
-</code></pre> </div> <p>In this case, we’d perform $k$ comparison operations for each of the $n-k+1$ subarrays, resulting in a time complexity of $O(k(n-k+1)) \to O(nk)$. Of course, we can do better.</p> <h1>Sliding Window</h1> <p>The fundamental idea behind sliding window problems is that we need to store enough information about the current subarray to solve the subproblem. At every timestep $i$, only the $k$ elements from $A[i:i+k]$ are considered, so we’d also need a way to dispose of elements outside our subarray region.</p> <p>A FIFO (First-In, First-Out) queue is an excellent candidate for this kind of problem. At every step, a new element can be added to the queue, while the oldest element is removed. The simplest sliding window problem would be to return a list containing each window:</p> <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">SW</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+</code></pre>
+</div>
+
+<p>In this case, we’d perform $k$ comparison operations for each of the $n-k+1$ subarrays, resulting in a time complexity of $O(k(n-k+1)) \to O(nk)$. Of course, we can do better.</p>
+
+<h1>Sliding Window</h1>
+
+<p>The fundamental idea behind sliding window problems is that we need to store enough information about the current subarray to solve the subproblem. At every timestep $i$, only the $k$ elements from $A[i:i+k]$ are considered, so we’d also need a way to dispose of elements outside our subarray region.</p>
+
+<p>A FIFO (First-In, First-Out) queue is an excellent candidate for this kind of problem. At every step, a new element can be added to the queue, while the oldest element is removed. The simplest sliding window problem would be to return a list containing each window:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">SW</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">k</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">res</span>
-</code></pre> </div> <p>Wow, practically identical to MSW_naive, how riveting.</p> <p>Unfortunately, a queue alone won’t allow us to decrease our time bounds. To solve this problem, we’ll use a Python deque. Deque’s are two-sided queues with amortized constant-time insertion (pushing) and deletion (popping) for both sides of the datastructure. To be clear, Python’s deque calls pushing appending, and popping from and appending to a deque occurs on the “right side” of the datastructure, whereas popleft and appendleft occur on the left side. Now things get interesting.</p> <h1>Maximum Sliding Window: Deque</h1> <p>How can we solve the Maximum Sliding Window problem with a deque? We’ll satisfy two conditions for the deque at any time:</p> <ol> <li>Anything in the deque must be a part of the subarray in question.</li> <li>Anything older and smaller than some new element can be discarded.</li> </ol> <p>The first is just a property of the sliding window technique. The second follows from the fact that if we’ve made it to some $i$th element already, then anything less than that $i$th element still in the deque will not be the max for the remainder of its time in the queue.</p> <p>So, at every timestep $i$, we’ll store the index $i$, removing from most recent to least recent any indices $j$ with $A[j]$ less than $A[i]$. This satisfies our condition that we should discard anything that has no chance of being a max. We can then remove any elements that are too old to be considered for this subarray. Then, we must append our current $i$ to the deque. This is because it could be the case that $A[i]$ is the biggest element for the next $k$ steps, so we can’t throw it out. Another way to think about it is that $A[i]$ could be the largest element we’ve seen so far, so the deque would be empty, and we’d want to report $i$. Finally, we append the oldest element in our deque to our list of answers.</p> <p>Here’s my implementation:</p> <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxSW</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+</code></pre>
+</div>
+
+<p>Wow, practically identical to MSW_naive, how riveting.</p>
+
+<p>Unfortunately, a queue alone won’t allow us to decrease our time bounds. To solve this problem, we’ll use a Python deque. Deque’s are two-sided queues with amortized constant-time insertion (pushing) and deletion (popping) for both sides of the datastructure. To be clear, Python’s deque calls pushing appending, and popping from and appending to a deque occurs on the “right side” of the datastructure, whereas popleft and appendleft occur on the left side. Now things get interesting.</p>
+
+<h1>Maximum Sliding Window: Deque</h1>
+
+<p>How can we solve the Maximum Sliding Window problem with a deque? We’ll satisfy two conditions for the deque at any time:</p>
+
+<ol>
+<li>Anything in the deque must be a part of the subarray in question.</li>
+<li>Anything older and smaller than some new element can be discarded.</li>
+</ol>
+
+<p>The first is just a property of the sliding window technique. The second follows from the fact that if we’ve made it to some $i$th element already, then anything less than that $i$th element still in the deque will not be the max for the remainder of its time in the queue.</p>
+
+<p>So, at every timestep $i$, we’ll store the index $i$, removing from most recent to least recent any indices $j$ with $A[j]$ less than $A[i]$. This satisfies our condition that we should discard anything that has no chance of being a max. We can then remove any elements that are too old to be considered for this subarray. Then, we must  append our current $i$ to the deque. This is because it could be the case that $A[i]$ is the biggest element for the next $k$ steps, so we can’t throw it out. Another way to think about it is that $A[i]$ could be the largest element we’ve seen so far, so the deque would be empty, and we’d want to report $i$. Finally, we append the oldest element in our deque to our list of answers.</p>
+
+<p>Here’s my implementation:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxSW</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
@@ -32,7 +124,168 @@
         <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
     <span class="k">return</span> <span class="n">ans</span>
-</code></pre> </div> <div class="blog-nav"> <div class="spacer"></div> <h1 class="invite">Categories</h1> <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p> <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p> <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p> <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p> <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p> <hr> <h1 class="invite"><a href="/blog/">Recent Posts</a></h1> <ul> <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p> <p class="text"><a href="/technology/2018/01/17/arch-getting-started/">01/17/2018<br>Arch Linux: Post-Install</a></p> <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p> <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p> <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p> <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p> <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p> <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p> <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p> <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p> <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p> <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p> <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p> <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p> <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p> <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p> <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p> <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p> <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p> <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p> <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p> <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p> <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p> <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p> </ul> </div> <center> <p> <a class="link" href="/datasci/2017/09/10/inference-coins/"> Previous: Introduction to Inference: Coins and Discrete Probability </a> | <a class="link" href="/graphics/2017/10/01/volume-effector/"> Next: C4D: Volume Effector </a> </p> </center> </div> <div class="white-container" id="footer-container"> <div class="black-centering"> <p>Michael Ge is a digital artist and data-driven software engineer.</p> <ul> <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li> <li class="link"><a href="https://github.com/hahakumquat">Github</a></li> <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li> </ul> <ul> <li>Tel: (626) 893-5895</li> <li>Email: michaelge@college.harvard.edu</li> <li>Resumé and references available upon request.</li> </ul> </div> </div> <script src="/assets/js/jquery.js"></script> <script type="text/x-mathjax-config">
+</code></pre>
+</div>
+
+            <div class="blog-nav">
+    <div class="spacer"></div>
+    <h1 class="invite">Categories</h1>
+    
+    <p class="desc"><a href="/blog/tech/">TECHNOLOGY</a></p>
+    
+    <p class="desc"><a href="/blog/datasci/">DATA SCIENCE</a></p>
+    
+    <p class="desc"><a href="/blog/problems/">PROBLEM SOLVING</a></p>
+    
+    <p class="desc"><a href="/blog/graphics/">GRAPHIC ART</a></p>
+    
+    <p class="desc"><a href="/blog/misc/">MISCELLANEOUS</a></p>
+    
+    <hr>
+    <h1 class="invite"><a href="/blog/">Recent Posts</a></h1>
+    <ul>        
+        
+        
+        
+        <p class="text"><a href="/technology/2018/02/28/pacman-file-conflicts/">02/28/2018<br>Pacman: File Conflicts</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-usb/">01/17/2018<br>Making an Arch Linux USB Flash Install Medium</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2018/01/17/arch-post-install/">01/17/2018<br>Arch Linux: Post-Install Notes</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/15/classification-metrics/">01/15/2018<br>Binary Classification Metrics</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Binary Classification</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/bayesian-regression/">01/08/2018<br>Linear Regression: Bayesian Approach, Normal Conjugacy</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/08/basis-functions/">01/08/2018<br>Nonlinearity: Basis Functions</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/06/model-selection/">01/06/2018<br>Model Selection</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2018/01/04/probabilistic-regression/">01/04/2018<br>Linear Regression: A Probabilistic Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/30/linear-regression/">12/30/2017<br>Linear Regression: A Mathematical Approach</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/20/curating/">12/20/2017<br>2017 Reflections: A Year of Curating</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/12/19/regression-knn/">12/19/2017<br>Introduction to Regression: K-Nearest Neighbors</a></p>
+        
+        
+        
+        <p class="text"><a href="/misc/2017/12/18/misc-intro/">12/18/2017<br>Welcome to my Miscellaneous Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/12/18/arch-install-chromebook/">12/18/2017<br>A Definitive Arch Linux Install Guide for the Chromebook C720</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/12/15/fire-room/">12/15/2017<br>C4D: Fire Room BTS</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/10/01/volume-effector/">10/01/2017<br>C4D: Volume Effector</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/09/18/max-sliding-window/">09/18/2017<br>Algorithms: Maximum Sliding Window</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/09/10/inference-coins/">09/10/2017<br>Introduction to Inference: Coins and Discrete Probability</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/09/05/geemichael-2/">09/05/2017<br>geemichael 2.0</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/09/05/boole-unreliability/">09/05/2017<br>C4D: Unreliable Booles</a></p>
+        
+        
+        
+        <p class="text"><a href="/technology/2017/08/30/tech-intro/">08/30/2017<br>Welcome to my Tech Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/problems/2017/08/30/problems-intro/">08/30/2017<br>Welcome to my Problem Solving Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/graphics/2017/08/30/graphic-art-intro/">08/30/2017<br>Welcome to my Graphic Art Blog!</a></p>
+        
+        
+        
+        <p class="text"><a href="/datasci/2017/08/30/datasci-intro/">08/30/2017<br>Welcome to my Data Science Blog!</a></p>
+        
+        
+        
+    </ul>
+</div>
+
+            <center>
+                <p>
+                    <a class="link" href="/datasci/2017/09/10/inference-coins/">
+                        
+                        Previous: Introduction to Inference: Coins and Discrete Probability
+                        
+                    </a>
+                     | 
+                    <a class="link" href="/graphics/2017/10/01/volume-effector/">                        
+                        
+                        Next: C4D: Volume Effector
+                        
+                    </a>
+                </p>
+            </center>
+        </div>        
+        <div class="white-container" id="footer-container">
+    <div class="black-centering">
+        <p>Michael Ge is a digital artist and data-driven software engineer.</p>
+        <ul>
+            <li class="link"><a href="https://www.linkedin.com/in/michael-ge-a9041b9a/">LinkedIn</a></li>
+            <li class="link"><a href="https://github.com/hahakumquat">Github</a></li>
+            <li class="link"><a href="https://www.instagram.com/hahakumquat/">Instagram</a></li>
+        </ul>
+        <ul>
+            <li>Tel: (626) 893-5895</li>
+            <li>Email: michaelge@college.harvard.edu</li>
+            <li>Resumé and references available upon request.</li>
+        </ul>
+    </div>
+</div>
+
+        <script src="/assets/js/jquery.js"></script>
+        
+        
+        <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
                 extensions: ["tex2jax.js"],
                 jax: ["input/TeX", "output/HTML-CSS"],
@@ -51,4 +304,8 @@
                 },
                 "HTML-CSS": { availableFonts: ["TeX"] }
             });
-        </script> <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> </body> </html>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+        
+    </body>
+</html>
