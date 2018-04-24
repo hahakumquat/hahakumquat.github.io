@@ -1,3 +1,7 @@
+- src: reports/stat234_final.pdf
+  img: 234_t.png
+  caption: "Stat 234 Final Project: State Space Reduction in Deep Q-Networks"
+
 - src: reports/281.pdf
   img: 281_t.png
   caption: "CS281 Final Project: Topic Dynamics in US Court Decisions on School Desegregation"
