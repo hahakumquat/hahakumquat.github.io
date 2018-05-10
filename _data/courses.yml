@@ -43,6 +43,9 @@
 - name: Stat 186
   description: Causal Inference (Unbiased experimental design)
 
+- name: Stat 234
+  description: Sequential Decision Making (Reinforcement Learning)
+
 - name: Math 21a
   description: Multivariable Calculus
 

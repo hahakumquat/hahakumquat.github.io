@@ -1,3 +1,8 @@
+- src: toward_the_light_t.png
+  type: vid
+  alt: https://www.youtube.com/embed/Np4Kl2DHNDQ
+  caption: "Toward the Light (2018)"
+  
 - src: room_t.png
   type: img
 
