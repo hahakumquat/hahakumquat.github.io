@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <head>
-    <title>Noise</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Noise</title>    
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <div id="viewer">
-        <div class="dropdown">
+        <div class="resize b" id="bottomPanel"></div>
+        <div class="resize r" id="rightPanel"></div>        
+    </div>
+    <div id="navbar">
+        <div class="nav-button dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">File <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="#">New</a></li>
+                <li><a tabindex="-1" href="#">Open</a></li>
+                <li><a tabindex="-1" href="#">Save</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-button dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Create
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li class="dropdown-submenu">
-                    <a class="test" tabindex="-1" href="#">Primitive<span class="caret"></span></a>
+                    <a class="test" tabindex="-1" href="#">Primitive <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a tabindex="-1" href="#">Plane</a></li>
                         <li><a tabindex="-1" href="#">Cube</a></li>
@@ -20,7 +33,7 @@
                     </ul>
                 </li>
                 <li class="dropdown-submenu">
-                    <a class="test" tabindex="-1" href="#">Light<span class="caret"></span></a>
+                    <a class="test" tabindex="-1" href="#">Light <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a tabindex="-1" href="#">Point</a></li>
                         <li><a tabindex="-1" href="#">Spot</a></li>
@@ -28,14 +41,13 @@
                 </li>
             </ul>
         </div>
-        <div class="resize b" id="bottomPanel"></div>
-        <div class="resize r" id="rightPanel"></div>
     </div>
     <script src="/assets/js/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="/assets/js/three.min.js"></script>
-    <script src="/assets/js/OrbitControls.js"></script>    
+    <script src="https://threejs.org/build/three.min.js"></script>
+    <script src="/assets/js/OrbitControls.js"></script>
+    <script src="/assets/js/ArrowHelper.js"></script>    
     <script src="/assets/js/dat.gui.min.js"></script>
     <script src="/assets/js/perlin.js"></script>
     <script src="viewer.js"></script>
