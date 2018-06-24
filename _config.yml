@@ -3,12 +3,13 @@ permalink: /:categories/:year/:month/:day/:title/
 include: ['_pages']
 
 title: Michael Ge | Software Engineer | Graphic Artist
-email: michaelge@college.harvard.edu
+email: michael.zh.ge@gmail.com
 baseurl: ""
 url: http://www.geemichael.com
 twitter_username: hahakumquat
 github_username:  hahakumquat
 phone: (626) 893-5895
+facebook: https://www.facebook.com/michaelzhge
 linkedin: https://www.linkedin.com/in/michael-ge-a9041b9a/
 deviantart: https://hahakumquat.deviantart.com/
 instagram: https://www.instagram.com/hahakumquat/
