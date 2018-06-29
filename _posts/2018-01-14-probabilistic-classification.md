@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Binary Classification
+title: Classification
 date: 2018-01-14
 categories: datasci
 hasMath: "Tex-AMS_CHTML"
@@ -10,7 +10,7 @@ tags:
 - "classification"
 ---
 
-Recall that in a binary classification problems, we have an input feature vector and we'd like to classify it into one of two classes. We did this by minimizing reasonable loss functions based on activation functions. In this very long post, we'll take a probabilistic approach to classification and detail the generative framework.
+In binary classification problems, we have an input feature vector and we'd like to classify it into one of two classes. We did this by minimizing reasonable loss functions based on activation functions. In this very long post, we'll take a probabilistic approach to classification and detail the generative framework.
 
 # Generative Probabilistic View
 
