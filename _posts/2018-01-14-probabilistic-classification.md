@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Classification
+title: Probabilitistic Classification
 date: 2018-01-14
 categories: datasci
 hasMath: "Tex-AMS_CHTML"
@@ -14,7 +14,7 @@ In binary classification problems, we have an input feature vector and we'd like
 
 # Generative Probabilistic View
 
-There are two main probabilistic views of a classification problem: the generative and discriminative models. For some intuition of the generative model, suppose we're playing God and we're trying to construct wolf and sheep from scratch. We might think there's a particular distribution of wolf and sheep in the world that we would like to maintain. In terms of creating the animal, if we know that we're creating a wolf, the probability that the animal has the sharp teeth goes up and the probability that the animal has wool goes down. We might find that wooly wolves are less likely than sharp-toothed wolves, and wooly sheep are more likely than sharp-toothed sheep. Finally, if we know there is only one wolf for every million sheep, we might find that the probability of generating a wolf with any characteristics extremely unlikely. Most importantly, note that we have a model to decide how to generate the animals: specifically the relative proportions I'd like to maintain and what the features of the animal are.
+There are two main probabilistic views of a classification problem: the generative and discriminative views. For some intuition of the generative model, suppose we're playing God and we're trying to construct wolf and sheep from scratch. We might think there's a particular distribution of wolf and sheep in the world that we would like to maintain. In terms of creating the animal, if we know that we're creating a wolf, the probability that the animal has the sharp teeth goes up and the probability that the animal has wool goes down. We might find that wooly wolves are less likely than sharp-toothed wolves, and wooly sheep are more likely than sharp-toothed sheep. Finally, if we know there is only one wolf for every million sheep, we might find that the probability of generating a wolf with any characteristics extremely unlikely. Most importantly, note that we have a model to decide how to generate the animals: specifically the relative proportions I'd like to maintain and what the features of the animal are.
 
 In the *generative* view, we model the problem as trying to calculate the joint probability of both the data and the outcome:
 

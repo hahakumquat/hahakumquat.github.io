@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Linear Classification and Perceptron"
+title: "Classification and Perceptron"
 date: 2018-01-09
 categories: datasci
 hasMath: "Tex-AMS_CHTML"
