@@ -36,7 +36,7 @@
 
         <div class="spacer"></div>
         <div class="blog-container">
-            <h1 class="header">Classification</h1>
+            <h1 class="header">Probabilitistic Classification</h1>
             <p class="invite">01/14/2018</p>
             <p class="desc tags"><i>Tags:
                 
@@ -51,7 +51,7 @@
 
 <h1 id="generative-probabilistic-view">Generative Probabilistic View</h1>
 
-<p>There are two main probabilistic views of a classification problem: the generative and discriminative models. For some intuition of the generative model, suppose we’re playing God and we’re trying to construct wolf and sheep from scratch. We might think there’s a particular distribution of wolf and sheep in the world that we would like to maintain. In terms of creating the animal, if we know that we’re creating a wolf, the probability that the animal has the sharp teeth goes up and the probability that the animal has wool goes down. We might find that wooly wolves are less likely than sharp-toothed wolves, and wooly sheep are more likely than sharp-toothed sheep. Finally, if we know there is only one wolf for every million sheep, we might find that the probability of generating a wolf with any characteristics extremely unlikely. Most importantly, note that we have a model to decide how to generate the animals: specifically the relative proportions I’d like to maintain and what the features of the animal are.</p>
+<p>There are two main probabilistic views of a classification problem: the generative and discriminative views. For some intuition of the generative model, suppose we’re playing God and we’re trying to construct wolf and sheep from scratch. We might think there’s a particular distribution of wolf and sheep in the world that we would like to maintain. In terms of creating the animal, if we know that we’re creating a wolf, the probability that the animal has the sharp teeth goes up and the probability that the animal has wool goes down. We might find that wooly wolves are less likely than sharp-toothed wolves, and wooly sheep are more likely than sharp-toothed sheep. Finally, if we know there is only one wolf for every million sheep, we might find that the probability of generating a wolf with any characteristics extremely unlikely. Most importantly, note that we have a model to decide how to generate the animals: specifically the relative proportions I’d like to maintain and what the features of the animal are.</p>
 
 <p>In the <em>generative</em> view, we model the problem as trying to calculate the joint probability of both the data and the outcome:</p>
 
@@ -231,6 +231,10 @@ h(\mathbf{x}) &= (\ln p(\mathbf{x}|y=1) + \ln p(y=1)) - (\ln p(\mathbf{x}|y=0) +
         
         
         
+        <p class="text"><a href="/technology/2018/07/01/microphone-webcam-detection/">07/01/2018<br>Arch Linux: Chromebook C720 Webcam Microphone Disappeared</a></p>
+        
+        
+        
         <p class="text"><a href="/technology/2018/06/21/local-media-server/">06/21/2018<br>SSH: How to Set Up a Simple Local Media Server</a></p>
         
         
@@ -251,11 +255,11 @@ h(\mathbf{x}) &= (\ln p(\mathbf{x}|y=1) + \ln p(y=1)) - (\ln p(\mathbf{x}|y=0) +
         
         
         
-        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Classification</a></p>
+        <p class="text"><a href="/datasci/2018/01/14/probabilistic-classification/">01/14/2018<br>Probabilitistic Classification</a></p>
         
         
         
-        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Linear Classification and Perceptron</a></p>
+        <p class="text"><a href="/datasci/2018/01/09/linear-classification/">01/09/2018<br>Classification and Perceptron</a></p>
         
         
         
@@ -342,7 +346,7 @@ h(\mathbf{x}) &= (\ln p(\mathbf{x}|y=1) + \ln p(y=1)) - (\ln p(\mathbf{x}|y=0) +
                 <p>
                     <a class="link" href="/datasci/2018/01/09/linear-classification/">
                         
-                        Previous: Linear Classification and Perceptron
+                        Previous: Classification and Perceptron
                         
                     </a>
                      | 

@@ -36,105 +36,41 @@
 
         <div class="spacer"></div>
         <div class="blog-container">
-            <h1 class="header">SSH: How to Set Up a Simple Local Media Server</h1>
-            <p class="invite">06/21/2018</p>
+            <h1 class="header">Arch Linux: Chromebook C720 Webcam Microphone Disappeared</h1>
+            <p class="invite">07/01/2018</p>
             <p class="desc tags"><i>Tags:
                 
                 arch linux
                 
-                ssh
+                webcam
                 
-                networks
-                
-                termux
+                microphone
                 
             </i></p>
-            <p>While getting ready for my big move to Facebook, I came across way too many old laptops. One in particular had a solid 128GB of disk space that I couldn’t bring myself to throw into the electronics recycling bin. After looking around online for some good potential use cases, I finally decided that I’d try my hand at setting up a simple Linux-based local media server.</p>
+            <p>After plugging in a third-party microphone, my laptop stopped detecting my webcam and microphone in its listed devices.</p>
 
-<p>For this project, I wanted to run my server constantly in my room, allowing me to upload photos, videos, and documents from any device on the network to the server safely and securely. It turns out, the process is actually quite simple, consisting of the following steps:</p>
-<ol>
-  <li>Create an <a class="link" href="https://www.geemichael.com/technology/2018/01/17/arch-usb/">Arch Linux installation medium</a></li>
-  <li><a class="link" href="https://www.geemichael.com/technology/2017/12/18/arch-install-chromebook/">Install Arch on your server laptop</a></li>
-  <li>Start an SSH server</li>
-  <li>(Optional) Install a terminal on your phone</li>
-  <li>Upload from any device to the server</li>
-</ol>
+<p>Chromium stopped recognizing my webcam and microphone. In pavucontrol, the input audio devices did not include my microphone. Checking journalctl, I grep’ed for Camera logs and found the following issue:</p>
 
-<h1 id="the-server-part">The Server Part</h1>
-
-<p>The following section details how to set up the “server” part of the media server. Before beginning, be sure to have a user account named <code class="highlighter-rouge">media</code>.</p>
-
-<h2 id="starting-an-ssh-server">Starting an SSH Server</h2>
-
-<p>This section will describe how to start an SSH server on your server machine.</p>
-
-<p>First, install <code class="highlighter-rouge">openssh</code>:</p>
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>sudo pacman -S openssh
+<div class="highlighter-rouge"><pre class="highlight"><code>kernel: uvcvideo 1-3:1.0: Entity type for entity Camera 1 was not initialized!
 </code></pre>
 </div>
 
-<p>Then start the sshd service:</p>
-<div class="language-console highlighter-rouge"><pre class="highlight"><code><span class="ni"># </span><span class="nc">systemctl</span><span class="kv"> start sshd.service
-</span></code></pre>
-</div>
+<p>After looking around, I was told to install ‘'’v4l-utils’’’. After doing so, I checked whether the internal webcam existed with –list-devices. Sure enough, it was there.</p>
 
-<p>your SSH server should now be started. You should be able to run the following from your server and successfully SSH into the server itself:</p>
+<p>The microphone was still broken. In <code class="highlighter-rouge">/etc/pulse/default.pa</code>, I uncommented the following:</p>
 
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>media@myhostname ~]$ ssh media@localhost
+<div class="highlighter-rouge"><pre class="highlight"><code> load-module module-alsa-source device=hw:0,0
+  # the line above should be somewhere before the line below
+ .ifexists module-udev-detect.so
 </code></pre>
 </div>
 
-<h2 id="connecting-to-the-ssh-server">Connecting to the SSH server</h2>
-
-<p>Let’s now confirm that we can successfully SSH into the server. Find your server’s local IP address:</p>
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>ip addr | grep "inet"
-</code></pre>
-</div>
-<p>This number will have the form X.X.X.X</p>
-
-<p>Then, from a different device on the same network, you should be able to SSH into the server:</p>
-
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>ssh media@X.X.X.X
+<p>Then, I restarted pulseaudio to apply the new settings:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ pulseaudio -k ; pulseaudio -D
 </code></pre>
 </div>
 
-<h2 id="uploading-files">Uploading Files</h2>
-
-<p>If the above works, you should now be able to upload files to the media server using <code class="highlighter-rouge">scp</code>. To upload a folder, use the <code class="highlighter-rouge">-r</code> flag. Otherwise, order the arguments to be source file to destination:</p>
-
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>scp -r ./local_dir media@X.X.X.X:/path/to/destination
-</code></pre>
-</div>
-
-<h2 id="termux">Termux</h2>
-
-<p>You can even do the same process from your Android phone. Termux is a terminal app designed for mobile phones. Simply install Termux, download the <code class="highlighter-rouge">openssh</code> package, and perform a secure copy of your mobile device’s files. To get access to Android’s photos, you may need to run the following in Termux:</p>
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>termux-setup-storage
-</code></pre>
-</div>
-<p>This gives you permissions to the media folders on your device and populates the home folder with a storage subdirectory.</p>
-
-<h1 id="the-media-part">The Media Part</h1>
-
-<p>Here is how to turn your server machine into a minimalist media-viewing device using the Chromium web browser.</p>
-
-<p>We’ll give our  <code class="highlighter-rouge">media</code> user media-viewing capabilities by running Chromium full-screen when <code class="highlighter-rouge">startx</code> is called. Within the browser, you should be able to open PDFs, movie files, and images, making it a great all-in-one media-viewing application.</p>
-
-<p>First, run the following installation:</p>
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>sudo pacman -S xorg xorg-xinit chromium
-</code></pre>
-</div>
-
-<p>After the install is complete, edit your <code class="highlighter-rouge">.xinitrc</code> file to include the <code class="highlighter-rouge">chromium</code> command. This file is executed when <code class="highlighter-rouge">startx</code> is run:</p>
-
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>echo chromium &gt;&gt; ~/.xinitrc
-</code></pre>
-</div>
-
-<p>Personally, I had some issues with the display not fully filling the screen when I ran <code class="highlighter-rouge">startx</code>. To fix this, I changed the Chromium config file at <code class="highlighter-rouge">~/.config/chromium/Default/Preferences</code> to have the <code class="highlighter-rouge">window_placement</code> object fill the entire screen’s coordinates. See <a class="link" href="https://unix.stackexchange.com/questions/273989/how-can-i-make-chromium-start-full-screen-under-x">this</a> stackoverflow link for more information.</p>
-
-<p>And with that, you should be able to reuse any old laptops for file storage and file previewing!</p>
-
+<p>Then things we working again!</p>
 
             <div class="blog-nav">
     <div class="spacer"></div>
@@ -269,15 +205,13 @@
 
             <center>
                 <p>
-                    <a class="link" href="/technology/2018/02/28/pacman-file-conflicts/">
+                    <a class="link" href="/technology/2018/06/21/local-media-server/">
                         
-                        Previous: Pacman: File Conflicts
+                        Previous: SSH: How to Set Up a Simple Local Media Server
                         
                     </a>
-                     | 
-                    <a class="link" href="/technology/2018/07/01/microphone-webcam-detection/">                        
-                        
-                        Next: Arch Linux: Chromebook C720 Webcam Microphone Disappeared
+                    
+                    <a class="link" href="">                        
                         
                     </a>
                 </p>
