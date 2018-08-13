@@ -6,9 +6,9 @@ var init = function() {
     var gravity = -1.5;
     var world = new World('game', WIDTH, HEIGHT, -1, worldSpeed);
 
-    var FLOOR = 300;
+    var floorY = 300;
     var floorHeight = 3;
-    var floor = new RectangleObject(world, 0, FLOOR, world.width, floorHeight);
+    var floor = new RectangleObject(world, 0, floorY, world.width, floorHeight);
 
     var playerSpawnX = 50;
     var playerWidth = 50;
@@ -83,7 +83,7 @@ var init = function() {
         }
 
         // point detection
-        if (enemy.getX() < player.getX() + player.getWidth()) {
+        if (enemy.getX() + enemy.getWidth() < player.getX()) {
             if (!enemy.isCleared()) {
                 enemy.setCleared(true);
                 logger.addScore(1);
