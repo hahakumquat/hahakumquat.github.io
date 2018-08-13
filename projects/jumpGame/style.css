@@ -7,14 +7,21 @@ body: {
     vertical-align: middle;
 }
 
-#game {
-    border: 1px solid black;
-}
-
 .row {
     margin: 0 auto;
 }
 
 #game {
     padding: 0;
+}
+
+#gameContainer {
+    width: 500px;
+    height: 400px;
+}
+
+#guiContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

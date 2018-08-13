@@ -4,7 +4,7 @@ var init = function() {
     var HEIGHT = 400;
     var worldSpeed = 3;
     var gravity = -1.5;
-    var delay = 100;
+    var delay = 20;
     var world = new World('game', WIDTH, HEIGHT, -1, worldSpeed, delay);
 
     var floorY = 300;
@@ -26,6 +26,8 @@ var init = function() {
 
     var logger = new Logger(world);
 
+    var gui = Gui(player, enemy, world);
+    
     utils.plot();
 
     // agent

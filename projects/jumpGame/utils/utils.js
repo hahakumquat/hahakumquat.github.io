@@ -99,18 +99,18 @@ utils.extendRewards = function(score) {
 
 utils.makeTableHTML = function(myArray, cap, idx) {
     var stepSize = 500 / myArray.length;
-    var result = '<table class="table table-bordered"><caption>' + cap + '</caption>';
-    result += '<tr><th>Enemy Position</th><th>Sit</th><th>Jump</th></tr>';
+    var result = '<table class="table table-dark"><caption>' + cap + '</caption>';
+    result += '<thead><tr><th scope="col">Enemy Position</th><th scope="col">Sit</th><th>Jump</th></tr></thead><tbody>';
     for(var i = 0; i < myArray.length; i += 1) {
         result += "<tr>";
-        result += "<td>" + i * stepSize + '-' + (i+1) * stepSize + "</td>";
+        result += '<th scope="row">' + i * stepSize + '-' + (i+1) * stepSize + "</th>";
         for (var j = 0; j < myArray[i][idx].length; j+=1) {            
             var val = Math.round(myArray[i][idx][j] * 1000) / 1000;
             result += "<td>"+val+"</td>";
         }
         result += "</tr>";
     }
-    result += "</table>";
+    result += "</tbody></table>";
     return result;
 }
 
