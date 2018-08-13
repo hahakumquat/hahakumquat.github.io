@@ -12,7 +12,7 @@ var Block = function(dim, position, rotation, color, animation) {
         self.animate = function() { animation(self); };
     }
     else {
-        self.animate = function() { };
+        self.animate = function() {};
     }
     
     return self;

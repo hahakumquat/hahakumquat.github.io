@@ -1,3 +1,7 @@
+- src: jumpGame
+  img: jumpGame_t.png
+  caption: "Simple Jumping Game RL Simulator"
+
 - src: reports/stat234_final.pdf
   img: 234_t.png
   caption: "Stat 234 Final Project: State Space Reduction in Deep Q-Networks"
