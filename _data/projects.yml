@@ -1,4 +1,4 @@
-- src: jumpGame
+- src: jumpGame/
   img: jumpGame_t.png
   caption: "Simple Jumping Game RL Simulator"
 
