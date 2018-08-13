@@ -17,15 +17,15 @@ function Reward(isJumping) {
 
     this.get = function() {
         var r = 0;
-        if (this.scored) {
-            r += 1;
-        }
+        // if (this.scored) {
+        //     r += 1;
+        // }
         if (this.lost) {
-            r -= 5;
-        }
-        if (this.a == 1 && isJumping) {
             r -= 1;
         }
+        // if (this.a == 1 && isJumping) {
+        //     r -= 1;
+        // }
         return r;
     }
 }

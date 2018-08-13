@@ -10,7 +10,7 @@ var TabularQLearning = function(a_dim, gamma, alpha) {
     this.gamma = gamma;
     this.alpha = alpha;
     
-    var enemyBuckets = 10;
+    var enemyBuckets = 20;
     var jumpingBuckets = 2;
     this.Q = utils.createNDimArray([enemyBuckets, jumpingBuckets, a_dim],
                                    function() {
@@ -57,7 +57,7 @@ var TabularQLearning = function(a_dim, gamma, alpha) {
         var t = this.get(parsed_s)[a] + this.alpha * (r.get() + this.gamma * this.get(parsed_s_prime)[maxA] - this.get(parsed_s)[a]);
         this.setA(parsed_s, a, t);
         
-        this.alpha = Math.max(this.alpha * 0.999999, 0.9);
+        this.alpha = Math.max(this.alpha * 0.999999, 0.001);
 
     }
     return this;

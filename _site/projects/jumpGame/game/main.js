@@ -2,9 +2,10 @@ var init = function() {
 
     var WIDTH = 500;
     var HEIGHT = 400;
-    var worldSpeed = 1;
+    var worldSpeed = 3;
     var gravity = -1.5;
-    var world = new World('game', WIDTH, HEIGHT, -1, worldSpeed);
+    var delay = 100;
+    var world = new World('game', WIDTH, HEIGHT, -1, worldSpeed, delay);
 
     var floorY = 300;
     var floorHeight = 3;
@@ -30,11 +31,11 @@ var init = function() {
     // agent
     var epsilon = 0.1;
     var gamma = 0.99;
-    var alpha = 1;
+    var alpha = 0.1;
     var a_dim = 2;
     var learner = TabularQLearning(a_dim, gamma, alpha);
     var agent = epsilonGreedyAgent(learner, epsilon);    
-    var humanMode = false;
+    var humanMode = false;    
 
 
     var hasContact = function(p, e) {
@@ -103,8 +104,15 @@ var init = function() {
         logger.draw();
         player.draw();
         enemy.draw();
-        
-        window.requestAnimationFrame(animate);
+
+        if (world.fps == 0) {
+            requestAnimationFrame(animate);
+        }
+        else {
+            setTimeout(function() {
+                requestAnimationFrame(animate);            
+            }, world.delay);
+        }
     }
     
     animate();
