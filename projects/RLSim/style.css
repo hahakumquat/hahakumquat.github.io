@@ -25,3 +25,9 @@ body: {
     top: 0;
     right: 0;
 }
+
+img {    
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}

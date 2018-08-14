@@ -1,0 +1,33 @@
+body: {
+    margin: 0 auto;
+}
+
+.panel {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.row {
+    margin: 0 auto;
+}
+
+#game {
+    padding: 0;
+}
+
+#gameContainer {
+    width: 500px;
+    height: 400px;
+}
+
+#guiContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+img {    
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reinforcement Learning Simulator</title>        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div class="container container-fluid">
+            <h1>Reinforcement Learning Simulator</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="gameContainer">
+                        <canvas id="game"></canvas>
+                        <div id="guiContainer"></div>
+                    </div>
+                </div>
+                <div class="col-md-6" id="rewards"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                    <div class="col-md-6" id="q1"><table></table></div>
+                    <div class="col-md-6" id="q2"><table></table></div>                    
+                    </div>
+                </div>
+                <div class="col table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Parameter</th> 
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">&gamma;</th>
+                                <td id="gamma"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">&alpha;</th>
+                                <td id="alpha"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">&epsilon;</th>
+                                <td id="epsilon"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>A Javascript-based jumping game simulator being solved with a simple tabular Q-learning reinforcement learning agent. An agent has two actions: to jump or not to jump. The state is comprised of the enemy's location and an indicator variable of whether the agent is in the air or not. If an agent collides with the enemy, the agent receives a reward of -w. Otherwise, the agent receives a reward of 0.</p>
+
+                <p>The results of 1000 epochs show an evident increase in performance by the agent:
+                </p>
+                <img src="img/tabular_q_20_2_jumpGame.png">
+                <p>Interesting to note that, over the course of the simulation, there are several long periods of the model getting stuck in a suboptimal parameter configuration. This could be a sign of some sort of policy collapse due to the nonlinearity of the Q-function approximation or that the model's learning rate was too low to correct its incorrect parameterization. It's also worth pointing out that the scores are still linearly increasing. My best guess would be that the model has yet to converge to an optimal parameter configuration.</p>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="/assets/js/dat.gui.min.js"></script>
+        <script src="utils/utils.js"></script>
+        <script src="utils/Gui.js"></script>
+        <script src="utils/Logger.js"></script>
+        <script src="game/World.js"></script>
+        <script src="game/RectangleObject.js"></script>
+        <script src="game/Player.js"></script>
+        <script src="game/Enemy.js"></script>        
+        <script src="game/State.js"></script>
+        <script src="game/Reward.js"></script>        
+        <script src="models/TabularQLearning.js"></script>        
+        <script src="agents/EpsilonGreedy.js"></script>        
+        <script src="game/main.js"></script>
+
+    </body>
+</html>

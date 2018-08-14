@@ -57,7 +57,7 @@ var TabularQLearning = function(a_dim, gamma, alpha) {
         var t = this.get(parsed_s)[a] + this.alpha * (r.get() + this.gamma * this.get(parsed_s_prime)[maxA] - this.get(parsed_s)[a]);
         this.setA(parsed_s, a, t);
         
-        this.alpha = Math.max(this.alpha * 0.999999, 0.001);
+        this.alpha = Math.max(this.alpha * 0.99999, 0.01);
 
     }
     return this;

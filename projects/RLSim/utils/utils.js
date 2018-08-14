@@ -99,7 +99,7 @@ utils.extendRewards = function(score) {
 
 utils.makeTableHTML = function(myArray, cap, idx) {
     var stepSize = 500 / myArray.length;
-    var result = '<table class="table table-dark"><caption>' + cap + '</caption>';
+    var result = '<table class="table table-bordered"><caption>' + cap + '</caption>';
     result += '<thead><tr><th scope="col">Enemy Position</th><th scope="col">Sit</th><th>Jump</th></tr></thead><tbody>';
     for(var i = 0; i < myArray.length; i += 1) {
         result += "<tr>";

@@ -6,6 +6,11 @@ function World(id, width, height, gravity, speed, delay) {
     this.width = width;
     this.height = height;
     this.delay = delay;
+
+    if (window.innerWidth < this.width) {
+        this.canvas.width = window.innerWidth;
+        this.width = window.innerWidth;
+    }
     
     this.ctx = this.canvas.getContext("2d");
     this.ctx.font = "20px Arial";
