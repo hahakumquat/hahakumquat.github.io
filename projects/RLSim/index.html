@@ -59,7 +59,7 @@
                 <p>The results of 1000 epochs show an evident increase in performance by the agent:
                 </p>
                 <img src="img/tabular_q_20_2_jumpGame.png">
-                <p>Interesting to note that, over the course of the simulation, there are several long periods of the model getting stuck in a suboptimal parameter configuration. This could be a sign of some sort of policy collapse due to the nonlinearity of the Q-function approximation or that the model's learning rate was too low to correct its incorrect parameterization. It's also worth pointing out that the scores are still linearly increasing. My best guess would be that the model has yet to converge to an optimal parameter configuration.</p>
+                <p>Interesting to note that, over the course of the simulation, there are several long periods of the model getting stuck with low scores. My best guess would be that the model has yet to converge and that these bad periods are a result of the model updating toward a suboptimal parameter configuration, realizing its mistake, and learning to fix itself. Perhaps with a higher learning rate, we'd have fewer of these incidences.</p>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
