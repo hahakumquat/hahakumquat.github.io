@@ -3,30 +3,41 @@
     {% include header.html css_file='/assets/css/about.css' %}
     <body>
         {% include navbar.html %}
-        <div class="spacer"></div>
-        <img class="fixed" src="/assets/me.gif"/>
+        <div class="spacer"></div> <img class="fixed"
+        src="/assets/me.gif"/>
         <div class="about-container">
             <h1 class="header">Hi, I'm Michael.</h1>
             <hr>
             <p>
-                I'm a programmer with a passion for 
-                digital art. A student by day, I spend my nights working as
-                a web developer, machine learner and graphic artist. From September 2018 onward, I'll be working full-time at Facebook as a software engineer.
+                I'm a data-oriented programmer with a passion for
+                digital art. By day, I work at Facebook as a Software
+                Engineer. At night, I do web development, machine
+                learning projects, and 3D digital art.
             </p>
         </div>
         
         <div class="about-container">
             <h1 class="header">Education</h1>
             <hr>
-            <p>I am a Harvard University graduate (class of 2018) with a bachelor of arts in computer science with a secondary in statistics. Some relevant courses include:</p>
+            <p>I am a Harvard University graduate (class of 2018) with
+            a bachelor of arts in computer science with a secondary in
+            statistics. Some relevant courses include:</p>
             <ul>
                 {% for class in site.data.courses %}
                 <li> {{ class.name }}: {{ class.description }} </li>
                 {% endfor %}
             </ul>
 
-            <p>I also love teaching. During my time in college, I've had the pleasure of tutoring and teaching a variety of stat, CS, and math courses including the introductory CS courses, machine learning, linear algebra, and introductory quantitative statistics courses.</p>
-            <p>Troy High School in Fullerton, CA was where my interest in Computer Science took off. There, I was enrolled in a four-year-long Computer Science pathway that taught me things ranging from circuit logic with breadboards to introductory data structures and algorithms in Java.
+            <p>I also love teaching. During my time in college, I've
+            had the pleasure of tutoring and teaching a variety of
+            stat, CS, and math courses including the introductory CS
+            courses, machine learning, linear algebra, and
+            introductory quantitative statistics courses.</p>
+            <p>Troy High School in Fullerton, CA was where my interest
+            in Computer Science took off. There, I was enrolled in a
+            four-year-long Computer Science pathway that taught me
+            things ranging from circuit logic with breadboards to
+            introductory data structures and algorithms in Java.
             </p>
         </div>
         
@@ -35,11 +46,12 @@
             <hr>
             
             <p>
-                I've been toying around with graphic design and animation for 
-                a while now, specializing in 3D art. As a computer scientist, my 
-                main experience comes from web development and machine learning. 
-                In my free time, I love tinkering with Chromebooks and 
-                DIY Linux distributions, and I often brush up on coding via
+                I've been toying around with graphic design and
+                animation for a while now, specializing in 3D art. As
+                a computer scientist, my main experience comes from
+                web development and machine learning.  In my free
+                time, I love tinkering with Chromebooks and DIY Linux
+                distributions, and I often brush up on coding via
                 Project Euler, HackerRank, and Codecademy.
             </p>
 
@@ -49,20 +61,17 @@
                     <h3>3D and Animation</h3>
                     <ul>
                         {% for a in site.data.skills.animation %}
-                        <li>{{ a.name }}</li>
-                        {% endfor %}
+                        <li>{{ a.name }}</li> {% endfor %}
                     </ul>
                     <h3>Graphic Design</h3>
                     <ul>
                         {% for gd in site.data.skills.graphics %}
-                        <li>{{ gd.name }}</li>
-                        {% endfor %}
+                        <li>{{ gd.name }}</li> {% endfor %}
                     </ul>
                     <h3>Film</h3>
                     <ul>
                         {% for f in site.data.skills.film %}
-                        <li>{{ f.name }}</li>
-                        {% endfor %}
+                        <li>{{ f.name }}</li> {% endfor %}
                     </ul>
                 </div>
                 
@@ -71,14 +80,12 @@
                     <h3>Main Languages</h3>
                     <ul>
                         {% for l in site.data.skills.languages %}
-                        <li>{{ l.name }}</li>
-                        {% endfor %}
+                        <li>{{ l.name }}</li> {% endfor %}
                     </ul>
                     <h3>Miscellaneous</h3>
                     <ul>
                         {% for m in site.data.skills.misc %}
-                        <li>{{ m.name }}</li>
-                        {% endfor %}
+                        <li>{{ m.name }}</li> {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -100,8 +107,7 @@
                     <h2>Interests</h2>
                     <ul>
                         {% for interest in site.data.interests %}
-                        <li>{{ interest.name }}</li>
-                        {% endfor %}
+                        <li>{{ interest.name }}</li> {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -111,8 +117,10 @@
             <div class="black-centering v-centering">
                 <h1 class="header">tl;dr</h1>
                 <p class="invite">Actions speak louder than words.</p>
-                <a class="black-button" href="/art">Art and Animation</a>
-                <a class="black-button" href="/code">Coding Projects</a>                
+                <a class="black-button" href="/art">Art and
+                Animation</a>
+                <a class="black-button" href="/code">Coding
+                Projects</a>
             </div>
         </div>
 
