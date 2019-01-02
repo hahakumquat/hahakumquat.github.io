@@ -14,44 +14,6 @@ It wasn't just the last-minute wisdom teeth extraction a couple days back. Apart
 
 ---
 
-## Revoked
-
-In the beginning of the year, I became a criminal. At DisneyLand. It was in late January, days before I had to fly back to college to finish up Senior Spring. I thought I was a big shot back then, repping the (way, way, WAY TOO) ambitious graduate course-only course list, a snazzy job as a SWE at Facebook, and a brand-new, shiny DisneyLand annual pass that [redacted] "made me" buy. After a productive day of harassing little children on Luigi's Rollickin' Roadsters, [redacted] wanted to unwind with a sangria. After some nudging, I caved in, bought her the sangria, and everything was fine.
-
-Except it wasn't. [redacted] was 19; I was 21. Sangrias have alcohol in them. I walk up to the cashier, staring at [redacted] in hesitation.
-
-"Hi, one sangria please."
-
-The cashier gives [redacted] a skeptical look. She says to me,
-
-"Is she going to drink any?"
-
-I start sweating.
-
-"Nope, it's for me."
-
-I hand the cashier my credit card, my hand shaking.
-
-$10 poorer, I walk away with [redacted], drink in hand, to a dining table stupidly close to the drink stand.
-
-I hand [redacted] the drink. "Thanks," she says, taking a sip and placing the plastic wine glass on the table. We stare at our phones for a few minutes in silence until-...
-
-Flashlights everywhere. A policewoman says to us,
-
-"Hi, we've been watching you two from afar. We need to verify that this girl is old enough to drink."
-
-I'm ready to confess all my life sins when [redacted] begins a complicated life story about how she forgot her license at home but was 21 despite the fact that the birthday she mentioned made her 20.
-
-"We're going to have to call LAPD over if you don't show us evidence of your age."
-
-I am on the verge of death. I see my entire life flashing before my eyes. Maybe more flashlights. [redacted] pulls out a fake ID. I give her a murderous stare, and she comes out with the truth.
-
-15 minutes later, we're being escorted out by DisneyLand security. Our annual passes (including the one I bought that day) were revoked, and we were not allowed to come back for the rest of the month.
-
-The sangria apparently wasn't even good. Good start to 2018.
-
----
-
 ## I want to create a character that I love, and I want to kill it.
 
 I'm a pretty decisive person when it comes to work-related things. Harvard has this tradition called "shopping week" where students have five days to try out and change their minds on which courses they want to take that semester. In all my time in college, I never walked into a semester without knowing which classes I'd take pretty much exactly. This semester, however, needed some second thinking. Big-dreamer boy me thought it would be a good idea to look into not one, not two, but three graduate level machine learning courses. After all, the previous semester's nonstop late nights grinding out math I barely understood was a rager, this semester would be killer!
