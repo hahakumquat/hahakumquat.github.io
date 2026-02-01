@@ -1,34 +1,45 @@
-title: Michael Ge | Software Engineer & Graphic Artist
-email: contact@geemichael.com
-description: Portfolio of Michael Ge featuring software engineering projects
+permalink: /:categories/:year/:month/:day/:title/
+
+include: ['_pages']
+
+title: Michael Ge | Software Engineer | Graphic Artist
+email: michael.zh.ge@gmail.com
 baseurl: ""
-url: "https://www.geemichael.com"
+url: http://www.geemichael.com
+twitter_username: hahakumquat
+github_username:  hahakumquat
+phone: (626) 893-5895
+facebook: https://www.facebook.com/michaelzhge
+linkedin: https://www.linkedin.com/in/michael-ge-a9041b9a/
+deviantart: https://hahakumquat.deviantart.com/
+instagram: https://www.instagram.com/hahakumquat/
+github: https://github.com/hahakumquat
 
-author:
-  name: Michael Ge
-
-social:
-  links:
-    - https://github.com/hahakumquat
-    - https://linkedin.com/in/michael-ge-a9041b9a
-
+# Build settings
 markdown: kramdown
-sass:
-  style: compressed
-  
-incremental: true
-livereload: true
 
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-feed
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - node_modules
-  - vendor
+# plugins:
+#     - jekyll-minifier
 
-timezone: America/Los_Angeles
+# jekyll-minifier:
+#   remove_spaces_inside_tags: true
+#   remove_multi_spaces: true
+#   remove_comments: true
+
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - node_modules
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
