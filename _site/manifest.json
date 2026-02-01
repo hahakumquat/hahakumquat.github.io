@@ -1,0 +1,8 @@
+{
+  "name": "Michael Ge Portfolio",
+  "short_name": "MGe Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
