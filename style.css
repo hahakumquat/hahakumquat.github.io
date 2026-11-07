@@ -1,0 +1,100 @@
+:root {
+  --bg: #f5f4f0;
+  --fg: #111;
+  --muted: #555;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 1rem/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.intro {
+  position: fixed;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  right: var(--gutter);
+  max-width: 32rem;
+  z-index: 1;
+}
+
+.intro h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.intro p {
+  margin: 0 0 0.75rem;
+}
+
+.facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* About page: scrollable column over the fixed background */
+body.page { overflow: auto; }
+
+.page .about {
+  position: relative;
+  z-index: 1;
+  max-width: 36rem;
+  margin: 0;
+  padding: var(--gutter);
+  padding-top: clamp(4rem, 18vh, 10rem);
+}
+
+.page .about h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+}
+
+.page .about h2 {
+  margin: 2.5rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.page .about p { margin: 0 0 1rem; }
+
+.page .about .links { margin: 3rem 0 0; }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.links a {
+  color: var(--muted);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  color: var(--fg);
+  text-decoration: underline;
+}
