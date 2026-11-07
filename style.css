@@ -92,6 +92,38 @@ body.page { overflow: auto; }
   text-underline-offset: 0.2em;
 }
 
+.works {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.works li { margin: 0 0 0.35rem; }
+
+.works a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 0.2em;
+}
+
+.works a:hover,
+.works a:focus-visible { text-decoration-color: var(--fg); }
+
+.works span {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-left: 0.35rem;
+}
+
+.more summary {
+  color: var(--muted);
+  cursor: pointer;
+  margin: 0 0 0.75rem;
+}
+
+.more summary:hover { color: var(--fg); }
+
 .page .about p a:hover,
 .page .about p a:focus-visible { text-decoration-color: var(--fg); }
 
