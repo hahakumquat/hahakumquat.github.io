@@ -85,6 +85,16 @@ body.page { overflow: auto; }
 
 .page .about p { margin: 0 0 1rem; }
 
+.page .about p a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 0.2em;
+}
+
+.page .about p a:hover,
+.page .about p a:focus-visible { text-decoration-color: var(--fg); }
+
 .page .about .links { margin: 3rem 0 0; }
 
 .links {
