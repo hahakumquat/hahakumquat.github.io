@@ -4,4 +4,5 @@ Plain HTML/CSS/JS, served by GitHub Pages. Preview locally: `python3 -m http.ser
 
 - `index.html` — copy (bottom-left)
 - `style.css` — layout/colors
-- `main.js` — three.js undulating mesh background (tunables at top)
+- `main.js` — three.js undulating mesh background; click/drag to pluck it (tunables at top)
+- `audio.js` — Karplus–Strong plucked-string synth, major pentatonic (C3–C6)

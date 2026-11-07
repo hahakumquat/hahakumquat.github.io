@@ -24,7 +24,14 @@ html, body {
   height: 100%;
   display: block;
   z-index: 0;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
 }
+
+/* Home page: dragging on the mesh plucks instead of scrolling. */
+body:not(.page) #bg { touch-action: none; }
+body.plucking, body.plucking #bg { cursor: grabbing; }
 
 .intro {
   position: fixed;
