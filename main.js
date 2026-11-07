@@ -5,8 +5,11 @@ import { pluck, unlock } from './audio.js';
 const BG_COLOR   = 0xf5f4f0; // keep in sync with --bg in style.css
 const LINE_COLOR = 0x9a978f;
 const LINE_ALPHA = 0.4;
-const SIZE       = 60;       // plane width/depth in world units
-const SEGMENTS   = 200;      // geometry resolution
+const WIDTH      = 56;       // plane width (x) in world units
+const NEAR_Z     = 8;        // plane starts just in front of the camera...
+const FAR_Z      = -32;      // ...and ends past the fog
+// Vertices per world unit. ~10 keeps max-pull bumps smooth; lighter on touch devices.
+const DENSITY    = window.matchMedia('(pointer: coarse)').matches ? 6 : 10;
 const CELL       = 0.6;      // grid cell size (world units)
 const AMPLITUDE  = 0.35;     // ambient wave height
 const SPEED      = 0.5;      // ambient time multiplier
@@ -31,8 +34,10 @@ const camBase = new THREE.Vector3(0, 2.2, 7);
 const lookTarget = new THREE.Vector3(0, 0, -6);
 camera.position.copy(camBase);
 
-const geometry = new THREE.PlaneGeometry(SIZE, SIZE, SEGMENTS, SEGMENTS);
+const DEPTH = NEAR_Z - FAR_Z;
+const geometry = new THREE.PlaneGeometry(WIDTH, DEPTH, Math.round(WIDTH * DENSITY), Math.round(DEPTH * DENSITY));
 geometry.rotateX(-Math.PI / 2);
+geometry.translate(0, 0, (NEAR_Z + FAR_Z) / 2);
 
 const ripples = Array.from({ length: MAX_RIPPLES }, () => new THREE.Vector4(0, 0, -1e3, 0));
 let rippleIdx = 0;
